@@ -99,7 +99,7 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
         String data = persistence.readFile(filePath);
         List<Match> matches = new ArrayList<>();
         try {
-            matches = JSONConverter.fromJsonArrayToList(filePath, Match.class);
+            matches = JSONConverter.fromJsonArrayToList(data, Match.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
