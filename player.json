@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "name": "Marcos",
+    "lastName": "Moreno",
+    "nationality": "Argentino",
+    "dateOfBirth": [1990, 4, 22],
+    "points": 200
+  },
+  {
+    "id": 2,
+    "name": "Diego",
+    "lastName": "Farfan",
+    "nationality": "Argentino",
+    "dateOfBirth": [1997, 12, 1],
+    "points": 35000
+  },
+  {
+    "id": 3,
+    "name": "Lucia",
+    "lastName": "Gonzalez",
+    "nationality": "Argentina",
+    "dateOfBirth": [1995, 6, 15],
+    "points": 2500
+  },
+  {
+    "id": 4,
+    "name": "Juan",
+    "lastName": "Pérez",
+    "nationality": "Uruguayo",
+    "dateOfBirth": [1988, 3, 10],
+    "points": 4500
+  },
+  {
+    "id": 5,
+    "name": "Sofia",
+    "lastName": "Lopez",
+    "nationality": "Chilena",
+    "dateOfBirth": [1993, 7, 23],
+    "points": 15000
+  },
+  {
+    "id": 6,
+    "name": "Mateo",
+    "lastName": "Ramirez",
+    "nationality": "Mexicano",
+    "dateOfBirth": [1992, 1, 5],
+    "points": 3000
+  },
+  {
+    "id": 7,
+    "name": "Valentina",
+    "lastName": "Martinez",
+    "nationality": "Colombiana",
+    "dateOfBirth": [1994, 9, 12],
+    "points": 7800
+  },
+  {
+    "id": 8,
+    "name": "Diego",
+    "lastName": "Salas",
+    "nationality": "Peruano",
+    "dateOfBirth": [1985, 11, 20],
+    "points": 12000
+  },
+  {
+    "id": 9,
+    "name": "Camila",
+    "lastName": "Torres",
+    "nationality": "Ecuatoriana",
+    "dateOfBirth": [1996, 5, 30],
+    "points": 4000
+  },
+  {
+    "id": 10,
+    "name": "Alejandro",
+    "lastName": "Cruz",
+    "nationality": "Boliviano",
+    "dateOfBirth": [1991, 8, 28],
+    "points": 5500
+  }
+]
+

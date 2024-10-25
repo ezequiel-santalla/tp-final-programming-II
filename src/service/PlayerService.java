@@ -4,15 +4,21 @@ import model.Match;
 import model.Player;
 import repository.PlayerRepositoryImp;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class PlayerService {
     private final PlayerRepositoryImp playerRepository;
-    private final MatchService matchService;
+    private MatchService matchService;
 
     public PlayerService(PlayerRepositoryImp playerRepository, MatchService matchService) {
         this.playerRepository = playerRepository;
         this.matchService = matchService;
+    }
+
+    public PlayerService(PlayerRepositoryImp playerRepository) {
+        this.playerRepository = playerRepository;
     }
 
     public Integer addPlayer(Player player) {
@@ -86,30 +92,31 @@ public class PlayerService {
     public String showPlayerRankings() {
         List<Player> rankedPlayerList = getPlayerRankings();
 
-        final int NAME_COLUMN_WIDTH = 20;
-        final int POINTS_COLUMN_WIDTH = 6;
+        final int NAME_COLUMN_WIDTH = 29; // Ancho para el nombre
+        final int POINTS_COLUMN_WIDTH = 2; // Ancho para puntos
 
         StringBuilder rankingStr = new StringBuilder();
 
         rankingStr.append(
                 """
-                ==================================
-                          Player Rankings
-                ==================================
-                Pos | Name                | Points
-                ----------------------------------
+                ============================================
+                               Player Ranking
+                ============================================
+                Pos | Name                          | Points
+                --------------------------------------------
                 """);
 
         for (int i = 0; i < rankedPlayerList.size(); i++) {
             Player player = rankedPlayerList.get(i);
 
-            rankingStr.append(String.format("%-4d| %-"+NAME_COLUMN_WIDTH+"s | %-"+POINTS_COLUMN_WIDTH+"d\n",
+            rankingStr.append(String.format("%-4d| %-"+NAME_COLUMN_WIDTH+"s | %"+POINTS_COLUMN_WIDTH+"d\n",
                     (i + 1), player.getName() + " " + player.getLastName(), player.getPoints()));
         }
 
-        rankingStr.append("==================================\n");
+        rankingStr.append("============================================\n");
 
         return rankingStr.toString();
     }
+
 
 }

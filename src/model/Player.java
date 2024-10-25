@@ -3,13 +3,16 @@ package model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Player {
+public class Player implements Comparable<Player> {
     private Integer id;
     private String name;
     private String lastName;
     private String nationality;
     private LocalDate dateOfBirth;
     private Integer points;
+
+    public Player() {
+    }
 
     public Player(Integer id, String name, String lastName, String nationality, LocalDate dateOfBirth, Integer points) {
         this.id = id;
@@ -90,5 +93,10 @@ public class Player {
                 ", dateOfBirth=" + dateOfBirth +
                 ", points=" + points +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Player o) {
+        return this.id.compareTo(o.id);
     }
 }
