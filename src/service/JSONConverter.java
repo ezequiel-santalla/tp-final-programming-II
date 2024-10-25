@@ -1,6 +1,9 @@
 package service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -12,16 +15,20 @@ public class JSONConverter {
     private static ObjectMapper objectMapper = new ObjectMapper();
 
     static {
+        //bloque estatico que configura el objMapper para que pueda reconocer fechas
         objectMapper.registerModule(new JavaTimeModule());
     }
 
     public static <T> List<T> fromJsonArrayToList(String jsonString, Class<T> tClass) throws JsonProcessingException, IllegalArgumentException {
         List<Map<String, Object>> mapList;
-        mapList = objectMapper.readValue(jsonString, List.class);
         List<T> list = new ArrayList<>();
-
-        for (Map<String, Object> t : mapList) {
-            list.add(objectMapper.convertValue(t, tClass));
+        try {
+            mapList = objectMapper.readValue(jsonString, List.class);
+            for (Map<String, Object> t : mapList) {
+                list.add(objectMapper.convertValue(t, tClass));
+            }
+        } catch (JsonMappingException | IllegalArgumentException e) {
+            return list;
         }
         return list;
     }
@@ -30,4 +37,5 @@ public class JSONConverter {
     public static String toJson(Object object) throws JsonProcessingException {
         return objectMapper.writeValueAsString(object);
     }
+
 }
