@@ -3,7 +3,6 @@ package service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -12,10 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 public class JSONConverter {
-    private static ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     static {
-        //bloque estatico que configura el objMapper para que pueda reconocer fechas
+        //bloque estático que configura el objMapper para que pueda reconocer fechas
         objectMapper.registerModule(new JavaTimeModule());
     }
 
@@ -25,8 +24,8 @@ public class JSONConverter {
         try {
             mapList = objectMapper.readValue(jsonString, List.class);
             for (Map<String, Object> t : mapList) {
-                list.add(objectMapper.convertValue(t, tClass));
-            }
+               list.add(objectMapper.convertValue(t, tClass));
+             }
         } catch (JsonMappingException | IllegalArgumentException e) {
             return list;
         }

@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.TreeSet;
 
 public class MatchRepositoryImp implements Repository<Match, Integer> {
-    private PersistenceFile persistence;
-    private String filePath;
+    private final PersistenceFile persistence;
+    private final String filePath;
 
     public MatchRepositoryImp(PersistenceFile persistence, String filePath) {
         this.persistence = persistence;
@@ -25,9 +25,9 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
 
         Integer id = 0;
         try {
-            //obtiene una lista de objetos ordenados por id a partir del archivo json
+            //obtiene una lista de objetos ordenados por ID a partir del archivo json
             TreeSet<Match> matches = new TreeSet<>(JSONConverter.fromJsonArrayToList(data, Match.class));
-            //obtiene el id del ultimo, le agrega 1 y lo asigna al nuevo elemnento
+            //obtiene el ID del último, le agrega 1 y lo asigna al nuevo elemento
             if (!matches.isEmpty()) {
                 id = matches.last().getIdMatch();
             }
@@ -74,7 +74,7 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
             if (!matchUpdated) {
                 throw new MatchNotFoundException("No se encontró ningún Partido con el ID: " + modifiedMatch.getIdMatch());
             }
-            // Solo escribe si se actualizo el partido
+            // Solo escribe si se actualizó el partido
             persistence.writeFile(filePath, JSONConverter.toJson(matches));
         } catch (JsonProcessingException e) {
             throw new FileProcessingException("Error al procesar el archivo " + filePath);
