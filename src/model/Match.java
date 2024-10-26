@@ -4,7 +4,7 @@ package model;
 import java.util.Objects;
 
 public class Match implements Comparable<Match>{
-    private Integer id;
+    private Integer idMatch;
     private Player playerOne;
     private Player playerTwo;
     private Result result;
@@ -18,18 +18,18 @@ public class Match implements Comparable<Match>{
     }
 
     public Match(Integer id, Player playerOne, Player playerTwo, Result result) {
-        this.id = id;
+        this.idMatch = id;
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.result = result;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdMatch() {
+        return idMatch;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdMatch(Integer idMatch) {
+        this.idMatch = idMatch;
     }
 
     public Player getPlayerOne() {
@@ -60,18 +60,18 @@ public class Match implements Comparable<Match>{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Match match)) return false;
-        return Objects.equals(id, match.id) && Objects.equals(playerOne, match.playerOne) && Objects.equals(playerTwo, match.playerTwo);
+        return Objects.equals(idMatch, match.idMatch) && Objects.equals(playerOne, match.playerOne) && Objects.equals(playerTwo, match.playerTwo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, playerOne, playerTwo);
+        return Objects.hash(idMatch, playerOne, playerTwo);
     }
 
     @Override
     public String toString() {
         return "Match{" +
-                "id=" + id +
+                "id=" + idMatch +
                 ", playerOne=" + playerOne +
                 ", playerTwo=" + playerTwo +
                 ", result=" + result +
@@ -80,6 +80,6 @@ public class Match implements Comparable<Match>{
 
     @Override
     public int compareTo(Match o) {
-        return this.id.compareTo(o.id);
+        return this.idMatch.compareTo(o.idMatch);
     }
 }

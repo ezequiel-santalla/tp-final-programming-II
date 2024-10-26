@@ -15,7 +15,10 @@ public class MatchService {
     }
 
     public Integer addMatch(Match match) {
-        return matchRepository.create(match);
+        Integer id = null;
+        id = matchRepository.create(match);
+
+        return id;
     }
 
     public Match findMatchById(Integer id) {
