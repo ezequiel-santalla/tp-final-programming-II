@@ -15,8 +15,8 @@ public class Main {
         MatchService matchService = new MatchService(matchRepo);
         Player playerOne = new Player(1, "Marcos", "Moreno", "Argentino",  LocalDate.of(1990, Month.APRIL,22), 200);
         Player playerTwo = new Player(2, "Diego", "Farfan", "Argentino",  LocalDate.of(1997, Month.DECEMBER,1), 350);
-        Match match = new Match(playerOne,playerTwo);
-        matchService.addMatch(match);
+        /*Match match = new Match(playerOne,playerTwo);
+        matchService.addMatch(match);*/
 
         PersistenceFile persistencePlayer = new PersistenceFile();
         PlayerRepositoryImp playerRepositoryImp = new PlayerRepositoryImp(persistencePlayer, "player.json");
