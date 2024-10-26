@@ -1,23 +1,45 @@
 package service;
 
 
+import enums.ESurface;
 import model.*;
 import repository.MatchRepositoryImp;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TournamentService {
-    private MatchRepositoryImp matchRepository;
-    private MatchService matchService;
+    private final MatchRepositoryImp matchRepository;
+    private final MatchService matchService;
 
-    public TournamentService(){}
 
     public TournamentService(MatchRepositoryImp matchRepository, MatchService matchService) {
         this.matchService = matchService;
         this.matchRepository = matchRepository;
     }
 
+    public Integer addMatch(Match match) {
+        return matchRepository.create(match);
+    }
 
+    public Match findMatchById(Integer id) {
+        return matchRepository.find(id);
+    }
+
+    public void updateMatch(Match match) {
+        matchRepository.update(match);
+    }
+
+    public void deleteMatch(Integer id) {
+        matchRepository.delete(id);
+    }
+
+    public List<Match> getAllMatches() {
+        return matchRepository.getAll();
+    }
 
     public void assignPoints(List<Round> rounds) {
         for (Round round : rounds) {
@@ -76,4 +98,77 @@ public class TournamentService {
 
         return firstRound.pointsEarned() + quarterFinal.pointsEarned() + (finalRound.pointsEarned() * 2);
     }
+
+    private boolean validatePlayersCount(Tournament tournament) {
+        return tournament.getPlayers().size() == 16;
+    }
+
+    public void registerPlayer(Tournament tournament, Player player) {
+        if (tournament.getPlayers().size() < 16) {
+            tournament.getPlayers().add(player);
+        } else {
+            throw new IllegalStateException("Tournament is full.");
+        }
+    }
+
+    public List<Player> getPlayersStillCompeting(Tournament tournament) {
+        Round lastRound = tournament.getRounds().get(tournament.getRounds().size() - 1);
+        List<Player> playersStillCompeting = new ArrayList<>();
+        MatchService matchService = new MatchService(matchRepository);
+        for (Match match : lastRound.getMatches()) {
+            playersStillCompeting.add(matchService.getWinner(match));
+        }
+
+        return playersStillCompeting;
+    }
+
+  /*
+    public void generateRound(Tournament tournament) {
+        if (tournament.getRounds().isEmpty()) {
+            // se genera la primera ronda aleatoria
+            FirstRound firstRound = new FirstRound();
+            ArrayList<Player> players = new ArrayList<>(tournament.getPlayers());
+            firstRound.generateMatches(players);
+            tournament.getRounds().add(firstRound);
+        } else {
+            // se organiza por fixture predefinido
+           Round lastRound = tournament.getRounds().get(tournament.getRounds().size() - 1);
+           Round nextRound = lastRound.generateNextRound();
+           tournament.getRounds().add(nextRound);
+        }
+    }
+
+    public void generateNextRound(Tournament tournament) {
+
+        int currentRoundIndex = tournament.getRounds().size();
+
+        if (currentRoundIndex == 0) {
+            FirstRound firstRound = new FirstRound();
+            ArrayList<Player> players = new ArrayList<>(tournament.getPlayers());
+            firstRound.generateMatches(players);
+            tournament.getRounds().add(firstRound);
+        } else if (currentRoundIndex == 1) {
+            QuarterFinal quarterFinal = new QuarterFinal();
+            quarterFinal.generateMatches(tournamentService.getPlayersStillCompeting(tournament));
+            tournament.getRounds().add(quarterFinal);
+        } else if (currentRoundIndex == 2) {
+            Semifinal semiFinal = new Semifinal();
+            semiFinal.generateMatches(tournamentService.getPlayersStillCompeting(tournament));
+            tournament.getRounds().add(semiFinal);
+        } else if (currentRoundIndex == 3) {
+            Final finalRound = new Final();
+            finalRound.generateMatches(tournamentService.getPlayersStillCompeting(tournament));
+            tournament.getRounds().add(finalRound);
+        }
+    }
+
+    QUEDA EN PENDIENTE PARA ANZALIZAR LA LOGICA SIN CONVIENE METER UN ROUND SERVICE
+*/
+
+
+    public void generateTournament(String name, String surface, LocalDate startDate, LocalDate endDate) {
+        ESurface tournamentSurface = ESurface.valueOf(surface.toUpperCase());
+        Tournament tournament = new Tournament(1, name, "Default Location", tournamentSurface, startDate, endDate, 0.0, new HashSet<>(), new ArrayList<>());
+    }
+
 }
