@@ -103,16 +103,19 @@ public class Tournament {
 
     @Override
     public String toString() {
-        return "Tournament{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                ", surface=" + surface +
-                ", startingDate=" + startingDate +
-                ", endingDate=" + endingDate +
-                ", prizeMoney=" + prizeMoney +
-                ", players=" + players +
-                ", rounds=" + rounds +
-                '}';
+        return "---------------------------------\n" +
+                "|        Tournament Details      |\n" +
+                "---------------------------------\n" +
+                "| ID           : " + id + "\n" +
+                "| Name         : '" + name + "'\n" +
+                "| Location     : '" + location + "'\n" +
+                "| Surface      : " + surface + "\n" +
+                "| Starting Date: " + startingDate + "\n" +
+                "| Ending Date  : " + endingDate + "\n" +
+                "| Prize Money  : $" + prizeMoney + "\n" +
+                "---------------------------------\n" +
+                "| Players      : " + players + "\n" +
+                "| Rounds       : " + rounds + "\n" +
+                "---------------------------------";
     }
 }

@@ -61,4 +61,13 @@ public class MatchService {
         throw new IncompleteMatchException("No hay un ganador definido");
     }
 
+    public Player getLoser(Match match) {
+        Player loserPlayer = null;
+        if (match.getResult().getSetsWonPlayerOne() == 2) {
+            loserPlayer = match.getPlayerTwo();
+        } else if (match.getResult().getSetsWonPlayerTwo() == 2) {
+            loserPlayer = match.getPlayerOne();
+        }
+        return loserPlayer;
+    }
 }
