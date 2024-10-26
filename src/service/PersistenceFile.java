@@ -1,5 +1,7 @@
 package service;
 
+import exceptions.FileProcessingException;
+
 import java.io.*;
 
 public class PersistenceFile {
@@ -16,7 +18,7 @@ public class PersistenceFile {
                     }
                 }
             } catch (IOException e) {
-                throw new RuntimeException("Error al asegurar el contenido del archivo: " + filePath, e);
+                throw new FileProcessingException("Error al asegurar el contenido del archivo: " + filePath);
             }
         }
     }
@@ -28,7 +30,7 @@ public class PersistenceFile {
             pw.print("[]"); // Escribe el array vacío
             pw.close();
         } catch (FileNotFoundException e) {
-            throw new RuntimeException("Error al crear el archivo: " + filePath, e);
+            throw new FileProcessingException("Error al crear el archivo: " + filePath);
         }
     }
 
@@ -37,7 +39,7 @@ public class PersistenceFile {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
             pw.println(data);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Error al sobreescribir el archivo: " + filePath);
         }
     }
 
@@ -47,7 +49,7 @@ public class PersistenceFile {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, true))) {
             pw.println(data);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Error al agregar datos al archivo: " + filePath);
         }
     }
 
@@ -60,7 +62,7 @@ public class PersistenceFile {
                 contentFile.append(currentLine).append(System.lineSeparator());
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Error al  el al leer el archivo: " + filePath);
         }
         return contentFile.toString();
     }

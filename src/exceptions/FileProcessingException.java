@@ -10,8 +10,4 @@ public class FileProcessingException extends RuntimeException {
         super(message);
     }
 
-    @Override
-    public String getMessage() {
-        return super.getMessage();
-    }
 }
