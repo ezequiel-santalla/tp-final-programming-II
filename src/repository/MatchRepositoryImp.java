@@ -1,16 +1,16 @@
 package repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import exceptions.FileProcessingException;
+import exceptions.MatchNotFoundException;
 import model.Match;
 import service.JSONConverter;
 import service.PersistenceFile;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
 public class MatchRepositoryImp implements Repository<Match, Integer> {
-    private PersistenceFile persistence = new PersistenceFile();
+    private PersistenceFile persistence;
     private String filePath;
 
     public MatchRepositoryImp(PersistenceFile persistence, String filePath) {
@@ -35,27 +35,26 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
             matches.add(match);
             persistence.writeFile(filePath, JSONConverter.toJson(matches));
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Error al procesar el archivo "+ filePath);
         }
         return id;
     }
 
     @Override
     public Match find(Integer id) {
-        Match matchFound = null;
         String data = persistence.readFile(filePath);
         List<Match> matches;
         try {
             matches = JSONConverter.fromJsonArrayToList(data, Match.class);
             for (Match match : matches) {
                 if (match.getIdMatch().equals(id)) {
-                    matchFound = match;
+                    return match;
                 }
             }
+            throw new MatchNotFoundException("No se encontró ningún Partido con el id " + id);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Error al procesar el archivo "+ filePath);
         }
-        return matchFound;
     }
 
     @Override
@@ -64,45 +63,59 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
         List<Match> matches;
         try {
             matches = JSONConverter.fromJsonArrayToList(data, Match.class);
+            boolean matchUpdated = false;
             for (int i = 0; i < matches.size(); i++) {
                 if (matches.get(i).getIdMatch().equals(modifiedMatch.getIdMatch())) {
                     matches.set(i, modifiedMatch);
+                    matchUpdated = true;
                     break;
                 }
             }
+            if (!matchUpdated) {
+                throw new MatchNotFoundException("No se encontró ningún Partido con el ID: " + modifiedMatch.getIdMatch());
+            }
+            // Solo escribe si se actualizo el partido
             persistence.writeFile(filePath, JSONConverter.toJson(matches));
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Error al procesar el archivo " + filePath);
         }
     }
+
 
     @Override
     public void delete(Integer id) {
         String data = persistence.readFile(filePath);
         List<Match> matches;
         try {
+            boolean matchDeleted = false;
             matches = JSONConverter.fromJsonArrayToList(data, Match.class);
             for (int i = 0; i < matches.size(); i++) {
                 if (matches.get(i).getIdMatch().equals(id)) {
                     matches.remove(i);
+                    matchDeleted = true;
                     break;
                 }
             }
+            if (!matchDeleted) {
+                throw new MatchNotFoundException("No se encontró ningún Partido con el ID: " + id);
+            }
             persistence.writeFile(filePath, JSONConverter.toJson(matches));
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Error al procesar el archivo " + filePath);
         }
     }
 
     @Override
     public List<Match> getAll() {
         String data = persistence.readFile(filePath);
-        List<Match> matches = new ArrayList<>();
         try {
-            matches = JSONConverter.fromJsonArrayToList(data, Match.class);
+            List<Match> matches = JSONConverter.fromJsonArrayToList(data, Match.class);
+            if (matches == null || matches.isEmpty()) {
+                throw new MatchNotFoundException("No hay partidos guardados json");
+            }
+            return matches;
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Error al procesar el archivo " + filePath);
         }
-        return matches;
     }
 }

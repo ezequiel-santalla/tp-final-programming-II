@@ -23,15 +23,15 @@ public class PersistenceFile {
 
     public void createFile(String filePath) {
         File file = new File(filePath);
-        ensureFileExists(filePath);
         try {
             PrintWriter pw = new PrintWriter(file);
             pw.print("[]"); // Escribe el array vacío
             pw.close();
         } catch (FileNotFoundException e) {
-            throw new RuntimeException("Error al crear el archivo: " + filePath,e);
+            throw new RuntimeException("Error al crear el archivo: " + filePath, e);
         }
     }
+
     public void writeFile(String filePath, String data) {
         ensureFileExists(filePath);
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
