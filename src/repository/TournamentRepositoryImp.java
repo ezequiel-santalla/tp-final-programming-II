@@ -1,10 +1,23 @@
 package repository;
 
 import model.Tournament;
+import service.PersistenceFile;
 
+import java.io.File;
 import java.util.List;
 
 public class TournamentRepositoryImp implements Repository<Tournament, Integer> {
+    private PersistenceFile persistence = new PersistenceFile();
+    private String filePath;
+
+    public TournamentRepositoryImp(PersistenceFile persistence, String filePath) {
+        this.persistence = persistence;
+        this.filePath = filePath;
+        File file = new File(filePath);
+        if (!file.exists()) {
+            persistence.createFile(filePath);
+        }
+    }
 
     @Override
     public Integer create(Tournament model) {
