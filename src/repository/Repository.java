@@ -6,7 +6,7 @@ public interface Repository <T, V>{
 
     public V create(T model);
 
-    public T find(V id);
+    public T find(V id) ;
 
     public void update(T model);
 
