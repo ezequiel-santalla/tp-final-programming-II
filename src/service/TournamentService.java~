@@ -51,7 +51,7 @@ public class TournamentService {
         }
         tournamentRepositoryImp.delete(id);
     }
-
+    
     public List<Tournament> getAllTournaments() {
         return tournamentRepositoryImp.getAll();
     }
