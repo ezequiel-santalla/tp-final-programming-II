@@ -70,11 +70,11 @@ public class Match implements Comparable<Match>{
 
     @Override
     public String toString() {
-        return "Match{" +
-                "id=" + idMatch +
-                ", playerOne=" + playerOne +
-                ", playerTwo=" + playerTwo +
-                ", result=" + result +
+        return "\n\nMatch{" +
+                "\nidMatch=" + idMatch +
+                "\nplayerOne=" + playerOne +
+                "\nplayerTwo=" + playerTwo +
+                "\nresult=" + result +
                 '}';
     }
 

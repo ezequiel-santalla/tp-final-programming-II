@@ -3,10 +3,12 @@ package service;
 import exceptions.FileProcessingException;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class PersistenceFile {
 
-    private void ensureFileExists(String filePath) {
+    private void ensureFileExists(String filePath) throws FileProcessingException {
         File file = new File(filePath);
         if (!file.exists()) {
             createFile(filePath);
@@ -23,7 +25,7 @@ public class PersistenceFile {
         }
     }
 
-    public void createFile(String filePath) {
+    public void createFile(String filePath) throws FileProcessingException {
         File file = new File(filePath);
         try {
             PrintWriter pw = new PrintWriter(file);
@@ -34,7 +36,7 @@ public class PersistenceFile {
         }
     }
 
-    public void writeFile(String filePath, String data) {
+    public void writeFile(String filePath, String data) throws FileProcessingException {
         ensureFileExists(filePath);
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
             pw.println(data);
@@ -44,7 +46,7 @@ public class PersistenceFile {
     }
 
 
-    public void addDataToFile(String filePath, String data) {
+    public void addDataToFile(String filePath, String data) throws FileProcessingException {
         ensureFileExists(filePath);
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, true))) {
             pw.println(data);
@@ -53,7 +55,7 @@ public class PersistenceFile {
         }
     }
 
-    public String readFile(String filePath) {
+    public String readFile(String filePath) throws FileProcessingException {
         ensureFileExists(filePath);
         StringBuilder contentFile = new StringBuilder();
         try (BufferedReader buff = new BufferedReader(new FileReader(filePath))) {
@@ -62,9 +64,21 @@ public class PersistenceFile {
                 contentFile.append(currentLine).append(System.lineSeparator());
             }
         } catch (IOException e) {
-            throw new FileProcessingException("Error al  el al leer el archivo: " + filePath);
+            throw new FileProcessingException("Error al leer el archivo: " + filePath);
         }
         return contentFile.toString();
     }
 
+    public void saveUnserializableContent(String fileName, String invalidJsonString) {
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+        String filePath = "data/backUp/" + timestamp + "_" + fileName + ".json";
+        File backupDir = new File("data/backUp/");
+        if (!backupDir.exists()) {
+            backupDir.mkdirs(); // Crea el directorio y cualquier directorio padre necesario
+        } try {
+            writeFile(filePath, invalidJsonString);
+        } catch (FileProcessingException e){
+            throw new FileProcessingException("No se pudo guardar la copia del archivo inválido. "+e.getMessage());
+        }
+    }
 }
