@@ -4,21 +4,15 @@ import model.Match;
 import model.Player;
 import repository.PlayerRepositoryImp;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class PlayerService {
     private final PlayerRepositoryImp playerRepository;
-    private MatchService matchService;
+    private final MatchService matchService;
 
     public PlayerService(PlayerRepositoryImp playerRepository, MatchService matchService) {
         this.playerRepository = playerRepository;
         this.matchService = matchService;
-    }
-
-    public PlayerService(PlayerRepositoryImp playerRepository) {
-        this.playerRepository = playerRepository;
     }
 
     public Integer addPlayer(Player player) {
@@ -92,8 +86,8 @@ public class PlayerService {
     public String showPlayerRankings() {
         List<Player> rankedPlayerList = getPlayerRankings();
 
-        final int NAME_COLUMN_WIDTH = 29; // Ancho para el nombre
-        final int POINTS_COLUMN_WIDTH = 2; // Ancho para puntos
+        final int NAME_COLUMN_WIDTH = 29; // Width for name
+        final int POINTS_COLUMN_WIDTH = 2; // Width for points
 
         StringBuilder rankingStr = new StringBuilder();
 
@@ -117,6 +111,4 @@ public class PlayerService {
 
         return rankingStr.toString();
     }
-
-
 }

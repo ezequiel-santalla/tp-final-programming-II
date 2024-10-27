@@ -1,7 +1,6 @@
 package repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import model.Match;
 import model.Player;
 import service.JSONConverter;
 import service.PersistenceFile;
@@ -9,8 +8,6 @@ import service.PersistenceFile;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class PlayerRepositoryImp implements Repository<Player, Integer> {
     private PersistenceFile persistence;
@@ -30,57 +27,38 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
     @Override
     public Integer create(Player player) {
         String data = persistence.readFile(filePath);
-        List<Player> players = new ArrayList<>(); // Usar ArrayList en lugar de TreeSet
+        List<Player> players = new ArrayList<>();
         Integer id = 0;
 
         try {
             if (!data.isEmpty()) {
-                players = JSONConverter.fromJsonArrayToList(data, Player.class); // Cargar jugadores en ArrayList
+                players = JSONConverter.fromJsonArrayToList(data, Player.class); // Load players into the array list
 
-                id = players.stream().mapToInt(Player::getId).max().orElse(0); // Obtener el id máximo
+                id = players.stream().mapToInt(Player::getId).max().orElse(0); // Get max id
             }
 
             player.setId(id + 1);
-            players.add(player); // Agregar el nuevo jugador a la lista
+            players.add(player); // Add the new player to the list
 
-            persistence.writeFile(filePath, JSONConverter.toJson(players)); // Guardar la lista actualizada
+            persistence.writeFile(filePath, JSONConverter.toJson(players)); // save the updated list
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
 
-        return player.getId(); // Retornar el id del nuevo jugador
+        return player.getId(); // Return id of the new player
     }
 
     @Override
-    public Player find(Integer id) {/*
-        for (Player p : players) {
-            if (p.getId().equals(id)) {
-                return p;
-            }
-        }*/
+    public Player find(Integer id) {
         return null;
     }
 
     @Override
-    public void update(Player model) {/*
-        for (Player p : players) {
-            if (model.getId().equals(p.getId())) {
-                p.setName(model.getName());
-                p.setLastName(model.getLastName());
-                p.setNationality(model.getNationality());
-                p.setDateOfBirth(model.getDateOfBirth());
-                p.setPoints(model.getPoints());
-            }
-        }*/
+    public void update(Player model) {
     }
 
     @Override
-    public void delete(Integer id) {/*
-        for (Player p : players) {
-            if (p.getId().equals(id)) {
-                players.remove(p);
-            }
-        }*/
+    public void delete(Integer id) {
     }
 
     @Override
@@ -91,8 +69,8 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
         try {
             players = JSONConverter.fromJsonArrayToList(data, Player.class);
         } catch (JsonProcessingException e) {
-            e.printStackTrace(); // Imprimir el error
-            throw new RuntimeException("Error al parsear el JSON", e);
+            e.printStackTrace();
+            throw new RuntimeException("Error parsing JSON", e);
         }
         return players;
     }
