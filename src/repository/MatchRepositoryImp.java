@@ -1,67 +1,60 @@
 package repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import exceptions.FileProcessingException;
+import exceptions.MatchNotFoundException;
 import model.Match;
 import service.JSONConverter;
 import service.PersistenceFile;
-
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
 public class MatchRepositoryImp implements Repository<Match, Integer> {
-    private PersistenceFile persistence = new PersistenceFile();
-    private String filePath;
+    private final PersistenceFile persistence;
+    private final String filePath;
 
     public MatchRepositoryImp(PersistenceFile persistence, String filePath) {
         this.persistence = persistence;
         this.filePath = filePath;
-        File file = new File(filePath);
-        if (!file.exists()) {
-            persistence.createFile(filePath);
-        }
     }
 
     //agrega el objeto a la lista, convierte la lista nuevamente a json y sobreescribe el archivo
     @Override
     public Integer create(Match match) {
         String data = persistence.readFile(filePath);
-        TreeSet<Match> matches = new TreeSet<>();
+
         Integer id = 0;
         try {
-            //si el archivo contiene datos los carga en una coleccion
-            if(!data.equals("")) {
-                //obtiene una lista de objetos ordenados por id a partir del archivo json
-                matches = new TreeSet<>(JSONConverter.fromJsonArrayToList(data, Match.class));
-                //obtiene el id del ultimo, le agrega 1 y lo asigna al nuevo elemnento
-                id=matches.last().getId();
+            //obtiene una lista de objetos ordenados por ID a partir del archivo json
+            TreeSet<Match> matches = new TreeSet<>(JSONConverter.fromJsonArrayToList(data, Match.class));
+            //obtiene el ID del último, le agrega 1 y lo asigna al nuevo elemento
+            if (!matches.isEmpty()) {
+                id = matches.last().getIdMatch();
             }
-            match.setId(id+ 1);
+            match.setIdMatch(id + 1);
             matches.add(match);
             persistence.writeFile(filePath, JSONConverter.toJson(matches));
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Error al procesar el archivo "+ filePath);
         }
         return id;
     }
 
     @Override
     public Match find(Integer id) {
-        Match matchFound = null;
         String data = persistence.readFile(filePath);
         List<Match> matches;
         try {
             matches = JSONConverter.fromJsonArrayToList(data, Match.class);
             for (Match match : matches) {
-                if (match.getId().equals(id)) {
-                    matchFound = match;
+                if (match.getIdMatch().equals(id)) {
+                    return match;
                 }
             }
+            throw new MatchNotFoundException("No se encontró ningún Partido con el id " + id);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Error al procesar el archivo "+ filePath);
         }
-        return matchFound;
     }
 
     @Override
@@ -70,45 +63,59 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
         List<Match> matches;
         try {
             matches = JSONConverter.fromJsonArrayToList(data, Match.class);
+            boolean matchUpdated = false;
             for (int i = 0; i < matches.size(); i++) {
-                if (matches.get(i).getId().equals(modifiedMatch.getId())) {
+                if (matches.get(i).getIdMatch().equals(modifiedMatch.getIdMatch())) {
                     matches.set(i, modifiedMatch);
+                    matchUpdated = true;
                     break;
                 }
             }
+            if (!matchUpdated) {
+                throw new MatchNotFoundException("No se encontró ningún Partido con el ID: " + modifiedMatch.getIdMatch());
+            }
+            // Solo escribe si se actualizó el partido
             persistence.writeFile(filePath, JSONConverter.toJson(matches));
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Error al procesar el archivo " + filePath);
         }
     }
+
 
     @Override
     public void delete(Integer id) {
         String data = persistence.readFile(filePath);
         List<Match> matches;
         try {
+            boolean matchDeleted = false;
             matches = JSONConverter.fromJsonArrayToList(data, Match.class);
             for (int i = 0; i < matches.size(); i++) {
-                if (matches.get(i).getId().equals(id)) {
+                if (matches.get(i).getIdMatch().equals(id)) {
                     matches.remove(i);
+                    matchDeleted = true;
                     break;
                 }
             }
+            if (!matchDeleted) {
+                throw new MatchNotFoundException("No se encontró ningún Partido con el ID: " + id);
+            }
             persistence.writeFile(filePath, JSONConverter.toJson(matches));
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Error al procesar el archivo " + filePath);
         }
     }
 
     @Override
     public List<Match> getAll() {
         String data = persistence.readFile(filePath);
-        List<Match> matches = new ArrayList<>();
         try {
-            matches=JSONConverter.fromJsonArrayToList(filePath, Match.class);
+            List<Match> matches = JSONConverter.fromJsonArrayToList(data, Match.class);
+            if (matches == null || matches.isEmpty()) {
+                throw new MatchNotFoundException("No hay partidos guardados json");
+            }
+            return matches;
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Error al procesar el archivo " + filePath);
         }
-        return matches;
     }
 }

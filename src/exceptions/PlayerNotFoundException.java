@@ -10,8 +10,4 @@ public class PlayerNotFoundException extends RuntimeException {
         super(message);
     }
 
-    @Override
-    public String getMessage() {
-        return super.getMessage();
-    }
 }
