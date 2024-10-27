@@ -71,7 +71,7 @@ public class PersistenceFile {
 
     public void saveUnserializableContent(String fileName, String invalidJsonString) {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-        String filePath = "data/backUp/" + timestamp + "_" + fileName + ".json";
+        String filePath = "data/backUp/" + timestamp + "_" + fileName.toLowerCase() + ".json";
         File backupDir = new File("data/backUp/");
         if (!backupDir.exists()) {
             backupDir.mkdirs(); // Crea el directorio y cualquier directorio padre necesario
