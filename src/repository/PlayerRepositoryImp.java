@@ -1,78 +1,130 @@
 package repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import exceptions.FileProcessingException;
+import exceptions.MatchNotFoundException;
+import exceptions.PlayerNotFoundException;
+import model.Match;
 import model.Player;
 import service.JSONConverter;
 import service.PersistenceFile;
-
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 public class PlayerRepositoryImp implements Repository<Player, Integer> {
-    private PersistenceFile persistence;
-    private String filePath;
+    private final PersistenceFile persistence;
+    private final String filePath;
 
     public PlayerRepositoryImp(PersistenceFile persistence, String filePath) {
         this.persistence = persistence;
         this.filePath = filePath;
-
-        File file = new File(filePath);
-
-        if (!file.exists()) {
-            persistence.createFile(filePath);
-        }
     }
 
     @Override
     public Integer create(Player player) {
         String data = persistence.readFile(filePath);
-        List<Player> players = new ArrayList<>();
+
         Integer id = 0;
 
         try {
-            if (!data.isEmpty()) {
-                players = JSONConverter.fromJsonArrayToList(data, Player.class); // Load players into the array list
+            TreeSet<Player> players = new TreeSet<>(JSONConverter.fromJsonArrayToList(data, Player.class));
 
-                id = players.stream().mapToInt(Player::getId).max().orElse(0); // Get max id
+            if (!players.isEmpty()) {
+                id = players.last().getIdPlayer();
             }
 
-            player.setId(id + 1);
-            players.add(player); // Add the new player to the list
-
-            persistence.writeFile(filePath, JSONConverter.toJson(players)); // save the updated list
+            player.setIdPlayer(id + 1);
+            players.add(player);
+            persistence.writeFile(filePath, JSONConverter.toJson(players));
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Error al procesar el archivo "+ filePath);
         }
-
-        return player.getId(); // Return id of the new player
+        return id;
     }
 
     @Override
     public Player find(Integer id) {
-        return null;
-    }
-
-    @Override
-    public void update(Player model) {
-    }
-
-    @Override
-    public void delete(Integer id) {
-    }
-
-    @Override
-    public List<Player> getAll() {
         String data = persistence.readFile(filePath);
         List<Player> players;
 
         try {
             players = JSONConverter.fromJsonArrayToList(data, Player.class);
+            for (Player p : players) {
+                if (p.getIdPlayer().equals(id)) {
+                    return p;
+                }
+            }
+            throw new PlayerNotFoundException("No se encontró ningún Jugador con el id " + id);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error parsing JSON", e);
+            throw new FileProcessingException("Error al procesar el archivo "+ filePath);
         }
-        return players;
     }
 
+    @Override
+    public void update(Player modifiedPlayer) {
+        String data = persistence.readFile(filePath);
+        List<Player> players;
+
+        try {
+            players = JSONConverter.fromJsonArrayToList(data, Player.class);
+            boolean playerUpdated = false;
+
+            for (int i = 0; i < players.size(); i++) {
+                if (players.get(i).getIdPlayer().equals(modifiedPlayer.getIdPlayer())) {
+                    players.set(i, modifiedPlayer);
+                    playerUpdated = true;
+                    break;
+                }
+            }
+            if (!playerUpdated) {
+                throw new PlayerNotFoundException("No se encontró ningún Jugador con el ID: " + modifiedPlayer.getIdPlayer());
+            }
+
+            persistence.writeFile(filePath, JSONConverter.toJson(players));
+        } catch (JsonProcessingException e) {
+            throw new FileProcessingException("Error al procesar el archivo " + filePath);
+        }
+    }
+
+    @Override
+    public void delete(Integer id) {
+        String data = persistence.readFile(filePath);
+        List<Player> players;
+
+        try {
+            boolean playerDeleted = false;
+            players = JSONConverter.fromJsonArrayToList(data, Player.class);
+
+            for (int i = 0; i < players.size(); i++) {
+                if (players.get(i).getIdPlayer().equals(id)) {
+                    players.remove(i);
+                    playerDeleted = true;
+                    break;
+                }
+            }
+            if (!playerDeleted) {
+                throw new PlayerNotFoundException("No se encontró ningún Jugador con el ID: " + id);
+            }
+
+            persistence.writeFile(filePath, JSONConverter.toJson(players));
+        } catch (JsonProcessingException e) {
+            throw new FileProcessingException("Error al procesar el archivo " + filePath);
+        }
+    }
+
+    @Override
+    public List<Player> getAll() {
+        String data = persistence.readFile(filePath);
+
+        try {
+            List<Player> players = JSONConverter.fromJsonArrayToList(data, Player.class);
+
+            if (players == null || players.isEmpty()) {
+                throw new PlayerNotFoundException("No hay jugadores guardados json");
+            }
+            return players;
+        } catch (JsonProcessingException e) {
+            throw new FileProcessingException("Error al procesar el archivo " + filePath);
+        }
+    }
 }

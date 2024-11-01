@@ -18,14 +18,17 @@ public class Main {
         MatchService matchService = new MatchService(matchRepo);
         Player playerOne = new Player(1, "Marcos", "Moreno", "Argentino",  LocalDate.of(1990, Month.APRIL,22), 200);
         Player playerTwo = new Player(2, "Diego", "Farfan", "Argentino",  LocalDate.of(1997, Month.DECEMBER,1), 350);
-       Match match = new Match(playerOne,playerTwo);
+        Player player11 = new Player(7, "Roger", "Federer", "Suizo", LocalDate.of(1981, Month.AUGUST, 8), 1200);
+        Player player12 = new Player(8, "Rafael", "Nadal", "Español", LocalDate.of(1986, Month.JUNE, 3), 1100);
+        Player player13 = new Player(9, "Novak", "Djokovic", "Serbio", LocalDate.of(1987, Month.MAY, 22), 1300);
+        Player player14 = new Player(10, "Andy", "Murray", "Británico", LocalDate.of(1987, Month.MAY, 15), 850);
+
+        Match match = new Match(playerOne,playerTwo);
         matchService.addMatch(match);
 
         PersistenceFile persistencePlayer = new PersistenceFile();
         PlayerRepositoryImp playerRepositoryImp = new PlayerRepositoryImp(persistencePlayer, "data/player.json");
         PlayerService playerService = new PlayerService(playerRepositoryImp, matchService);
-        //playerService.addPlayer(playerOne);
-        //playerService.addPlayer(playerTwo);
         //System.out.println(playerService.showPlayerRankings());
         //System.out.println(playerService.showStatsByPlayer(1));
 

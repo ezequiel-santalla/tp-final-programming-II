@@ -40,7 +40,7 @@ public class PlayerService {
         Integer matchesWon = 0;
 
         for (Match m : matchesByPlayer) {
-            int idWinner = matchService.getWinner(m).getId();
+            int idWinner = matchService.getWinner(m).getIdPlayer();
 
             if (idWinner == id) {
                 matchesWon++;

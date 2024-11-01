@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Player implements Comparable<Player> {
-    private Integer id;
+    private Integer idPlayer;
     private String name;
     private String lastName;
     private String nationality;
@@ -14,8 +14,15 @@ public class Player implements Comparable<Player> {
     public Player() {
     }
 
-    public Player(Integer id, String name, String lastName, String nationality, LocalDate dateOfBirth, Integer points) {
-        this.id = id;
+    public Player(String name, String lastName, String nationality, LocalDate dateOfBirth) {
+        this.name = name;
+        this.lastName = lastName;
+        this.nationality = nationality;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Player(Integer idPlayer, String name, String lastName, String nationality, LocalDate dateOfBirth, Integer points) {
+        this.idPlayer = idPlayer;
         this.name = name;
         this.lastName = lastName;
         this.nationality = nationality;
@@ -23,12 +30,12 @@ public class Player implements Comparable<Player> {
         this.points = points;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdPlayer() {
+        return idPlayer;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdPlayer(Integer idPlayer) {
+        this.idPlayer = idPlayer;
     }
 
     public String getName() {
@@ -75,18 +82,18 @@ public class Player implements Comparable<Player> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Player player)) return false;
-        return Objects.equals(id, player.id);
+        return Objects.equals(idPlayer, player.idPlayer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(idPlayer);
     }
 
     @Override
     public String toString() {
         return "Player{" +
-                "id=" + id +
+                "idPlayer=" + idPlayer +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", nationality='" + nationality + '\'' +
@@ -97,6 +104,6 @@ public class Player implements Comparable<Player> {
 
     @Override
     public int compareTo(Player o) {
-        return this.id.compareTo(o.id);
+        return this.idPlayer.compareTo(o.idPlayer);
     }
 }

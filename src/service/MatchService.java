@@ -41,8 +41,8 @@ public class MatchService {
         List<Match> matches = matchRepository.getAll();
         List<Match> playerMatches = new ArrayList<>();
         for (Match match : matches) {
-            if (match.getPlayerOne().getId().equals(idPlayer) ||
-                    match.getPlayerTwo().getId().equals(idPlayer)) {
+            if (match.getPlayerOne().getIdPlayer().equals(idPlayer) ||
+                    match.getPlayerTwo().getIdPlayer().equals(idPlayer)) {
                 playerMatches.add(match);
             }
         }

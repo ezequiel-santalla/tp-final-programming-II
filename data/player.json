@@ -4,7 +4,11 @@
     "name": "Marcos",
     "lastName": "Moreno",
     "nationality": "Argentino",
-    "dateOfBirth": [1990, 4, 22],
+    "dateOfBirth": [
+      1990,
+      4,
+      22
+    ],
     "points": 200
   },
   {
@@ -12,7 +16,11 @@
     "name": "Diego",
     "lastName": "Farfan",
     "nationality": "Argentino",
-    "dateOfBirth": [1997, 12, 1],
+    "dateOfBirth": [
+      1997,
+      12,
+      1
+    ],
     "points": 35000
   },
   {
@@ -20,7 +28,11 @@
     "name": "Lucia",
     "lastName": "Gonzalez",
     "nationality": "Argentina",
-    "dateOfBirth": [1995, 6, 15],
+    "dateOfBirth": [
+      1995,
+      6,
+      15
+    ],
     "points": 2500
   },
   {
@@ -28,7 +40,11 @@
     "name": "Juan",
     "lastName": "Pérez",
     "nationality": "Uruguayo",
-    "dateOfBirth": [1988, 3, 10],
+    "dateOfBirth": [
+      1988,
+      3,
+      10
+    ],
     "points": 4500
   },
   {
@@ -36,7 +52,11 @@
     "name": "Sofia",
     "lastName": "Lopez",
     "nationality": "Chilena",
-    "dateOfBirth": [1993, 7, 23],
+    "dateOfBirth": [
+      1993,
+      7,
+      23
+    ],
     "points": 15000
   },
   {
@@ -44,7 +64,11 @@
     "name": "Mateo",
     "lastName": "Ramirez",
     "nationality": "Mexicano",
-    "dateOfBirth": [1992, 1, 5],
+    "dateOfBirth": [
+      1992,
+      1,
+      5
+    ],
     "points": 3000
   },
   {
@@ -52,7 +76,11 @@
     "name": "Valentina",
     "lastName": "Martinez",
     "nationality": "Colombiana",
-    "dateOfBirth": [1994, 9, 12],
+    "dateOfBirth": [
+      1994,
+      9,
+      12
+    ],
     "points": 78000
   },
   {
@@ -60,7 +88,11 @@
     "name": "Diego",
     "lastName": "Salas",
     "nationality": "Peruano",
-    "dateOfBirth": [1985, 11, 20],
+    "dateOfBirth": [
+      1985,
+      11,
+      20
+    ],
     "points": 12000
   },
   {
@@ -68,7 +100,11 @@
     "name": "Camila",
     "lastName": "Torres",
     "nationality": "Ecuatoriana",
-    "dateOfBirth": [1996, 5, 30],
+    "dateOfBirth": [
+      1996,
+      5,
+      30
+    ],
     "points": 4000
   },
   {
@@ -76,8 +112,59 @@
     "name": "Alejandro",
     "lastName": "Cruz",
     "nationality": "Boliviano",
-    "dateOfBirth": [1991, 8, 28],
+    "dateOfBirth": [
+      1991,
+      8,
+      28
+    ],
     "points": 5500
+  },
+  {
+    "id": 11,
+    "name": "Roger",
+    "lastName": "Federer",
+    "nationality": "Suizo",
+    "dateOfBirth": [
+      1981,
+      8,
+      8
+    ],
+    "points": 1200
+  },
+  {
+    "id": 12,
+    "name": "Rafael",
+    "lastName": "Nadal",
+    "nationality": "Español",
+    "dateOfBirth": [
+      1986,
+      6,
+      3
+    ],
+    "points": 1100
+  },
+  {
+    "id": 13,
+    "name": "Novak",
+    "lastName": "Djokovic",
+    "nationality": "Serbio",
+    "dateOfBirth": [
+      1987,
+      5,
+      22
+    ],
+    "points": 1300
+  },
+  {
+    "id": 14,
+    "name": "Andy",
+    "lastName": "Murray",
+    "nationality": "Británico",
+    "dateOfBirth": [
+      1987,
+      5,
+      15
+    ],
+    "points": 850
   }
 ]
-
