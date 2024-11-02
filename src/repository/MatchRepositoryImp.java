@@ -6,12 +6,13 @@ import exceptions.MatchNotFoundException;
 import model.Match;
 import service.JSONConverter;
 import service.PersistenceFile;
+import java.util.Collections;
 import java.util.List;
-import java.util.TreeSet;
 
 public class MatchRepositoryImp implements Repository<Match, Integer> {
     private final PersistenceFile persistence;
     private final String filePath;
+    private List<Match> matches;
 
     public MatchRepositoryImp(PersistenceFile persistence, String filePath) {
         this.persistence = persistence;
@@ -22,20 +23,21 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
     @Override
     public Integer create(Match match) {
         String data = persistence.readFile(filePath);
-
         Integer id = 0;
         try {
-            // Gets a list of objects sorted by ID from the JSON file.
-            TreeSet<Match> matches = new TreeSet<>(JSONConverter.fromJsonArrayToList(data, Match.class));
+            // Gets a list of objects from the JSON file.
+            matches = JSONConverter.fromJsonArrayToList(data, Match.class);
+            // Sort the list by ID
+            Collections.sort(matches);
             // Gets the ID of the last one, adds 1 to it, and assigns it to the new element.
             if (!matches.isEmpty()) {
-                id = matches.last().getIdMatch();
+                id = matches.getLast().getIdMatch();
             }
-            match.setIdMatch(id + 1);
+            match.setIdMatch(++id);
             matches.add(match);
             persistence.writeFile(filePath, JSONConverter.toJson(matches));
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error processing the file " + filePath);
+            throw new FileProcessingException(filePath);
         }
         return id;
     }
@@ -43,7 +45,6 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
     @Override
     public Match find(Integer id) {
         String data = persistence.readFile(filePath);
-        List<Match> matches;
         try {
             matches = JSONConverter.fromJsonArrayToList(data, Match.class);
             for (Match match : matches) {
@@ -53,14 +54,13 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
             }
             throw new MatchNotFoundException("No match was found with the given ID: " + id);
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error processing the file " + filePath);
+            throw new FileProcessingException(filePath);
         }
     }
 
     @Override
     public void update(Match modifiedMatch) {
         String data = persistence.readFile(filePath);
-        List<Match> matches;
         try {
             matches = JSONConverter.fromJsonArrayToList(data, Match.class);
             boolean matchUpdated = false;
@@ -74,17 +74,16 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
             if (!matchUpdated) {
                 throw new MatchNotFoundException("No match was found with the ID: " + modifiedMatch.getIdMatch());
             }
-            // Solo escribe si se actualizó el partido
+            // Only write if the math was updated
             persistence.writeFile(filePath, JSONConverter.toJson(matches));
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error processing the file " + filePath);
+            throw new FileProcessingException(filePath);
         }
     }
 
     @Override
     public void delete(Integer id) {
         String data = persistence.readFile(filePath);
-        List<Match> matches;
         try {
             boolean matchDeleted = false;
             matches = JSONConverter.fromJsonArrayToList(data, Match.class);
@@ -100,7 +99,7 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
             }
             persistence.writeFile(filePath, JSONConverter.toJson(matches));
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error processing the file " + filePath);
+            throw new FileProcessingException(filePath);
         }
     }
 
@@ -108,13 +107,13 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
     public List<Match> getAll() {
         String data = persistence.readFile(filePath);
         try {
-            List<Match> matches = JSONConverter.fromJsonArrayToList(data, Match.class);
+            matches = JSONConverter.fromJsonArrayToList(data, Match.class);
             if (matches == null || matches.isEmpty()) {
                 throw new MatchNotFoundException("There are no matches saved in JSON");
             }
             return matches;
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error processing the file " + filePath);
+            throw new FileProcessingException(filePath);
         }
     }
 }
