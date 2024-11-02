@@ -23,15 +23,17 @@ public class Main {
         Player player13 = new Player(9, "Novak", "Djokovic", "Serbio", LocalDate.of(1987, Month.MAY, 22), 1300);
         Player player14 = new Player(10, "Andy", "Murray", "Británico", LocalDate.of(1987, Month.MAY, 15), 850);
 
-        Match match = new Match(playerOne,playerTwo);
+        /*Match match = new Match(playerOne,playerTwo);
         matchService.addMatch(match);
+*/
+
 
         PersistenceFile persistencePlayer = new PersistenceFile();
         PlayerRepositoryImp playerRepositoryImp = new PlayerRepositoryImp(persistencePlayer, "data/player.json");
         PlayerService playerService = new PlayerService(playerRepositoryImp, matchService);
         //System.out.println(playerService.showPlayerRankings());
         //System.out.println(playerService.showStatsByPlayer(1));
-
+        playerService.addPlayer(player11);
 
         /*
         try {
@@ -40,7 +42,6 @@ public class Main {
 
         }catch (IncompleteMatchException e){
             System.out.println("result"+ match.getResult());
-
         }
 
         System.out.println("result"+ match.getResult());

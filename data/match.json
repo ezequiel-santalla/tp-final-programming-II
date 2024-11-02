@@ -1,1 +1,30 @@
-[{"idMatch":1,"playerOne":{"id":1,"name":"Marcos","lastName":"Moreno","nationality":"Argentino","dateOfBirth":[1990,4,22],"points":200},"playerTwo":{"id":2,"name":"Diego","lastName":"Farfan","nationality":"Argentino","dateOfBirth":[1997,12,1],"points":350},"result":null},{"idMatch":2,"playerOne":{"id":1,"name":"Marcos","lastName":"Moreno","nationality":"Argentino","dateOfBirth":[1990,4,22],"points":200},"playerTwo":{"id":2,"name":"Diego","lastName":"Farfan","nationality":"Argentino","dateOfBirth":[1997,12,1],"points":350},"result":null},{"idMatch":3,"playerOne":{"id":1,"name":"Marcos","lastName":"Moreno","nationality":"Argentino","dateOfBirth":[1990,4,22],"points":200},"playerTwo":{"id":2,"name":"Diego","lastName":"Farfan","nationality":"Argentino","dateOfBirth":[1997,12,1],"points":350},"result":null},{"idMatch":4,"playerOne":{"id":1,"name":"Marcos","lastName":"Moreno","nationality":"Argentino","dateOfBirth":[1990,4,22],"points":200},"playerTwo":{"id":2,"name":"Diego","lastName":"Farfan","nationality":"Argentino","dateOfBirth":[1997,12,1],"points":350},"result":null},{"idMatch":5,"playerOne":{"id":1,"name":"Marcos","lastName":"Moreno","nationality":"Argentino","dateOfBirth":[1990,4,22],"points":200},"playerTwo":{"id":2,"name":"Diego","lastName":"Farfan","nationality":"Argentino","dateOfBirth":[1997,12,1],"points":350},"result":null},{"idMatch":6,"playerOne":{"id":1,"name":"Marcos","lastName":"Moreno","nationality":"Argentino","dateOfBirth":[1990,4,22],"points":200},"playerTwo":{"id":2,"name":"Diego","lastName":"Farfan","nationality":"Argentino","dateOfBirth":[1997,12,1],"points":350},"result":null},{"idMatch":7,"playerOne":{"id":1,"name":"Marcos","lastName":"Moreno","nationality":"Argentino","dateOfBirth":[1990,4,22],"points":200},"playerTwo":{"id":2,"name":"Diego","lastName":"Farfan","nationality":"Argentino","dateOfBirth":[1997,12,1],"points":350},"result":null}]
+[
+  {
+    "idMatch": 1,
+    "playerOne": {
+      "idPlayer": 1,
+      "name": "Marcos",
+      "lastName": "Moreno",
+      "nationality": "Argentino",
+      "dateOfBirth": [
+        1990,
+        4,
+        22
+      ],
+      "points": 200
+    },
+    "playerTwo": {
+      "idPlayer": 2,
+      "name": "Diego",
+      "lastName": "Farfan",
+      "nationality": "Argentino",
+      "dateOfBirth": [
+        1997,
+        12,
+        1
+      ],
+      "points": 350
+    },
+    "result": null
+  }
+]
