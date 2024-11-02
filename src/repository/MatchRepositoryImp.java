@@ -18,16 +18,16 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
         this.filePath = filePath;
     }
 
-    //agrega el objeto a la lista, convierte la lista nuevamente a json y sobreescribe el archivo
+    // Add the object to the list, convert the list back to JSON, and overwrite the file.
     @Override
     public Integer create(Match match) {
         String data = persistence.readFile(filePath);
 
         Integer id = 0;
         try {
-            //obtiene una lista de objetos ordenados por ID a partir del archivo json
+            // Gets a list of objects sorted by ID from the JSON file.
             TreeSet<Match> matches = new TreeSet<>(JSONConverter.fromJsonArrayToList(data, Match.class));
-            //obtiene el ID del último, le agrega 1 y lo asigna al nuevo elemento
+            // Gets the ID of the last one, adds 1 to it, and assigns it to the new element.
             if (!matches.isEmpty()) {
                 id = matches.last().getIdMatch();
             }
@@ -35,7 +35,7 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
             matches.add(match);
             persistence.writeFile(filePath, JSONConverter.toJson(matches));
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error al procesar el archivo "+ filePath);
+            throw new FileProcessingException("Error processing the file " + filePath);
         }
         return id;
     }
@@ -51,9 +51,9 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
                     return match;
                 }
             }
-            throw new MatchNotFoundException("No se encontró ningún Partido con el id " + id);
+            throw new MatchNotFoundException("No match was found with the given ID: " + id);
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error al procesar el archivo "+ filePath);
+            throw new FileProcessingException("Error processing the file " + filePath);
         }
     }
 
@@ -72,15 +72,14 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
                 }
             }
             if (!matchUpdated) {
-                throw new MatchNotFoundException("No se encontró ningún Partido con el ID: " + modifiedMatch.getIdMatch());
+                throw new MatchNotFoundException("No match was found with the ID: " + modifiedMatch.getIdMatch());
             }
             // Solo escribe si se actualizó el partido
             persistence.writeFile(filePath, JSONConverter.toJson(matches));
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error al procesar el archivo " + filePath);
+            throw new FileProcessingException("Error processing the file " + filePath);
         }
     }
-
 
     @Override
     public void delete(Integer id) {
@@ -97,11 +96,11 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
                 }
             }
             if (!matchDeleted) {
-                throw new MatchNotFoundException("No se encontró ningún Partido con el ID: " + id);
+                throw new MatchNotFoundException("No match was found with the given ID: " + id);
             }
             persistence.writeFile(filePath, JSONConverter.toJson(matches));
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error al procesar el archivo " + filePath);
+            throw new FileProcessingException("Error processing the file " + filePath);
         }
     }
 
@@ -111,11 +110,11 @@ public class MatchRepositoryImp implements Repository<Match, Integer> {
         try {
             List<Match> matches = JSONConverter.fromJsonArrayToList(data, Match.class);
             if (matches == null || matches.isEmpty()) {
-                throw new MatchNotFoundException("No hay partidos guardados json");
+                throw new MatchNotFoundException("There are no matches saved in JSON");
             }
             return matches;
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error al procesar el archivo " + filePath);
+            throw new FileProcessingException("Error processing the file " + filePath);
         }
     }
 }
