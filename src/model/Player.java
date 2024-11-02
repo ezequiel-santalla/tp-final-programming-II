@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public class Player implements Comparable<Player> {
     private Integer idPlayer;
+    private String dni;
     private String name;
     private String lastName;
     private String nationality;
@@ -14,15 +15,17 @@ public class Player implements Comparable<Player> {
     public Player() {
     }
 
-    public Player(String name, String lastName, String nationality, LocalDate dateOfBirth) {
+    public Player(String name, String lastName, String dni, String nationality, LocalDate dateOfBirth) {
         this.name = name;
         this.lastName = lastName;
+        this.dni = dni;
         this.nationality = nationality;
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Player(Integer idPlayer, String name, String lastName, String nationality, LocalDate dateOfBirth, Integer points) {
+    public Player(Integer idPlayer, String dni, String name, String lastName, String nationality, LocalDate dateOfBirth, Integer points) {
         this.idPlayer = idPlayer;
+        this.dni = dni;
         this.name = name;
         this.lastName = lastName;
         this.nationality = nationality;
@@ -36,6 +39,14 @@ public class Player implements Comparable<Player> {
 
     public void setIdPlayer(Integer idPlayer) {
         this.idPlayer = idPlayer;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public String getName() {
@@ -92,14 +103,17 @@ public class Player implements Comparable<Player> {
 
     @Override
     public String toString() {
-        return "Player{" +
-                "idPlayer=" + idPlayer +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", nationality='" + nationality + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", points=" + points +
-                '}';
+        return  "------------------------------------\n" +
+                "|          Detalles del Jugador          |\n" +
+                "------------------------------------\n" +
+                "| ID                  : " + idPlayer + "\n" +
+                "| Dni                 : " + dni + "\n" +
+                "| Nombre              : " + name + "\n" +
+                "| Apellido            : " + lastName + "\n" +
+                "| Nacionalidad        : " + nationality + "\n" +
+                "| Fecha de Nacimiento : " + dateOfBirth + "\n" +
+                "| Puntos              : " + points + "\n" +
+                "------------------------------------\n";
     }
 
     @Override

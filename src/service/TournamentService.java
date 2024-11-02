@@ -218,7 +218,7 @@ public class TournamentService {
 
     public void generateTournament(String name, String surface, LocalDate startDate, LocalDate endDate) {
         ESurface tournamentSurface = ESurface.valueOf(surface.toUpperCase());
-        this.tournament = new Tournament(1, name, "Default Location", tournamentSurface, startDate, endDate, 0.0, new HashSet<>(), new ArrayList<>());
+        this.tournament = new Tournament(1, name, "Default Location", tournamentSurface, startDate, endDate, new HashSet<>(), new ArrayList<>());
     }
 
     public Tournament getTournament() {

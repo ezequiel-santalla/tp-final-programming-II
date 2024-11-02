@@ -94,7 +94,7 @@ public class PlayerService {
         rankingStr.append(
                 """
                 ============================================
-                               Player Ranking
+                                  Rankings
                 ============================================
                 Pos | Name                          | Points
                 --------------------------------------------

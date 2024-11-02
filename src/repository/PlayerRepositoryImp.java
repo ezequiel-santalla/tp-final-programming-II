@@ -37,7 +37,7 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
             players.add(player);
             persistence.writeFile(filePath, JSONConverter.toJson(players));
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error al procesar el archivo "+ filePath);
+            throw new FileProcessingException("Error processing the file " + filePath);
         }
         return id;
     }
@@ -54,9 +54,9 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
                     return p;
                 }
             }
-            throw new PlayerNotFoundException("No se encontró ningún Jugador con el id " + id);
+            throw new PlayerNotFoundException("No player was found with the ID: " + id);
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error al procesar el archivo "+ filePath);
+            throw new FileProcessingException("Error processing the file " + filePath);
         }
     }
 
@@ -77,12 +77,12 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
                 }
             }
             if (!playerUpdated) {
-                throw new PlayerNotFoundException("No se encontró ningún Jugador con el ID: " + modifiedPlayer.getIdPlayer());
+                throw new PlayerNotFoundException("No player was found with the ID: " + modifiedPlayer.getIdPlayer());
             }
 
             persistence.writeFile(filePath, JSONConverter.toJson(players));
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error al procesar el archivo " + filePath);
+            throw new FileProcessingException("Error processing the file " + filePath);
         }
     }
 
@@ -103,12 +103,12 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
                 }
             }
             if (!playerDeleted) {
-                throw new PlayerNotFoundException("No se encontró ningún Jugador con el ID: " + id);
+                throw new PlayerNotFoundException("No player was found with the ID: " + id);
             }
 
             persistence.writeFile(filePath, JSONConverter.toJson(players));
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error al procesar el archivo " + filePath);
+            throw new FileProcessingException("Error processing the file " + filePath);
         }
     }
 
@@ -120,11 +120,11 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
             List<Player> players = JSONConverter.fromJsonArrayToList(data, Player.class);
 
             if (players == null || players.isEmpty()) {
-                throw new PlayerNotFoundException("No hay jugadores guardados json");
+                throw new PlayerNotFoundException("There are no matches saved in JSON.");
             }
             return players;
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error al procesar el archivo " + filePath);
+            throw new FileProcessingException("Error processing the file " + filePath);
         }
     }
 }

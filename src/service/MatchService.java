@@ -51,14 +51,14 @@ public class MatchService {
 
     public Player getWinner(Match match) throws IncompleteMatchException {
         if(match.getResult()==null){
-            throw new IncompleteMatchException("El partido no ha finalizado o no se cargó el resultado");
+            throw new IncompleteMatchException("The match has not finished or the result was not loaded.");
         }
         if (match.getResult().getSetsWonPlayerOne() == 2) {
             return match.getPlayerOne();
         } else if (match.getResult().getSetsWonPlayerTwo() == 2) {
             return match.getPlayerTwo();
         }
-        throw new IncompleteMatchException("No hay un ganador definido");
+        throw new IncompleteMatchException("There is no defined winner.");
     }
 
     public Player getLoser(Match match) {

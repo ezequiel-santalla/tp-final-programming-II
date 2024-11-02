@@ -12,7 +12,7 @@ public class JSONConverter {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     static {
-        //bloque estático que configura el objMapper para que pueda reconocer fechas
+        // Static block that configures the objMapper to recognize dates
         objectMapper.registerModule(new JavaTimeModule());
     }
 
@@ -31,10 +31,7 @@ public class JSONConverter {
         return list;
     }
 
-
-
     public static String toJson(Object object) throws JsonProcessingException {
         return objectMapper.writeValueAsString(object);
     }
-
 }

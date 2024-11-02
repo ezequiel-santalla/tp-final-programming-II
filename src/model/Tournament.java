@@ -13,18 +13,16 @@ public class Tournament {
     private ESurface surface;
     private LocalDate startingDate;
     private LocalDate endingDate;
-    private Double prizeMoney;
     private Set<Player> players;
     private List<Round> rounds;
 
-    public Tournament(Integer id, String name, String location, ESurface surface, LocalDate startingDate, LocalDate endingDate, Double prizeMoney, Set<Player> players, List<Round> rounds) {
+    public Tournament(Integer id, String name, String location, ESurface surface, LocalDate startingDate, LocalDate endingDate, Set<Player> players, List<Round> rounds) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.surface = surface;
         this.startingDate = startingDate;
         this.endingDate = endingDate;
-        this.prizeMoney = prizeMoney;
         this.players = players;
         this.rounds = rounds;
     }
@@ -77,14 +75,6 @@ public class Tournament {
         this.endingDate = endingDate;
     }
 
-    public Double getPrizeMoney() {
-        return prizeMoney;
-    }
-
-    public void setPrizeMoney(Double prizeMoney) {
-        this.prizeMoney = prizeMoney;
-    }
-
     public Set<Player> getPlayers() {
         return players;
     }
@@ -103,19 +93,15 @@ public class Tournament {
 
     @Override
     public String toString() {
-        return "---------------------------------\n" +
-                "|        Tournament Details      |\n" +
-                "---------------------------------\n" +
-                "| ID           : " + id + "\n" +
-                "| Name         : '" + name + "'\n" +
-                "| Location     : '" + location + "'\n" +
-                "| Surface      : " + surface + "\n" +
-                "| Starting Date: " + startingDate + "\n" +
-                "| Ending Date  : " + endingDate + "\n" +
-                "| Prize Money  : $" + prizeMoney + "\n" +
-                "---------------------------------\n" +
-                "| Players      : " + players + "\n" +
-                "| Rounds       : " + rounds + "\n" +
-                "---------------------------------";
+        return  "------------------------------------\n" +
+                "|        Detalles del Torneo        |\n" +
+                "------------------------------------\n" +
+                "| ID                    : " + id + "\n" +
+                "| Nombre                : " + name + "\n" +
+                "| Lugar                 : " + location + "\n" +
+                "| Superficie            : " + surface + "\n" +
+                "| Fecha de Inicio       : " + startingDate + "\n" +
+                "| Fecha de Finalización : " + endingDate + "\n" +
+                "------------------------------------\n";
     }
 }

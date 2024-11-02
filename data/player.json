@@ -1,6 +1,7 @@
 [
   {
-    "id": 1,
+    "idPlayer": 1,
+    "dni": "42044093",
     "name": "Marcos",
     "lastName": "Moreno",
     "nationality": "Argentino",
@@ -12,159 +13,185 @@
     "points": 200
   },
   {
-    "id": 2,
-    "name": "Diego",
-    "lastName": "Farfan",
-    "nationality": "Argentino",
+    "idPlayer": 2,
+    "dni": "38011234",
+    "name": "Lucía",
+    "lastName": "Fernández",
+    "nationality": "Argentina",
     "dateOfBirth": [
-      1997,
-      12,
-      1
+      1992,
+      3,
+      15
     ],
-    "points": 35000
+    "points": 180
   },
   {
-    "id": 3,
-    "name": "Lucia",
-    "lastName": "Gonzalez",
+    "idPlayer": 3,
+    "dni": "41023567",
+    "name": "Carlos",
+    "lastName": "Gómez",
+    "nationality": "Uruguayo",
+    "dateOfBirth": [
+      1991,
+      1,
+      10
+    ],
+    "points": 220
+  },
+  {
+    "idPlayer": 4,
+    "dni": "45078945",
+    "name": "Ana",
+    "lastName": "Pérez",
+    "nationality": "Argentina",
+    "dateOfBirth": [
+      1989,
+      7,
+      28
+    ],
+    "points": 210
+  },
+  {
+    "idPlayer": 5,
+    "dni": "39045678",
+    "name": "Miguel",
+    "lastName": "López",
+    "nationality": "Chileno",
+    "dateOfBirth": [
+      1993,
+      9,
+      5
+    ],
+    "points": 190
+  },
+  {
+    "idPlayer": 6,
+    "dni": "40012345",
+    "name": "Sofía",
+    "lastName": "Martínez",
     "nationality": "Argentina",
     "dateOfBirth": [
       1995,
       6,
-      15
+      21
     ],
-    "points": 2500
+    "points": 175
   },
   {
-    "id": 4,
-    "name": "Juan",
-    "lastName": "Pérez",
-    "nationality": "Uruguayo",
+    "idPlayer": 7,
+    "dni": "42087654",
+    "name": "Joaquín",
+    "lastName": "Ruiz",
+    "nationality": "Paraguayo",
     "dateOfBirth": [
-      1988,
-      3,
-      10
-    ],
-    "points": 4500
-  },
-  {
-    "id": 5,
-    "name": "Sofia",
-    "lastName": "Lopez",
-    "nationality": "Chilena",
-    "dateOfBirth": [
-      1993,
-      7,
-      23
-    ],
-    "points": 15000
-  },
-  {
-    "id": 6,
-    "name": "Mateo",
-    "lastName": "Ramirez",
-    "nationality": "Mexicano",
-    "dateOfBirth": [
-      1992,
-      1,
-      5
-    ],
-    "points": 3000
-  },
-  {
-    "id": 7,
-    "name": "Valentina",
-    "lastName": "Martinez",
-    "nationality": "Colombiana",
-    "dateOfBirth": [
-      1994,
-      9,
-      12
-    ],
-    "points": 78000
-  },
-  {
-    "id": 8,
-    "name": "Diego",
-    "lastName": "Salas",
-    "nationality": "Peruano",
-    "dateOfBirth": [
-      1985,
-      11,
-      20
-    ],
-    "points": 12000
-  },
-  {
-    "id": 9,
-    "name": "Camila",
-    "lastName": "Torres",
-    "nationality": "Ecuatoriana",
-    "dateOfBirth": [
-      1996,
+      1987,
       5,
-      30
-    ],
-    "points": 4000
-  },
-  {
-    "id": 10,
-    "name": "Alejandro",
-    "lastName": "Cruz",
-    "nationality": "Boliviano",
-    "dateOfBirth": [
-      1991,
-      8,
-      28
-    ],
-    "points": 5500
-  },
-  {
-    "id": 11,
-    "name": "Roger",
-    "lastName": "Federer",
-    "nationality": "Suizo",
-    "dateOfBirth": [
-      1981,
-      8,
       8
     ],
-    "points": 1200
+    "points": 205
   },
   {
-    "id": 12,
-    "name": "Rafael",
-    "lastName": "Nadal",
-    "nationality": "Español",
+    "idPlayer": 8,
+    "dni": "43098765",
+    "name": "Valentina",
+    "lastName": "Ríos",
+    "nationality": "Argentina",
+    "dateOfBirth": [
+      1994,
+      8,
+      13
+    ],
+    "points": 185
+  },
+  {
+    "idPlayer": 9,
+    "dni": "46054321",
+    "name": "Martín",
+    "lastName": "Sosa",
+    "nationality": "Uruguayo",
+    "dateOfBirth": [
+      1996,
+      10,
+      2
+    ],
+    "points": 170
+  },
+  {
+    "idPlayer": 10,
+    "dni": "47067890",
+    "name": "Carolina",
+    "lastName": "Nuñez",
+    "nationality": "Argentina",
+    "dateOfBirth": [
+      1991,
+      12,
+      30
+    ],
+    "points": 195
+  },
+  {
+    "idPlayer": 11,
+    "dni": "44034567",
+    "name": "Tomás",
+    "lastName": "Duarte",
+    "nationality": "Chileno",
+    "dateOfBirth": [
+      1990,
+      2,
+      18
+    ],
+    "points": 215
+  },
+  {
+    "idPlayer": 12,
+    "dni": "48012345",
+    "name": "Paula",
+    "lastName": "Álvarez",
+    "nationality": "Argentina",
+    "dateOfBirth": [
+      1997,
+      11,
+      9
+    ],
+    "points": 165
+  },
+  {
+    "idPlayer": 13,
+    "dni": "49054321",
+    "name": "Agustín",
+    "lastName": "Vega",
+    "nationality": "Argentino",
+    "dateOfBirth": [
+      1994,
+      3,
+      23
+    ],
+    "points": 200
+  },
+  {
+    "idPlayer": 14,
+    "dni": "50067890",
+    "name": "Camila",
+    "lastName": "Castro",
+    "nationality": "Uruguaya",
+    "dateOfBirth": [
+      1988,
+      9,
+      19
+    ],
+    "points": 190
+  },
+  {
+    "idPlayer": 15,
+    "dni": "51023456",
+    "name": "Francisco",
+    "lastName": "Silva",
+    "nationality": "Paraguayo",
     "dateOfBirth": [
       1986,
-      6,
-      3
+      4,
+      4
     ],
-    "points": 1100
-  },
-  {
-    "id": 13,
-    "name": "Novak",
-    "lastName": "Djokovic",
-    "nationality": "Serbio",
-    "dateOfBirth": [
-      1987,
-      5,
-      22
-    ],
-    "points": 1300
-  },
-  {
-    "id": 14,
-    "name": "Andy",
-    "lastName": "Murray",
-    "nationality": "Británico",
-    "dateOfBirth": [
-      1987,
-      5,
-      15
-    ],
-    "points": 850
+    "points": 225
   }
 ]
