@@ -1,24 +1,24 @@
-import enums.ESurface;
-import exceptions.IncompleteMatchException;
-import exceptions.InvalidResultException;
 import model.Match;
 import model.Player;
-import model.Result;
-import model.Tournament;
 import repository.MatchRepositoryImp;
 import repository.PlayerRepositoryImp;
 import service.MatchService;
 import service.PersistenceFile;
 import service.PlayerService;
+import view.Menu;
+import view.MenuHandler;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         PersistenceFile persistence = new PersistenceFile();
         MatchRepositoryImp matchRepo = new MatchRepositoryImp(persistence, "data/match.json");
         MatchService matchService = new MatchService(matchRepo);
-        Player playerOne = new Player(1, "42044093", "Marcos", "Moreno", "Argentino",  LocalDate.of(1990, Month.APRIL,22), 200);
+        Player playerOne = new Player(1, "42044093", "Marcos", "Moreno", "Argentino", LocalDate.of(1990, Month.APRIL, 22), 200);
         Player playerTwo = new Player(2, "38011234", "Lucía", "Fernández", "Argentina", LocalDate.of(1992, Month.MARCH, 15), 180);
         Player playerThree = new Player(3, "41023567", "Carlos", "Gómez", "Uruguayo", LocalDate.of(1991, Month.JANUARY, 10), 220);
         Player playerFour = new Player(4, "45078945", "Ana", "Pérez", "Argentina", LocalDate.of(1989, Month.JULY, 28), 210);
@@ -34,8 +34,8 @@ public class Main {
         Player playerFourteen = new Player(14, "50067890", "Camila", "Castro", "Uruguaya", LocalDate.of(1988, Month.SEPTEMBER, 19), 190);
         Player playerFifteen = new Player(15, "51023456", "Francisco", "Silva", "Paraguayo", LocalDate.of(1986, Month.APRIL, 4), 225);
 
-        Match match = new Match(playerOne,playerTwo);
-        matchService.addMatch(match);
+        Match match = new Match(playerOne, playerTwo);
+        //matchService.addMatch(match);
 
         PersistenceFile persistencePlayer = new PersistenceFile();
         PlayerRepositoryImp playerRepositoryImp = new PlayerRepositoryImp(persistencePlayer, "data/player.json");
@@ -72,5 +72,8 @@ public class Main {
         System.out.println(matchService.getWinner(match));
 
          */
+    Menu menu = new Menu();
+    menu.runMenu();
+
     }
 }
