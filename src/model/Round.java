@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public abstract class Round {
     private Integer id;
-    private List<Match> matches;
+    protected List<Match> matches;
     private Integer givenPoints;
 
     public Round(){

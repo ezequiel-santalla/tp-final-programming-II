@@ -15,6 +15,7 @@ import java.util.List;
 public class TournamentService {
     private TournamentRepositoryImp tournamentRepositoryImp;
     private final MatchService matchService;
+    private MatchRepositoryImp matchRepositoryImp;
     private Tournament tournament;
 
 
@@ -127,51 +128,32 @@ public class TournamentService {
     }
 
     public List<Player> getPlayersStillCompeting() {
-        Round lastRound = this.tournament.getRounds().get(this.tournament.getRounds().size() - 1);
+        Round lastRound = this.tournament.getRounds().getLast();
         List<Player> playersStillCompeting = new ArrayList<>();
-        MatchRepositoryImp matchRepository = new MatchRepositoryImp(new PersistenceFile(), "matches.json");
-        MatchService matchService = new MatchService(matchRepository);
         for (Match match : lastRound.getMatches()) {
             playersStillCompeting.add(matchService.getWinner(match));
         }
-
         return playersStillCompeting;
     }
 
     public void generateNextRound() {
-        int currentRoundIndex = tournament.getRounds().size();
-
-        if (currentRoundIndex == 0) {
-            // genero la primera ronda
-            FirstRound firstRound = new FirstRound();
-            ArrayList<Player> players = new ArrayList<>(tournament.getPlayers());
-            firstRound.generateMatches(players);
-            tournament.getRounds().add(firstRound);
-        } else {
-            // armamos una lista con los jugadores que siguen competiendo
-            List<Player> playersStillCompeting = getPlayersStillCompeting();
-
-            // dependiendo de la ronda, generamos la siguiente
-            Round nextRound;
-            switch (currentRoundIndex) {
+            switch (tournament.getRounds().size()) {
+                case 0:
+                    tournament.getRounds().add(new FirstRound());
+                    break;
                 case 1:
-                    nextRound = new QuarterFinal();
+                    tournament.getRounds().add(new QuarterFinal());
                     break;
                 case 2:
-                    nextRound = new Semifinal();
-                    break;
-                case 3:
-                    nextRound = new Final();
+                    tournament.getRounds().add(new Semifinal());
                     break;
                 default:
-                    throw new IllegalStateException("Unexpected value: " + currentRoundIndex);
+                    tournament.getRounds().add(new Final());
+                    break;
             }
-
             // Generar los partidos de la nueva ronda y añadirla al torneo
-            nextRound.generateMatches(playersStillCompeting);
-            tournament.getRounds().add(nextRound);
+            tournament.getRounds().getLast().generateMatches(getPlayersStillCompeting());
         }
-    }
 
 
 
@@ -224,4 +206,5 @@ public class TournamentService {
     public Tournament getTournament() {
         return tournament;
     }
+
 }
