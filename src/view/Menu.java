@@ -17,8 +17,8 @@ public class Menu {
     private final List<String> secondaryMenuOptions;
 
     //Estos atributos no deberian estar aca, son para probar
-    PlayerRepositoryImp playerRepositoryImp = new PlayerRepositoryImp(new PersistenceFile(), "/data/player.json");
-    MatchService matchService = new MatchService(new MatchRepositoryImp(new PersistenceFile(), "/data/match.json"));
+    PlayerRepositoryImp playerRepositoryImp = new PlayerRepositoryImp(new PersistenceFile(), "data/player.json");
+    MatchService matchService = new MatchService(new MatchRepositoryImp(new PersistenceFile(), "data/match.json"));
     PlayerService playerService = new PlayerService(playerRepositoryImp,matchService);
 
 

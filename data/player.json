@@ -193,5 +193,18 @@
       4
     ],
     "points": 225
+  },
+  {
+    "idPlayer": 16,
+    "dni": "35125890",
+    "name": "Rodrigo",
+    "lastName": "Lang",
+    "nationality": "Argentino",
+    "dateOfBirth": [
+      1990,
+      3,
+      5
+    ],
+    "points": null
   }
 ]
