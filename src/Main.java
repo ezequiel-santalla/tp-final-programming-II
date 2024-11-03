@@ -1,8 +1,12 @@
+import enums.ESurface;
+import exceptions.TournamentNotFoundException;
 import model.Match;
 import model.Player;
 import repository.MatchRepositoryImp;
 import repository.PlayerRepositoryImp;
+import repository.TournamentRepositoryImp;
 import service.MatchService;
+import service.TournamentService;
 import utilities.PersistenceFile;
 import service.PlayerService;
 import view.Menu;
@@ -14,6 +18,19 @@ public class Main {
     public static void main(String[] args) {
         MatchRepositoryImp matchRepo = new MatchRepositoryImp();
         MatchService matchService = new MatchService(matchRepo);
+        TournamentRepositoryImp tournamentRepositoryImp = new TournamentRepositoryImp();
+        TournamentService tournamentService = new TournamentService(tournamentRepositoryImp, matchService);
+
+        tournamentService.generateTournament("torneo", "MDP", ESurface.CARPET, LocalDate.of(2024,2,2),LocalDate.of(2024,2,6));
+
+
+        try {
+            System.out.println(tournamentService.findTournamentById(1));
+        } catch (TournamentNotFoundException e) {
+            System.out.println("No encontrado");
+        }
+
+
         Player playerOne = new Player(1, "42044093", "Marcos", "Moreno", "Argentino", LocalDate.of(1990, Month.APRIL, 22), 200);
         Player playerTwo = new Player(2, "38011234", "Lucía", "Fernández", "Argentina", LocalDate.of(1992, Month.MARCH, 15), 180);
         Player playerThree = new Player(3, "41023567", "Carlos", "Gómez", "Uruguayo", LocalDate.of(1991, Month.JANUARY, 10), 220);
@@ -68,7 +85,7 @@ public class Main {
 
          */
     Menu menu = new Menu();
-    menu.runMenu();
+   // menu.runMenu();
 
     }
 }

@@ -95,9 +95,9 @@ public class TournamentService {
         tournament.getRounds().getLast().generateMatches(getPlayersStillCompeting());
     }
 
-    public void generateTournament(String name, String surface, LocalDate startDate, LocalDate endDate) {
-        ESurface tournamentSurface = ESurface.valueOf(surface);
-        this.tournament = new Tournament(1, name, "Default Location", tournamentSurface, startDate, endDate);
+    public void generateTournament(String name, String location, ESurface surface, LocalDate startDate, LocalDate endDate) {
+        this.tournament = new Tournament(1, name, location, surface, startDate, endDate);
+        tournamentRepositoryImp.
     }
 
     public Tournament getTournament() {

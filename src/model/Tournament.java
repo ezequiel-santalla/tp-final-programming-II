@@ -15,6 +15,17 @@ public class Tournament implements Comparable<Tournament>{
     private Set<Player> players;
     private List<Round> rounds;
 
+    public Tournament() {
+    }
+
+    public Tournament(String name, String location, ESurface surface, LocalDate startingDate, LocalDate endingDate) {
+        this.name = name;
+        this.location = location;
+        this.surface = surface;
+        this.startingDate = startingDate;
+        this.endingDate = endingDate;
+    }
+
     public Tournament(Integer id, String name, String location, ESurface surface, LocalDate startingDate, LocalDate endingDate) {
         this.id = id;
         this.name = name;
