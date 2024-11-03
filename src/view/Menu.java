@@ -4,7 +4,6 @@ import model.Player;
 import repository.MatchRepositoryImp;
 import repository.PlayerRepositoryImp;
 import service.MatchService;
-import service.PersistenceFile;
 import service.PlayerService;
 
 import java.util.ArrayList;
@@ -16,9 +15,9 @@ public class Menu {
     private final List<String> principalMenuOptions;
     private final List<String> secondaryMenuOptions;
 
-    //Estos atributos no deberian estar aca, son para probar
-    PlayerRepositoryImp playerRepositoryImp = new PlayerRepositoryImp(new PersistenceFile(), "data/player.json");
-    MatchService matchService = new MatchService(new MatchRepositoryImp(new PersistenceFile(), "data/match.json"));
+    //Estos atributos no deberían estar aca, son para probar
+    PlayerRepositoryImp playerRepositoryImp = new PlayerRepositoryImp();
+    MatchService matchService = new MatchService(new MatchRepositoryImp());
     PlayerService playerService = new PlayerService(playerRepositoryImp,matchService);
 
 
@@ -72,16 +71,19 @@ public class Menu {
             index = menuHandler.requestEntry(secondaryMenuOptions);
             switch (index) {
                 case 1:
-                    System.out.println("opcion 1");
+                    //Completar código
                     break;
                 case 2:
-                    System.out.println("opcion 2");
+                    //Agregar método
 
                     break;
                 case 3:
-                    System.out.println("opcion 3");
+                    //TO DO
+
                     break;
                 default:
+                    //Opción gennerica
+
                     break;
             }
         } while (index!=0);
@@ -98,14 +100,11 @@ public class Menu {
             index = menuHandler.requestEntry(secondaryMenuOptions);
             switch (index) {
                 case 1:
-                    System.out.println("opcion 1");
                     break;
                 case 2:
-                    System.out.println("opcion 2");
 
                     break;
                 case 3:
-                    System.out.println("opcion 3");
                     break;
                 default:
                     break;
@@ -127,22 +126,16 @@ public class Menu {
                 case 1:
                     Player player = menuHandler.requestPlayerData();
                     playerService.addPlayer(player);
-                    System.out.println(player);
                     break;
                 case 2:
-                    System.out.println("opcion 2");
 
                     break;
                 case 3:
-                    System.out.println("opcion 3");
                     break;
                 default:
                     break;
             }
         } while (index!=0);
     }
-
-
-
 
 }

@@ -1,10 +1,6 @@
 package exceptions;
 
-public class IncompleteMatchException extends RuntimeException {
-
-    public IncompleteMatchException() {
-        super();
-    }
+public class IncompleteMatchException extends Exception {
 
     public IncompleteMatchException(String message) {
         super(message);

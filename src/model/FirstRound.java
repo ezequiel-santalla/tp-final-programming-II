@@ -1,18 +1,19 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class FirstRound extends Round {
 
     public FirstRound() {
     }
 
-    public FirstRound(Integer id, List<Match> matches, Integer givenPoints, Double givenMoney) {
-        super(id, matches, givenPoints, givenMoney);
+    public FirstRound(Integer givenPoints) {
+        super(givenPoints);
     }
 
+    public FirstRound(Integer id, List<Match> matches, Integer givenPoints) {
+        super(id, matches, givenPoints);
+    }
 
     @Override
     public List<Match> generateMatches(List<Player> players) {
@@ -22,11 +23,5 @@ public class FirstRound extends Round {
         }
         return matches;
     }
-
-    @Override
-    public Integer pointsEarned() {
-        return 90;
-    }
-
 
 }

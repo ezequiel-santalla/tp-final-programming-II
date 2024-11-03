@@ -1,13 +1,9 @@
 package exceptions;
 
-public class PlayerNotFoundException extends RuntimeException {
+public class PlayerNotFoundException extends EntityNotFoundException {
 
-    public PlayerNotFoundException() {
-        super();
-    }
 
     public PlayerNotFoundException(String message) {
         super(message);
     }
-
 }

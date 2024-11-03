@@ -3,7 +3,6 @@ package model;
 import exceptions.InvalidResultException;
 
 import java.util.Objects;
-
 public class Result {
     private Integer id;
     private Integer setsWonPlayerOne;
@@ -14,12 +13,11 @@ public class Result {
         this.setsWonPlayerTwo = 0;
     }
 
-    //este contructot necesita una verificacion de valores null
-    public Result(Integer setsWonPlayerOne, Integer setsWonPlayerTwo) {
-        if (validateResult(setsWonPlayerOne, setsWonPlayerTwo)) {
-            this.setsWonPlayerOne = setsWonPlayerOne;
+    //este constructor necesita una verificación de valores null
+    public Result(Integer setsWonPlayerOne, Integer setsWonPlayerTwo) throws InvalidResultException {
+        validateResult(setsWonPlayerOne, setsWonPlayerTwo);
+        this.setsWonPlayerOne = setsWonPlayerOne;
             this.setsWonPlayerTwo = setsWonPlayerTwo;
-        }
     }
 
     public Integer getId() {
@@ -34,23 +32,21 @@ public class Result {
         return setsWonPlayerOne;
     }
 
-    public void setSetsWonPlayerOne(Integer setsWonPlayerOne) {
-        if (validateResult(setsWonPlayerOne, this.setsWonPlayerTwo)) {
+    public void setSetsWonPlayerOne(Integer setsWonPlayerOne) throws InvalidResultException {
+           validateResult(setsWonPlayerOne, this.setsWonPlayerTwo);
             this.setsWonPlayerOne = setsWonPlayerOne;
-        }
     }
 
     public Integer getSetsWonPlayerTwo() {
         return setsWonPlayerTwo;
     }
 
-    public void setSetsWonPlayerTwo(Integer setsWonPlayerTwo) {
-        if (validateResult(this.setsWonPlayerOne, setsWonPlayerTwo)) {
-            this.setsWonPlayerTwo = setsWonPlayerTwo;
-        }
+    public void setSetsWonPlayerTwo(Integer setsWonPlayerTwo) throws InvalidResultException {
+        validateResult(this.setsWonPlayerOne, setsWonPlayerTwo);
+        this.setsWonPlayerTwo = setsWonPlayerTwo;
     }
 // falta verificar cuando un valor es null
-    private Boolean validateResult(Integer setsWonPlayerOne, Integer setsWonPlayerTwo) {
+    private void validateResult(Integer setsWonPlayerOne, Integer setsWonPlayerTwo) throws InvalidResultException {
        //Se reemplazan los valores null por cero para evitar errores
         if(setsWonPlayerOne == null){
             setsWonPlayerOne=0;
@@ -68,9 +64,10 @@ public class Result {
         boolean specialCaseTwo = (setsWonPlayerOne == 2 && setsWonPlayerTwo == 0);
 
         if (totalSetsValid || specialCaseOne || specialCaseTwo) {
-            return true;
+            this.setsWonPlayerOne=setsWonPlayerOne;
+            this.setsWonPlayerTwo=setsWonPlayerTwo;
         } else {
-            //se registra un resulatado de "0-0"
+            //se registra un resultado de "0-0"
             this.setsWonPlayerOne=0;
             this.setsWonPlayerTwo=0;
             throw new InvalidResultException("Se intentó registrar un resultado NO válido");

@@ -8,8 +8,12 @@ public class Semifinal extends Round {
     public Semifinal() {
     }
 
-    public Semifinal(Integer id, List<Match> matches, Integer givenPoints, Double givenMoney) {
-        super(id, matches, givenPoints, givenMoney);
+    public Semifinal(Integer givenPoints) {
+        super(givenPoints);
+    }
+
+    public Semifinal(Integer id, List<Match> matches, Integer givenPoints) {
+        super(id, matches, givenPoints);
     }
 
     @Override
@@ -20,10 +24,5 @@ public class Semifinal extends Round {
             matches.add(match);
         }
         return matches;
-    }
-
-    @Override
-    public Integer pointsEarned() {
-        return 360;
     }
 }

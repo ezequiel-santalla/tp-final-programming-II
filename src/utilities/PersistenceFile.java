@@ -1,4 +1,4 @@
-package service;
+package utilities;
 
 import exceptions.FileProcessingException;
 
@@ -8,7 +8,10 @@ import java.time.format.DateTimeFormatter;
 
 public class PersistenceFile {
 
-    private void ensureFileExists(String filePath) throws FileProcessingException {
+    private PersistenceFile() {
+    }
+
+    private static void ensureFileExists(String filePath) throws FileProcessingException {
         File file = new File(filePath);
         if (!file.exists()) {
             createFile(filePath);
@@ -25,7 +28,7 @@ public class PersistenceFile {
         }
     }
 
-    public void createFile(String filePath) throws FileProcessingException {
+    public static void createFile(String filePath) throws FileProcessingException {
         File file = new File(filePath);
         try {
             PrintWriter pw = new PrintWriter(file);
@@ -36,7 +39,7 @@ public class PersistenceFile {
         }
     }
 
-    public void writeFile(String filePath, String data) throws FileProcessingException {
+    public static void writeFile(String filePath, String data) throws FileProcessingException {
         ensureFileExists(filePath);
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
             pw.println(data);
@@ -46,7 +49,7 @@ public class PersistenceFile {
     }
 
 
-    public void addDataToFile(String filePath, String data) throws FileProcessingException {
+    public static void addDataToFile(String filePath, String data) throws FileProcessingException {
         ensureFileExists(filePath);
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, true))) {
             pw.println(data);
@@ -55,7 +58,7 @@ public class PersistenceFile {
         }
     }
 
-    public String readFile(String filePath) throws FileProcessingException {
+    public static String readFile(String filePath) throws FileProcessingException {
         ensureFileExists(filePath);
         StringBuilder contentFile = new StringBuilder();
         try (BufferedReader buff = new BufferedReader(new FileReader(filePath))) {
@@ -69,7 +72,7 @@ public class PersistenceFile {
         return contentFile.toString();
     }
 
-    public void saveUnserializableContent(String fileName, String invalidJsonString) {
+    public static void saveUnserializableContent(String fileName, String invalidJsonString) {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
         String filePath = "data/backUp/" + timestamp + "_" + fileName.toLowerCase() + ".json";
         File backupDir = new File("data/backUp/");

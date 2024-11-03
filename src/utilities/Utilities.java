@@ -1,10 +1,12 @@
-package service;
+package utilities;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Utilities {
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private Utilities() {
     }
@@ -31,37 +33,34 @@ public class Utilities {
     }
 
 
-    // Metodo para formatear LocalDate a String en formato dd/MM/yyyy
+    // formatea LocalDate a String en formato dd/MM/yyyy
     public static String formatLocalDate(LocalDate date) {
         if (date == null) {
             return null; // O puedes lanzar una excepción si prefieres
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return date.format(formatter);
     }
 
-    // Metodo para convertir String en formato dd/MM/yyyy a LocalDate
+    // convierte String en formato dd/MM/yyyy a LocalDate
     public static LocalDate parseLocalDate(String dateString) {
         if (dateString == null || dateString.isEmpty()) {
             return null;
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         try {
             return LocalDate.parse(dateString, formatter);
         } catch (DateTimeParseException e) {
             // Maneja la excepción si el formato es incorrecto
-            System.out.println("Fecha no válida: " + dateString);
             return null;
         }
     }
+
     public static boolean isValidDateFormat(String dateString) {
         if (dateString == null || dateString.isEmpty()) {
             return false; // Retorna false si el String es nulo o vacío
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         try {
             // Intenta parsear el String. Si se puede, el formato es válido.
-            LocalDate date = LocalDate.parse(dateString, formatter);
+            LocalDate.parse(dateString, formatter);
             return true; // Formato válido
         } catch (DateTimeParseException e) {
             return false; // Formato inválido

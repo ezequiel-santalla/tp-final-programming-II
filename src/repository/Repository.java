@@ -1,16 +1,18 @@
 package repository;
 
+import exceptions.EntityNotFoundException;
+
 import java.util.List;
 
 public interface Repository<T, V> {
 
-    V create(T model);
+    V create(T model) ;
 
-    T find(V id);
+    T find(V id) throws EntityNotFoundException;
 
-    void update(T model);
+    void update(T model) throws EntityNotFoundException;
 
-    void delete(V id);
+    void delete(V id) throws EntityNotFoundException;
 
-    List<T> getAll();
+    List<T> getAll() throws EntityNotFoundException;
 }

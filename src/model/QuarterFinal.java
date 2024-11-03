@@ -7,8 +7,12 @@ public class QuarterFinal extends Round {
 
     public QuarterFinal() {}
 
-    public QuarterFinal(Integer id, List<Match> matches, Integer givenPoints, Double givenMoney) {
-        super(id, matches, givenPoints, givenMoney);
+    public QuarterFinal(Integer givenPoints) {
+        super(givenPoints);
+    }
+
+    public QuarterFinal(Integer id, List<Match> matches, Integer givenPoints) {
+        super(id, matches, givenPoints);
     }
 
     @Override
@@ -19,10 +23,5 @@ public class QuarterFinal extends Round {
             matches.add(match);
         }
         return matches;
-    }
-
-    @Override
-    public Integer pointsEarned() {
-        return 180;
     }
 }
