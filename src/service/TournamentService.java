@@ -97,7 +97,7 @@ public class TournamentService {
 
     public void generateTournament(String name, String location, ESurface surface, LocalDate startDate, LocalDate endDate) {
         this.tournament = new Tournament(1, name, location, surface, startDate, endDate);
-        tournamentRepositoryImp.
+        tournamentRepositoryImp.create(tournament);
     }
 
     public Tournament getTournament() {
