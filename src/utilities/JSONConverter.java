@@ -1,15 +1,19 @@
-package service;
+package utilities;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import exceptions.FileProcessingException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class JSONConverter {
     private static final ObjectMapper objectMapper = new ObjectMapper();
+
+    private JSONConverter() {
+    }
 
     static {
         // Static block that configures the objMapper to recognize dates
@@ -25,7 +29,7 @@ public class JSONConverter {
                list.add(objectMapper.convertValue(t, tClass));
              }
         } catch (JsonProcessingException | IllegalArgumentException | FileProcessingException e) {
-            new PersistenceFile().saveUnserializableContent(tClass.getSimpleName(), jsonString);
+            PersistenceFile.saveUnserializableContent(tClass.getSimpleName(), jsonString);
             return list;
         }
         return list;

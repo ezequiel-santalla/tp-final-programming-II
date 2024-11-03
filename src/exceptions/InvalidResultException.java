@@ -1,13 +1,8 @@
 package exceptions;
 
-public class InvalidResultException extends RuntimeException {
-
-    public InvalidResultException() {
-        super();
-    }
+public class InvalidResultException extends Exception {
 
     public InvalidResultException(String message) {
         super(message);
     }
-
 }

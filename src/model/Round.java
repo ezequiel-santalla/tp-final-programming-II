@@ -1,8 +1,5 @@
 package model;
 
-
-import service.TournamentService;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,10 +9,16 @@ public abstract class Round {
     protected List<Match> matches;
     private Integer givenPoints;
 
-    public Round(){
+    protected Round() {
+        matches = new ArrayList<>();
     }
 
-    public Round(Integer id, List<Match> matches, Integer givenPoints, Double givenMoney) {
+    protected Round(Integer givenPoints) {
+        this.givenPoints = givenPoints;
+        matches = new ArrayList<>();
+    }
+
+    protected Round(Integer id, List<Match> matches, Integer givenPoints) {
         this.id = id;
         this.matches = matches;
         this.givenPoints = givenPoints;
@@ -60,20 +63,14 @@ public abstract class Round {
 
     @Override
     public String toString() {
-        return String.format(
-                "+-----------------------------+\n" +
-                        "|          Round             |\n" +
-                        "+-----------------------------+\n" +
-                        "| id           | %-12d |\n" +
-                        "| Matches      | %-12s |\n" +
-                        "| Given Points | %-12d |\n" +
-                        "+-----------------------------+",
-                id, matches, givenPoints
-        );
+        return "------------------------------------\n" +
+                "|        Detalles del Torneo        |\n" +
+                "------------------------------------\n" +
+                "| ID                    : " + id + "\n" +
+                "| Partidos              : " + matches + "\n" +
+                "| Puntaje               : " + givenPoints + "\n";
     }
 
     public abstract List<Match> generateMatches(List<Player> players);
-
-    public abstract Integer pointsEarned();
 
 }

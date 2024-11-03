@@ -1,13 +1,9 @@
 package exceptions;
 
-public class MatchNotFoundException extends RuntimeException {
+public class MatchNotFoundException extends EntityNotFoundException {
 
-    public MatchNotFoundException() {
-        super();
-    }
 
     public MatchNotFoundException(String message) {
         super(message);
     }
-
 }

@@ -3,20 +3,16 @@ import model.Player;
 import repository.MatchRepositoryImp;
 import repository.PlayerRepositoryImp;
 import service.MatchService;
-import service.PersistenceFile;
+import utilities.PersistenceFile;
 import service.PlayerService;
 import view.Menu;
-import view.MenuHandler;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        PersistenceFile persistence = new PersistenceFile();
-        MatchRepositoryImp matchRepo = new MatchRepositoryImp(persistence, "data/match.json");
+        MatchRepositoryImp matchRepo = new MatchRepositoryImp();
         MatchService matchService = new MatchService(matchRepo);
         Player playerOne = new Player(1, "42044093", "Marcos", "Moreno", "Argentino", LocalDate.of(1990, Month.APRIL, 22), 200);
         Player playerTwo = new Player(2, "38011234", "Lucía", "Fernández", "Argentina", LocalDate.of(1992, Month.MARCH, 15), 180);
@@ -37,8 +33,7 @@ public class Main {
         Match match = new Match(playerOne, playerTwo);
         //matchService.addMatch(match);
 
-        PersistenceFile persistencePlayer = new PersistenceFile();
-        PlayerRepositoryImp playerRepositoryImp = new PlayerRepositoryImp(persistencePlayer, "data/player.json");
+        PlayerRepositoryImp playerRepositoryImp = new PlayerRepositoryImp();
         PlayerService playerService = new PlayerService(playerRepositoryImp, matchService);
         //System.out.println(playerService.showPlayerRankings());
         //System.out.println(playerService.showStatsByPlayer(1));

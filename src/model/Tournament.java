@@ -3,10 +3,9 @@ package model;
 import enums.ESurface;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-public class Tournament {
+public class Tournament implements Comparable<Tournament>{
     private Integer id;
     private String name;
     private String location;
@@ -16,15 +15,15 @@ public class Tournament {
     private Set<Player> players;
     private List<Round> rounds;
 
-    public Tournament(Integer id, String name, String location, ESurface surface, LocalDate startingDate, LocalDate endingDate, Set<Player> players, List<Round> rounds) {
+    public Tournament(Integer id, String name, String location, ESurface surface, LocalDate startingDate, LocalDate endingDate) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.surface = surface;
         this.startingDate = startingDate;
         this.endingDate = endingDate;
-        this.players = players;
-        this.rounds = rounds;
+        this.players = new TreeSet<>();
+        this.rounds = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -103,5 +102,22 @@ public class Tournament {
                 "| Fecha de Inicio       : " + startingDate + "\n" +
                 "| Fecha de Finalización : " + endingDate + "\n" +
                 "------------------------------------\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Tournament that)) return false;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(location, that.location) && surface == that.surface && Objects.equals(startingDate, that.startingDate) && Objects.equals(endingDate, that.endingDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, location, surface, startingDate, endingDate);
+    }
+
+    @Override
+    public int compareTo(Tournament o) {
+        return this.id.compareTo(o.getId());
     }
 }

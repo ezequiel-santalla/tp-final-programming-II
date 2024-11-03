@@ -2,27 +2,23 @@ package repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import exceptions.FileProcessingException;
-import exceptions.MatchNotFoundException;
 import exceptions.PlayerNotFoundException;
-import model.Match;
 import model.Player;
-import service.JSONConverter;
-import service.PersistenceFile;
+import utilities.JSONConverter;
+import utilities.PersistenceFile;
 import java.util.List;
 import java.util.TreeSet;
 
 public class PlayerRepositoryImp implements Repository<Player, Integer> {
-    private final PersistenceFile persistence;
     private final String filePath;
 
-    public PlayerRepositoryImp(PersistenceFile persistence, String filePath) {
-        this.persistence = persistence;
-        this.filePath = filePath;
+    public PlayerRepositoryImp() {
+        this.filePath = "data/player.json";
     }
 
     @Override
     public Integer create(Player player) {
-        String data = persistence.readFile(filePath);
+        String data = PersistenceFile.readFile(filePath);
 
         Integer id = 0;
 
@@ -35,16 +31,16 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
 
             player.setIdPlayer(id + 1);
             players.add(player);
-            persistence.writeFile(filePath, JSONConverter.toJson(players));
+            PersistenceFile.writeFile(filePath, JSONConverter.toJson(players));
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error processing the file " + filePath);
+            throw new FileProcessingException(filePath);
         }
         return id;
     }
 
     @Override
-    public Player find(Integer id) {
-        String data = persistence.readFile(filePath);
+    public Player find(Integer id) throws PlayerNotFoundException, FileProcessingException {
+        String data = PersistenceFile.readFile(filePath);
         List<Player> players;
 
         try {
@@ -56,13 +52,13 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
             }
             throw new PlayerNotFoundException("No player was found with the ID: " + id);
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error processing the file " + filePath);
+            throw new FileProcessingException(filePath);
         }
     }
 
     @Override
-    public void update(Player modifiedPlayer) {
-        String data = persistence.readFile(filePath);
+    public void update(Player modifiedPlayer) throws PlayerNotFoundException, FileProcessingException {
+        String data = PersistenceFile.readFile(filePath);
         List<Player> players;
 
         try {
@@ -80,15 +76,15 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
                 throw new PlayerNotFoundException("No player was found with the ID: " + modifiedPlayer.getIdPlayer());
             }
 
-            persistence.writeFile(filePath, JSONConverter.toJson(players));
+            PersistenceFile.writeFile(filePath, JSONConverter.toJson(players));
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error processing the file " + filePath);
+            throw new FileProcessingException(filePath);
         }
     }
 
     @Override
-    public void delete(Integer id) {
-        String data = persistence.readFile(filePath);
+    public void delete(Integer id) throws PlayerNotFoundException, FileProcessingException {
+        String data = PersistenceFile.readFile(filePath);
         List<Player> players;
 
         try {
@@ -106,15 +102,15 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
                 throw new PlayerNotFoundException("No player was found with the ID: " + id);
             }
 
-            persistence.writeFile(filePath, JSONConverter.toJson(players));
+            PersistenceFile.writeFile(filePath, JSONConverter.toJson(players));
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error processing the file " + filePath);
+            throw new FileProcessingException(filePath);
         }
     }
 
     @Override
-    public List<Player> getAll() {
-        String data = persistence.readFile(filePath);
+    public List<Player> getAll() throws PlayerNotFoundException, FileProcessingException {
+        String data = PersistenceFile.readFile(filePath);
 
         try {
             List<Player> players = JSONConverter.fromJsonArrayToList(data, Player.class);
@@ -124,7 +120,7 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
             }
             return players;
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Error processing the file " + filePath);
+            throw new FileProcessingException(filePath);
         }
     }
 }

@@ -1,8 +1,9 @@
 package view;
 
 import model.Player;
-import service.Utilities;
+import utilities.Utilities;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,15 +14,14 @@ public class MenuHandler {
 
     public void showMenu() {
         textToPrint.setLength(0);
-        textToPrint.append("Ingrese el número de la opción elegida\n\n");
+        textToPrint.append("\n\n");
         for (int i = 0; i < menuOptions.size(); i++) {
             textToPrint.append("\n").append(i + 1).append(" - ").append(menuOptions.get(i));
         }
         textToPrint.append("\n0 - Salir");
+        textToPrint.append("\n\nIngrese el número de la opción elegida: ");
         System.out.println(textToPrint);
     }
-
-
 
 
     public Integer requestEntry(List<String> menuOptions) {
@@ -46,12 +46,11 @@ public class MenuHandler {
                 scanner.nextLine();
             }
 
-        } while (!isAValidNumber&&index!=0);
+        } while (!isAValidNumber && index != 0);
         return index;
     }
 
-    public Player requestPlayerData(){
-        Player player = new Player();
+    private String requestDni() {
         String dataInput;
         boolean flag = false;
 
@@ -59,68 +58,52 @@ public class MenuHandler {
             System.out.println("Ingrese el dni: ");
             dataInput = scanner.nextLine();
             if (Utilities.isValidateDni(dataInput)) {
-                player.setDni(dataInput);
                 flag = true;
             } else {
                 System.out.println("El dni no es válido");
             }
         } while (!flag);
+        return dataInput;
+    }
 
-        flag=false;
-
+    private String requestAlphabeticInput(String dataMessage) {
+        String dataInput;
+        boolean flag = false;
         do {
-            System.out.println("Ingrese el nombre: ");
+            System.out.println("Ingrese " + dataMessage + ": ");
             dataInput = scanner.nextLine();
             if (Utilities.isValidName(dataInput)) {
-                player.setName(Utilities.toFormatName(dataInput));
-                flag = true;
-            } else {
-                System.out.println("El nombre no es válido");
-            }
-        } while (!flag);
-
-
-        flag=false;
-
-        do {
-            System.out.println("Ingrese el apellido: ");
-            dataInput = scanner.nextLine();
-            if (Utilities.isValidName(dataInput)) {
-                player.setLastName(Utilities.toFormatName(dataInput));
-                flag = true;
-            } else {
-                System.out.println("El apellido no es válido");
-            }
-        } while (!flag);
-
-        flag=false;
-
-        do {
-            System.out.println("Ingrese la nacionalidad: ");
-            dataInput = scanner.nextLine();
-            if (Utilities.isValidName(dataInput)) {
-                player.setNationality(Utilities.toFormatName(dataInput));
                 flag = true;
             } else {
                 System.out.println("El dato ingresado no es válido");
             }
         } while (!flag);
+        return dataInput;
+    }
 
-        flag=false;
-
-
+    private LocalDate requestDate(String dataMessage){
+        String dataInput;
+        boolean flag = false;
         do {
-            System.out.println("Ingrese la fecha de nacimiento <dd/MM/aaaa>: ");
+            System.out.println("Ingrese la fecha "+dataMessage+" <dd/MM/aaaa>: ");
             dataInput = scanner.nextLine();
             if (Utilities.isValidDateFormat(dataInput)) {
-                player.setDateOfBirth(Utilities.parseLocalDate(dataInput));
                 flag = true;
             } else {
                 System.out.println("No es una fecha válida");
             }
         } while (!flag);
+        return Utilities.parseLocalDate(dataInput);
+    }
 
 
+    public Player requestPlayerData() {
+        Player player = new Player();
+        player.setDni(requestDni());
+        player.setName(Utilities.toFormatName(requestAlphabeticInput("el nombre")));
+        player.setLastName(Utilities.toFormatName(requestAlphabeticInput("el apellido")));
+        player.setNationality(Utilities.toFormatName(requestAlphabeticInput("la nacionalidad")));
+        player.setDateOfBirth(requestDate("de nacimiento"));
 
         return player;
     }

@@ -1,13 +1,8 @@
 package exceptions;
 
-public class TournamentNotFoundException extends RuntimeException {
+public class TournamentNotFoundException extends EntityNotFoundException {
 
-  public TournamentNotFoundException(String message) {
-    super(message);
-  }
-
-  @Override
-  public String getMessage() {
-    return super.getMessage();
-  }
+    public TournamentNotFoundException(String message) {
+        super(message);
+    }
 }

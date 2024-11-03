@@ -8,8 +8,12 @@ public class Final extends Round {
     public Final() {
     }
 
-    public Final(Integer id, List<Match> matches, Integer givenPoints, Double givenMoney) {
-        super(id, matches, givenPoints, givenMoney);
+    public Final(Integer givenPoints) {
+        super(givenPoints);
+    }
+
+    public Final(Integer id, List<Match> matches, Integer givenPoints) {
+        super(id, matches, givenPoints);
     }
 
     @Override
@@ -22,8 +26,4 @@ public class Final extends Round {
         return matches;
     }
 
-    @Override
-    public Integer pointsEarned() {
-        return 1200;
-    }
 }
