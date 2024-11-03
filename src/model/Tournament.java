@@ -13,7 +13,20 @@ public class Tournament implements Comparable<Tournament>{
     private LocalDate startingDate;
     private LocalDate endingDate;
     private Set<Player> players;
-    private List<Round> rounds;
+    private Map<Round,List<Match>> rounds;
+
+    public Tournament() {
+    }
+
+    public Tournament(String name, String location, ESurface surface, LocalDate startingDate, LocalDate endingDate) {
+        this.name = name;
+        this.location = location;
+        this.surface = surface;
+        this.startingDate = startingDate;
+        this.endingDate = endingDate;
+        this.players = new TreeSet<>();
+        this.rounds = new HashMap<>();
+    }
 
     public Tournament(Integer id, String name, String location, ESurface surface, LocalDate startingDate, LocalDate endingDate) {
         this.id = id;
@@ -23,7 +36,7 @@ public class Tournament implements Comparable<Tournament>{
         this.startingDate = startingDate;
         this.endingDate = endingDate;
         this.players = new TreeSet<>();
-        this.rounds = new ArrayList<>();
+        this.rounds = new HashMap<>();
     }
 
     public Integer getId() {
@@ -82,11 +95,11 @@ public class Tournament implements Comparable<Tournament>{
         this.players = players;
     }
 
-    public List<Round> getRounds() {
+    public Map<Round,List<Match>> getRounds() {
         return rounds;
     }
 
-    public void setRounds(List<Round> rounds) {
+    public void setRounds(Map<Round,List<Match>> rounds) {
         this.rounds = rounds;
     }
 

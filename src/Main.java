@@ -1,19 +1,37 @@
+import enums.ESurface;
+import exceptions.IncompleteMatchException;
+import exceptions.InvalidResultException;
 import model.Match;
 import model.Player;
+import model.Result;
 import repository.MatchRepositoryImp;
 import repository.PlayerRepositoryImp;
+import repository.TournamentRepositoryImp;
 import service.MatchService;
-import utilities.PersistenceFile;
 import service.PlayerService;
+import service.TournamentService;
+import utilities.Utilities;
 import view.Menu;
+import view.TournamentDisplay;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
         MatchRepositoryImp matchRepo = new MatchRepositoryImp();
         MatchService matchService = new MatchService(matchRepo);
+
+
+        PlayerRepositoryImp playerRepositoryImp = new PlayerRepositoryImp();
+        PlayerService playerService = new PlayerService(playerRepositoryImp, matchService);
+
+        TournamentRepositoryImp tournamentRepositoryImp = new TournamentRepositoryImp();
+        TournamentService tournamentService = new TournamentService(tournamentRepositoryImp, matchService);
+
         Player playerOne = new Player(1, "42044093", "Marcos", "Moreno", "Argentino", LocalDate.of(1990, Month.APRIL, 22), 200);
         Player playerTwo = new Player(2, "38011234", "Lucía", "Fernández", "Argentina", LocalDate.of(1992, Month.MARCH, 15), 180);
         Player playerThree = new Player(3, "41023567", "Carlos", "Gómez", "Uruguayo", LocalDate.of(1991, Month.JANUARY, 10), 220);
@@ -29,12 +47,11 @@ public class Main {
         Player playerThirteen = new Player(13, "49054321", "Agustín", "Vega", "Argentino", LocalDate.of(1994, Month.MARCH, 23), 200);
         Player playerFourteen = new Player(14, "50067890", "Camila", "Castro", "Uruguaya", LocalDate.of(1988, Month.SEPTEMBER, 19), 190);
         Player playerFifteen = new Player(15, "51023456", "Francisco", "Silva", "Paraguayo", LocalDate.of(1986, Month.APRIL, 4), 225);
+        Player playerSixteen = new Player(16, "41027463", "Leonardo", "Benavidez", "Chino", LocalDate.of(1996, Month.APRIL, 13), 455);
 
         Match match = new Match(playerOne, playerTwo);
         //matchService.addMatch(match);
 
-        PlayerRepositoryImp playerRepositoryImp = new PlayerRepositoryImp();
-        PlayerService playerService = new PlayerService(playerRepositoryImp, matchService);
         //System.out.println(playerService.showPlayerRankings());
         //System.out.println(playerService.showStatsByPlayer(1));
 
@@ -67,8 +84,41 @@ public class Main {
         System.out.println(matchService.getWinner(match));
 
          */
-    Menu menu = new Menu();
-    menu.runMenu();
+        Menu menu = new Menu(tournamentService, matchService, playerService);
+        //menu.runMenu();
 
+
+        List<Match> matches = new ArrayList<>();
+
+        // Suponiendo que tienes jugadores y resultados configurados
+        List<Result> resultList = new ArrayList<>();
+        try {
+            resultList.add(new Result(2, 0));
+            resultList.add(new Result(0, 2));
+            resultList.add(new Result(2, 1));
+            resultList.add(new Result(1, 2));
+        } catch (InvalidResultException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        matches.add(new Match(1, playerOne, playerTwo, resultList.get(Utilities.getRandomNumber())));
+        matches.add(new Match(2, playerThree, playerFour, resultList.get(Utilities.getRandomNumber())));
+        matches.add(new Match(3, playerFive, playerSix, resultList.get(Utilities.getRandomNumber())));
+        matches.add(new Match(4, playerSeven, playerEight, resultList.get(Utilities.getRandomNumber())));
+        matches.add(new Match(5, playerNine, playerTen, resultList.get(Utilities.getRandomNumber())));
+        matches.add(new Match(6, playerEleven, playerTwelve, resultList.get(Utilities.getRandomNumber())));
+        matches.add(new Match(7, playerThirteen, playerFourteen, resultList.get(Utilities.getRandomNumber())));
+        matches.add(new Match(8, playerFifteen, playerSixteen, resultList.get(Utilities.getRandomNumber())));
+        TournamentDisplay display = new TournamentDisplay();
+        display.showHorizontalFixture(matches);
+
+        tournamentService.generateTournament("Torneo de Veteranos", "Mar del Plata", ESurface.CARPET, LocalDate.of(2024, 11, 3), LocalDate.of(2024, 12, 4));
+        try {
+            tournamentService.generateNextRound();
+        } catch (IncompleteMatchException e) {
+            System.out.println("No se puedo generar la siguiente ronda");
+        }
+        System.out.println(tournamentService.getTournament().getRounds().keySet().getClass().getName());
     }
 }

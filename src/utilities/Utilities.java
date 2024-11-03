@@ -1,5 +1,6 @@
 package utilities;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -65,5 +66,18 @@ public class Utilities {
         } catch (DateTimeParseException e) {
             return false; // Formato inválido
         }
+    }
+    public static void cleanConsole(){
+        try {
+            new ProcessBuilder("cmd","/c","cls").inheritIO().start().waitFor();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static int getRandomNumber() {
+        return (int) (Math.random() * 3) + 1; // Genera un número entre 1 y 3
     }
 }

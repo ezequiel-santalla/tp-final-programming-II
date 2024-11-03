@@ -6,9 +6,11 @@ import exceptions.IncompleteMatchException;
 import exceptions.TournamentNotFoundException;
 import model.*;
 import repository.TournamentRepositoryImp;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class TournamentService {
     private final TournamentRepositoryImp tournamentRepositoryImp;
@@ -22,7 +24,7 @@ public class TournamentService {
     }
 
 
-    public Integer addTournament(Tournament tournament) throws FileProcessingException{
+    public Integer addTournament(Tournament tournament) throws FileProcessingException {
         return tournamentRepositoryImp.create(tournament);
     }
 
@@ -43,17 +45,16 @@ public class TournamentService {
         tournamentRepositoryImp.delete(id);
     }
 
-    public List<Tournament> getAllTournaments() throws TournamentNotFoundException, FileProcessingException{
+    public List<Tournament> getAllTournaments() throws TournamentNotFoundException, FileProcessingException {
         return tournamentRepositoryImp.getAll();
     }
 
 
     public void assignPoints() throws IncompleteMatchException {
-        for (Round round : tournament.getRounds()) {
-            for (Match match : round.getMatches()) {
+        for (Map.Entry<Round, List<Match>> entry : tournament.getRounds().entrySet()) {
+            for (Match match : entry.getValue()) {
                 Player player = matchService.getWinner(match);
-                // se puede simplificar agregando addPoints() en Player
-                player.setPoints(player.getPoints() + round.getGivenPoints());
+                player.setPoints(player.getPoints() + entry.getKey().getGivenPoints());
             }
         }
     }
@@ -67,41 +68,60 @@ public class TournamentService {
         }
     }
 
-    public List<Player> getPlayersStillCompeting() throws IncompleteMatchException{
-        Round lastRound = this.tournament.getRounds().getLast();
+    public List<Player> getPlayersStillCompeting() throws IncompleteMatchException {
+        // Obtener todas las rondas
+        List<Round> rounds = new ArrayList<>(this.tournament.getRounds().keySet());
+
+        // Verificar si hay rondas disponibles
+        if (rounds.isEmpty()) {
+            throw new IncompleteMatchException("No hay rondas disponibles.");
+        }
+
+        // Obtener la última ronda
+        Round lastRound = rounds.getLast();
+
+        // Obtener los partidos de la última ronda
+        List<Match> lastRoundMatches = this.tournament.getRounds().get(lastRound);
+
         List<Player> playersStillCompeting = new ArrayList<>();
-        for (Match match : lastRound.getMatches()) {
-            playersStillCompeting.add(matchService.getWinner(match));
+        for (Match match : lastRoundMatches) {
+            Player winner = matchService.getWinner(match);
+            if (winner != null) { // Asegúrate de que el ganador no sea null
+                playersStillCompeting.add(winner);
+            }
         }
         return playersStillCompeting;
     }
 
-    public void generateNextRound() throws IncompleteMatchException{
-        switch (tournament.getRounds().size()) {
-            case 0:
-                tournament.getRounds().add(new FirstRound());
-                break;
-            case 1:
-                tournament.getRounds().add(new QuarterFinal());
-                break;
-            case 2:
-                tournament.getRounds().add(new Semifinal());
-                break;
-            default:
-                tournament.getRounds().add(new Final());
-                break;
-        }
-        // Generar los partidos de la nueva ronda y añadirla al torneo
-        tournament.getRounds().getLast().generateMatches(getPlayersStillCompeting());
+
+    public void generateNextRound() throws IncompleteMatchException {
+        int numberOfRounds = tournament.getRounds().size();
+        Round nextRound = switch (numberOfRounds) {
+            case 0 -> new FirstRound();
+            case 1 -> new QuarterFinal();
+            case 2 -> new Semifinal();
+            default -> new Final();
+        };
+        tournament.getRounds().put(nextRound, new ArrayList<>());
+        generateMatches(getPlayersStillCompeting(), nextRound);
     }
 
-    public void generateTournament(String name, String surface, LocalDate startDate, LocalDate endDate) {
-        ESurface tournamentSurface = ESurface.valueOf(surface);
-        this.tournament = new Tournament(1, name, "Default Location", tournamentSurface, startDate, endDate);
+
+    public void generateMatches(List<Player> playerList, Round currentRound) {
+        for (int i = 0; i < playerList.size(); i += 2) {
+            tournament.getRounds().get(currentRound).add(new Match(playerList.get(i), playerList.get(i + 1)));
+        }
+    }
+
+
+    public void generateTournament(String name, String location, ESurface surface, LocalDate startDate, LocalDate endDate) {
+        this.tournament = new Tournament(name, location, surface, startDate, endDate);
+        tournamentRepositoryImp.create(tournament);
     }
 
     public Tournament getTournament() {
         return tournament;
     }
+
 
 }
