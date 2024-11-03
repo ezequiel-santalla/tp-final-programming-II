@@ -21,6 +21,7 @@ public class Player implements Comparable<Player> {
         this.dni = dni;
         this.nationality = nationality;
         this.dateOfBirth = dateOfBirth;
+        this.points = 0;
     }
 
     public Player(Integer idPlayer, String dni, String name, String lastName, String nationality, LocalDate dateOfBirth, Integer points) {
