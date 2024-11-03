@@ -104,18 +104,21 @@ public class Player implements Comparable<Player> {
 
     @Override
     public String toString() {
-        return  "------------------------------------\n" +
-                "|          Detalles del Jugador          |\n" +
-                "------------------------------------\n" +
-                "| ID                  : " + idPlayer + "\n" +
-                "| Dni                 : " + dni + "\n" +
-                "| Nombre              : " + name + "\n" +
-                "| Apellido            : " + lastName + "\n" +
-                "| Nacionalidad        : " + nationality + "\n" +
-                "| Fecha de Nacimiento : " + dateOfBirth + "\n" +
-                "| Puntos              : " + points + "\n" +
-                "------------------------------------\n";
+        return  """
+            ------------------------------------
+            |          Detalles del Jugador          |
+            ------------------------------------
+            | ID                  : %s
+            | Dni                 : %s
+            | Nombre              : %s
+            | Apellido            : %s
+            | Nacionalidad        : %s
+            | Fecha de Nacimiento : %s
+            | Puntos              : %d
+            ------------------------------------
+            """.formatted(idPlayer, dni, name, lastName, nationality, dateOfBirth, points);
     }
+
 
     @Override
     public int compareTo(Player o) {

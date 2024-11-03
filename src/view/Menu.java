@@ -132,11 +132,13 @@ public class Menu {
                 case 2:
                     System.out.println("opcion 2");
 
+
                     break;
                 case 3:
-                    System.out.println("opcion 3");
+                    System.out.println(playerService.getAllPlayers());
                     break;
                 default:
+
                     break;
             }
         } while (index!=0);
