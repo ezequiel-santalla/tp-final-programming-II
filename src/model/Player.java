@@ -130,6 +130,6 @@ public class Player implements Comparable<Player> {
 
     @Override
     public int compareTo(Player o) {
-        return this.idPlayer.compareTo(o.idPlayer);
+        return this.dni.compareTo(o.dni);
     }
 }

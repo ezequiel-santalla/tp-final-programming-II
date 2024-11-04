@@ -1,5 +1,6 @@
 import enums.ESurface;
 import exceptions.IncompleteMatchException;
+import exceptions.PlayerNotFoundException;
 import exceptions.TournamentFullException;
 import exceptions.TournamentNotFoundException;
 import model.Match;

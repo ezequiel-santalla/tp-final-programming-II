@@ -13,7 +13,6 @@ public class PlayerService {
     private final PlayerRepositoryImp playerRepository;
     private TournamentService tournamentService;
 
-
     public PlayerService(PlayerRepositoryImp playerRepository) {
         this.playerRepository = playerRepository;
     }

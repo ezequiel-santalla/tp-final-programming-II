@@ -161,6 +161,7 @@ public class MenuHandler {
             return null;
         }
         player.setDateOfBirth(dateOfBirth);
+        player.setPoints(0);
 
         return player;
     }
