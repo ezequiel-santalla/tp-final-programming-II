@@ -12,51 +12,65 @@ public class MenuHandler {
     private final StringBuilder textToPrint = new StringBuilder();
     private final Scanner scanner = new Scanner(System.in);
 
-    public void showMenu() {
-        textToPrint.setLength(0);
-        textToPrint.append("\n\n");
-        for (int i = 0; i < menuOptions.size(); i++) {
-            textToPrint.append("\n").append(i + 1).append(" - ").append(menuOptions.get(i));
+    public void showMenu(List<String> menuOptions) {
+        System.out.println("\n--- Menú ---");
+        for (int i = 0; i < menuOptions.size() - 1; i++) {
+            System.out.println((i + 1) + " - " + menuOptions.get(i));
         }
-        textToPrint.append("\n0 - Salir");
-        textToPrint.append("\n\nIngrese el número de la opción elegida: ");
-        System.out.println(textToPrint);
+        System.out.println("0 - " + menuOptions.getLast());
+        System.out.print("Seleccione una opción: ");
     }
 
-
     public Integer requestEntry(List<String> menuOptions) {
-        this.menuOptions = menuOptions;
         String selectedIndex;
         Integer index = -1;
-        boolean isAValidNumber = false;
+        boolean isValid = false;
 
         do {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-            showMenu();
+            showMenu(menuOptions);
             selectedIndex = scanner.nextLine();
             if (Utilities.isNumericString(selectedIndex)) {
                 index = Integer.parseInt(selectedIndex);
-                if (index <= (menuOptions.size()) && index >= 0)
-                    isAValidNumber = true;
+                if (index >= 0 && index < menuOptions.size()) {
+                    isValid = true;
+                }
             }
-            if (!isAValidNumber) {
-                System.out.println("No ingresó un número válido");
-                System.out.println("Presione <ENTER> para reintentar...");
-                scanner.nextLine();
+            if (!isValid) {
+                System.out.println("Opción no válida. Intente nuevamente.");
             }
-
-        } while (!isAValidNumber && index != 0);
+        } while (!isValid);
         return index;
     }
 
-    private String requestDni() {
+    public Integer requestID() {
         String dataInput;
         boolean flag = false;
 
         do {
-            System.out.println("Ingrese el dni: ");
+            System.out.println("Ingrese el ID (o '0' para cancelar): ");
             dataInput = scanner.nextLine();
+            if (dataInput.equals("0")) {
+                return null; // Cancela la carga
+            }
+            if (Utilities.isNumericString(dataInput)) {
+                flag = true;
+            } else {
+                System.out.println("El ID no es válido");
+            }
+        } while (!flag);
+        return Integer.parseInt(dataInput);
+    }
+
+    public String requestDni() {
+        String dataInput;
+        boolean flag = false;
+
+        do {
+            System.out.println("Ingrese el dni (o '0' para cancelar): ");
+            dataInput = scanner.nextLine();
+            if (dataInput.equals("0")) {
+                return null; // Cancela la carga
+            }
             if (Utilities.isValidateDni(dataInput)) {
                 flag = true;
             } else {
@@ -66,12 +80,15 @@ public class MenuHandler {
         return dataInput;
     }
 
-    private String requestAlphabeticInput(String dataMessage) {
+    public String requestAlphabeticInput(String dataMessage) {
         String dataInput;
         boolean flag = false;
         do {
-            System.out.println("Ingrese " + dataMessage + ": ");
+            System.out.println("Ingrese " + dataMessage + " (o '0' para cancelar): ");
             dataInput = scanner.nextLine();
+            if (dataInput.equals("0")) {
+                return null; // Cancela la carga
+            }
             if (Utilities.isValidName(dataInput)) {
                 flag = true;
             } else {
@@ -81,12 +98,15 @@ public class MenuHandler {
         return dataInput;
     }
 
-    private LocalDate requestDate(String dataMessage){
+    public LocalDate requestDate(String dataMessage) {
         String dataInput;
         boolean flag = false;
         do {
-            System.out.println("Ingrese la fecha "+dataMessage+" <dd/MM/aaaa>: ");
+            System.out.println("Ingrese la fecha " + dataMessage + " <dd/MM/aaaa> (o '0' para cancelar): ");
             dataInput = scanner.nextLine();
+            if (dataInput.equals("0")) {
+                return null; // Cancela la carga
+            }
             if (Utilities.isValidDateFormat(dataInput)) {
                 flag = true;
             } else {
@@ -96,15 +116,56 @@ public class MenuHandler {
         return Utilities.parseLocalDate(dataInput);
     }
 
-
     public Player requestPlayerData() {
         Player player = new Player();
-        player.setDni(requestDni());
-        player.setName(Utilities.toFormatName(requestAlphabeticInput("el nombre")));
-        player.setLastName(Utilities.toFormatName(requestAlphabeticInput("el apellido")));
-        player.setNationality(Utilities.toFormatName(requestAlphabeticInput("la nacionalidad")));
-        player.setDateOfBirth(requestDate("de nacimiento"));
+
+        String dni = requestDni();
+        if (dni == null) {
+            System.out.println("Carga de datos cancelada.");
+            return null; // Cancela la carga y retorna null
+        }
+        player.setDni(dni);
+
+        String name = requestAlphabeticInput("el nombre");
+        if (name == null) {
+            System.out.println("Carga de datos cancelada.");
+            return null;
+        }
+        player.setName(Utilities.toFormatName(name));
+
+        String lastName = requestAlphabeticInput("el apellido");
+        if (lastName == null) {
+            System.out.println("Carga de datos cancelada.");
+            return null;
+        }
+        player.setLastName(Utilities.toFormatName(lastName));
+
+        String nationality = requestAlphabeticInput("la nacionalidad");
+        if (nationality == null) {
+            System.out.println("Carga de datos cancelada.");
+            return null;
+        }
+        player.setNationality(Utilities.toFormatName(nationality));
+
+        LocalDate dateOfBirth = requestDate("de nacimiento");
+        if (dateOfBirth == null) {
+            System.out.println("Carga de datos cancelada.");
+            return null;
+        }
+        player.setDateOfBirth(dateOfBirth);
 
         return player;
+    }
+
+    public Boolean requestConfirmation() {
+        String dataInput;
+        boolean flag = false;
+
+        System.out.println("Ingrese 'S' para confirmar u otra tecla para cancelar: ");
+        dataInput = scanner.nextLine();
+        if (dataInput.equalsIgnoreCase("s")) {
+            flag = true;
+        }
+        return flag;
     }
 }
