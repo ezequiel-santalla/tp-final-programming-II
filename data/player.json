@@ -1,1 +1,15 @@
-[{"idPlayer":1,"dni":"51023456","name":"Francisco","lastName":"Silva","nationality":"Paraguayo","dateOfBirth":[1986,4,4],"points":225}]
+[
+  {
+    "idPlayer": 1,
+    "dni": "12345678",
+    "name": "Ezequiel",
+    "lastName": "Santalla",
+    "nationality": "Arg",
+    "dateOfBirth": [
+      1999,
+      8,
+      13
+    ],
+    "points": null
+  }
+]

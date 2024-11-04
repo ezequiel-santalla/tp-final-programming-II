@@ -108,7 +108,7 @@ public class Main {
             tournamentService.registerPlayer(playerFifteen);
             tournamentService.registerPlayer(playerSixteen);
         } catch (TournamentFullException e) {
-            System.out.println("Ya no se pueden registrar mas jugadores");
+            //System.out.println("Ya no se pueden registrar mas jugadores");
         }
         try {
             tournamentService.generateNextRound();
@@ -128,8 +128,8 @@ public class Main {
             System.out.println("No hay jugadores inscriptos");
         }
 
-        System.out.println(tournamentService.getTournament().getRounds().getFirst().getMatches());
+        //System.out.println(tournamentService.getTournament().getRounds().getFirst().getMatches());
 
-
+        menu.runMenu();
     }
 }

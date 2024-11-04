@@ -103,29 +103,29 @@ public class Player implements Comparable<Player> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Player player)) return false;
-        return Objects.equals(idPlayer, player.idPlayer);
+        return Objects.equals(dni, player.dni);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(idPlayer);
+        return Objects.hashCode(dni);
     }
 
     @Override
     public String toString() {
-        return  """
-            ------------------------------------
-            |          Detalles del Jugador          |
-            ------------------------------------
-            | ID                  : %s
-            | Dni                 : %s
-            | Nombre              : %s
-            | Apellido            : %s
-            | Nacionalidad        : %s
-            | Fecha de Nacimiento : %s
-            | Puntos              : %d
-            ------------------------------------
-            """.formatted(idPlayer, dni, name, lastName, nationality, dateOfBirth, points);
+        return """
+        ----------------------------------------
+        |          Detalles del Jugador        |
+        ----------------------------------------
+        | ID                  : %-14s |
+        | Dni                 : %-14s |
+        | Nombre              : %-14s |
+        | Apellido            : %-14s |
+        | Nacionalidad        : %-14s |
+        | Fecha de Nacimiento : %-14s |
+        | Puntos              : %-14d |
+        ----------------------------------------
+        """.formatted(idPlayer, dni, name, lastName, nationality, dateOfBirth, points);
     }
 
     @Override

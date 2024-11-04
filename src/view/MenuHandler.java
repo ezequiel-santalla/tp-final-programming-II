@@ -13,13 +13,19 @@ public class MenuHandler {
     private final Scanner scanner = new Scanner(System.in);
 
     public void showMenu(List<String> menuOptions) {
-        System.out.println("\n--- Menú ---");
+        System.out.println("\n----------------------------------------");
+        System.out.println("|               Menú                   |");
+        System.out.println("----------------------------------------");
+
         for (int i = 0; i < menuOptions.size() - 1; i++) {
-            System.out.println((i + 1) + " - " + menuOptions.get(i));
+            System.out.printf("| %2d - %-31s |\n", i + 1, menuOptions.get(i));
         }
-        System.out.println("0 - " + menuOptions.getLast());
-        System.out.print("Seleccione una opción: ");
+        System.out.printf("| %2d - %-31s |\n", 0, menuOptions.getLast());
+
+        System.out.println("----------------------------------------");
+        System.out.print("\nSeleccione una opción: ");
     }
+
 
     public Integer requestEntry(List<String> menuOptions) {
         String selectedIndex;
@@ -47,8 +53,9 @@ public class MenuHandler {
         boolean flag = false;
 
         do {
-            System.out.println("Ingrese el ID (o '0' para cancelar): ");
+            System.out.print("Ingrese el ID (o '0' para cancelar): ");
             dataInput = scanner.nextLine();
+            System.out.println();
             if (dataInput.equals("0")) {
                 return null; // Cancela la carga
             }
@@ -66,7 +73,7 @@ public class MenuHandler {
         boolean flag = false;
 
         do {
-            System.out.println("Ingrese el dni (o '0' para cancelar): ");
+            System.out.print("\nIngrese el dni (o '0' para cancelar): ");
             dataInput = scanner.nextLine();
             if (dataInput.equals("0")) {
                 return null; // Cancela la carga
@@ -84,7 +91,7 @@ public class MenuHandler {
         String dataInput;
         boolean flag = false;
         do {
-            System.out.println("Ingrese " + dataMessage + " (o '0' para cancelar): ");
+            System.out.print("Ingrese " + dataMessage + " (o '0' para cancelar): ");
             dataInput = scanner.nextLine();
             if (dataInput.equals("0")) {
                 return null; // Cancela la carga
@@ -102,7 +109,7 @@ public class MenuHandler {
         String dataInput;
         boolean flag = false;
         do {
-            System.out.println("Ingrese la fecha " + dataMessage + " <dd/MM/aaaa> (o '0' para cancelar): ");
+            System.out.print("Ingrese la fecha " + dataMessage + " <dd/MM/aaaa> (o '0' para cancelar): ");
             dataInput = scanner.nextLine();
             if (dataInput.equals("0")) {
                 return null; // Cancela la carga
@@ -111,6 +118,7 @@ public class MenuHandler {
                 flag = true;
             } else {
                 System.out.println("No es una fecha válida");
+                System.out.println();
             }
         } while (!flag);
         return Utilities.parseLocalDate(dataInput);
@@ -161,7 +169,7 @@ public class MenuHandler {
         String dataInput;
         boolean flag = false;
 
-        System.out.println("Ingrese 'S' para confirmar u otra tecla para cancelar: ");
+        System.out.print("Ingrese 'S' para confirmar u otra tecla para cancelar: ");
         dataInput = scanner.nextLine();
         if (dataInput.equalsIgnoreCase("s")) {
             flag = true;

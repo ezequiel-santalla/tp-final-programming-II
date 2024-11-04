@@ -41,7 +41,7 @@ public class Menu {
                 case 1 -> tournamentMenu();
                 case 2 -> playersMenu();
                 case 3 -> matchesMenu();
-                case 0 -> System.out.println("Saliendo del programa...");
+                case 0 -> System.out.println("\nSaliendo del programa...");
                 default -> System.out.println("Opción no válida.");
             }
         } while (index != 0);
@@ -76,16 +76,27 @@ public class Menu {
                     Player player = menuHandler.requestPlayerData();
                     if (player != null) {
                         playerService.addPlayer(player);
+                        System.out.println();
                         System.out.println("Jugador agregado correctamente.");
                     }
                 }
-                case 2 -> { //implementar modificar jugador
+                case 2 -> {
+                    System.out.println();//implementar modificar jugador
                 }
-                case 3 -> showPlayersList();
-                case 4 -> showPlayerData(menuHandler.requestID());
-                case 5 -> confirmPlayerDeleted(menuHandler.requestID());
-                case 0 -> System.out.println("Volviendo al menú principal...");
-                default -> System.out.println("Opción no válida.");
+                case 3 -> {
+                    System.out.println();
+                    showPlayersList();
+                }
+                case 4 -> {
+                    System.out.println();
+                    showPlayerData(menuHandler.requestID());
+                }
+                case 5 -> {
+                    System.out.println();
+                    confirmPlayerDeleted(menuHandler.requestID());
+                }
+                case 0 -> System.out.println("\nVolviendo al menú principal...");
+                default -> System.out.println("\nOpción no válida.");
             }
         } while (index != 0);
     }
@@ -123,18 +134,17 @@ public class Menu {
     private void confirmPlayerDeleted(Integer playerID) {
 
         if (showPlayerData(playerID)) {
-            System.out.println("Se eliminrá jugador");
+            System.out.println("Se eliminará jugador...");
             if (menuHandler.requestConfirmation()) {
                 try {
                     playerService.deletePlayer(playerID);
-                    System.out.println("Jugador eliminado");
+                    System.out.println("Jugador eliminado correctamente");
                 } catch (PlayerNotFoundException e) {
-                    System.out.println("No se pudo emininar el jugador");
+                    System.out.println("No se pudo eliminar el jugador");
                 }
             }
         }
     }
-
 
     private void showPlayersList() {
         try {

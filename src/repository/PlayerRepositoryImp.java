@@ -28,6 +28,7 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
             if (!players.isEmpty()) {
                 id = players.last().getIdPlayer();
             }
+            System.out.println(player.getIdPlayer());
 
             player.setIdPlayer(id + 1);
             players.add(player);
