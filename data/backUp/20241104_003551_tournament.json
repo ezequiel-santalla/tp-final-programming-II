@@ -1,0 +1,27 @@
+[
+  {
+    "idTournament": 1,
+    "name": "torneo",
+    "location": "MDP",
+    "surface": "CARPET",
+    "startingDate": [
+      2024,
+      2,
+      2
+    ],
+    "endingDate": [
+      2024,
+      2,
+      6
+    ],
+    "players": [],
+    "rounds": [
+      {
+        "id": null,
+        "matches": [],
+        "givenPoints": null
+      }
+    ]
+  }
+]
+

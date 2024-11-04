@@ -1,12 +1,18 @@
 package model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 public class Match implements Comparable<Match>{
+    @JsonProperty("idMatch")
     private Integer idMatch;
+    @JsonProperty("playerOne")
     private Player playerOne;
+    @JsonProperty("playerTwo")
     private Player playerTwo;
+    @JsonProperty("result")
     private Result result;
 
     public Match() {

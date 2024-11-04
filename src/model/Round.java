@@ -1,12 +1,27 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Round {
+    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+    @JsonSubTypes({
+            @JsonSubTypes.Type(value = FirstRound.class, name = "firstRound"),
+            @JsonSubTypes.Type(value = QuarterFinal.class, name = "quarterFinal"),
+            @JsonSubTypes.Type(value = Semifinal.class, name = "semifinal"),
+            @JsonSubTypes.Type(value = Final.class, name = "final")
+    })
+    public abstract class Round {
+        // Propiedades y métodos de la clase Round
+
+    @JsonProperty("id")
     private Integer id;
+    @JsonProperty("matches")
     protected List<Match> matches;
+    @JsonProperty("givenPoints")
     private Integer givenPoints;
 
     protected Round() {

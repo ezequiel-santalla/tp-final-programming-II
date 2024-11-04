@@ -6,6 +6,7 @@ import java.util.List;
 public class Semifinal extends Round {
 
     public Semifinal() {
+        super();
     }
 
     public Semifinal(Integer givenPoints) {

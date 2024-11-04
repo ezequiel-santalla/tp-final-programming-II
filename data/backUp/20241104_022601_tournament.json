@@ -257,7 +257,10 @@
               ],
               "points": 180
             },
-            "result": null
+            "result": {
+              "setsWonPlayerOne": null,
+              "setsWonPlayerTwo": null
+            }
           },
           {
             "idMatch": 2,
@@ -287,7 +290,10 @@
               ],
               "points": 210
             },
-            "result": null
+            "result": {
+              "setsWonPlayerOne": null,
+              "setsWonPlayerTwo": null
+            }
           },
           {
             "idMatch": 3,
@@ -317,7 +323,10 @@
               ],
               "points": 175
             },
-            "result": null
+            "result": {
+              "setsWonPlayerOne": null,
+              "setsWonPlayerTwo": null
+            }
           },
           {
             "idMatch": 4,
@@ -347,7 +356,10 @@
               ],
               "points": 185
             },
-            "result": null
+            "result": {
+              "setsWonPlayerOne": null,
+              "setsWonPlayerTwo": null
+            }
           },
           {
             "idMatch": 5,
@@ -377,7 +389,10 @@
               ],
               "points": 195
             },
-            "result": null
+            "result": {
+              "setsWonPlayerOne": null,
+              "setsWonPlayerTwo": null
+            }
           },
           {
             "idMatch": 6,
@@ -407,7 +422,10 @@
               ],
               "points": 165
             },
-            "result": null
+            "result": {
+              "setsWonPlayerOne": null,
+              "setsWonPlayerTwo": null
+            }
           },
           {
             "idMatch": 7,
@@ -437,7 +455,10 @@
               ],
               "points": 190
             },
-            "result": null
+            "result": {
+              "setsWonPlayerOne": null,
+              "setsWonPlayerTwo": null
+            }
           },
           {
             "idMatch": 8,
@@ -467,15 +488,12 @@
               ],
               "points": 225
             },
-            "result": null
+            "result": {
+              "setsWonPlayerOne": null,
+              "setsWonPlayerTwo": null
+            }
           }
         ],
-        "givenPoints": null
-      },
-      {
-        "type": "quarterFinal",
-        "id": null,
-        "matches": [],
         "givenPoints": null
       }
     ]
@@ -727,3 +745,4 @@
     ]
   }
 ]
+

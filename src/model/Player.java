@@ -1,15 +1,24 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class Player implements Comparable<Player> {
+    @JsonProperty("idPlayer")
     private Integer idPlayer;
+    @JsonProperty("dni")
     private String dni;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("lastName")
     private String lastName;
+    @JsonProperty("nationality")
     private String nationality;
+    @JsonProperty("dateOfBirth")
     private LocalDate dateOfBirth;
+    @JsonProperty("points")
     private Integer points;
 
     public Player() {
@@ -103,7 +112,7 @@ public class Player implements Comparable<Player> {
 
     @Override
     public String toString() {
-        return  "------------------------------------\n" +
+        return "------------------------------------\n" +
                 "|          Detalles del Jugador          |\n" +
                 "------------------------------------\n" +
                 "| ID                  : " + idPlayer + "\n" +

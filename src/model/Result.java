@@ -1,31 +1,24 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import exceptions.InvalidResultException;
 
 import java.util.Objects;
+
 public class Result {
-    private Integer id;
+    @JsonProperty("setsWonPlayerOne")
     private Integer setsWonPlayerOne;
+
+    @JsonProperty("setsWonPlayerTwo")
     private Integer setsWonPlayerTwo;
 
     public Result() {
-        this.setsWonPlayerOne = 0;
-        this.setsWonPlayerTwo = 0;
     }
 
-    //este constructor necesita una verificación de valores null
     public Result(Integer setsWonPlayerOne, Integer setsWonPlayerTwo) throws InvalidResultException {
         validateResult(setsWonPlayerOne, setsWonPlayerTwo);
         this.setsWonPlayerOne = setsWonPlayerOne;
-            this.setsWonPlayerTwo = setsWonPlayerTwo;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+        this.setsWonPlayerTwo = setsWonPlayerTwo;
     }
 
     public Integer getSetsWonPlayerOne() {
@@ -33,8 +26,8 @@ public class Result {
     }
 
     public void setSetsWonPlayerOne(Integer setsWonPlayerOne) throws InvalidResultException {
-           validateResult(setsWonPlayerOne, this.setsWonPlayerTwo);
-            this.setsWonPlayerOne = setsWonPlayerOne;
+        validateResult(setsWonPlayerOne, this.setsWonPlayerTwo);
+        this.setsWonPlayerOne = setsWonPlayerOne;
     }
 
     public Integer getSetsWonPlayerTwo() {
@@ -45,32 +38,28 @@ public class Result {
         validateResult(this.setsWonPlayerOne, setsWonPlayerTwo);
         this.setsWonPlayerTwo = setsWonPlayerTwo;
     }
-// falta verificar cuando un valor es null
+
     private void validateResult(Integer setsWonPlayerOne, Integer setsWonPlayerTwo) throws InvalidResultException {
-       //Se reemplazan los valores null por cero para evitar errores
-        if(setsWonPlayerOne == null){
-            setsWonPlayerOne=0;
-            this.setsWonPlayerOne = 0;
+        // Verifica que los valores no sean nulos y reemplaza por cero
+        if (setsWonPlayerOne == null || setsWonPlayerTwo == null) {
+            throw new InvalidResultException("Los valores no pueden ser nulos.");
         }
-        if(setsWonPlayerTwo == null){
-            setsWonPlayerTwo=0;
-            this.setsWonPlayerTwo = 0;
+
+        // Verifica que los valores sean no negativos
+        if (setsWonPlayerOne < 0 || setsWonPlayerTwo < 0) {
+            throw new InvalidResultException("Los valores no pueden ser negativos.");
         }
+
         // Verifica que el total de sets ganados no supere 3
-        boolean totalSetsValid = setsWonPlayerTwo + setsWonPlayerOne == 3;
+        boolean totalSetsValid = (setsWonPlayerOne + setsWonPlayerTwo) == 3;
 
         // Verifica condiciones específicas para resultados válidos
         boolean specialCaseOne = (setsWonPlayerOne == 0 && setsWonPlayerTwo == 2);
         boolean specialCaseTwo = (setsWonPlayerOne == 2 && setsWonPlayerTwo == 0);
 
-        if (totalSetsValid || specialCaseOne || specialCaseTwo) {
-            this.setsWonPlayerOne=setsWonPlayerOne;
-            this.setsWonPlayerTwo=setsWonPlayerTwo;
-        } else {
-            //se registra un resultado de "0-0"
-            this.setsWonPlayerOne=0;
-            this.setsWonPlayerTwo=0;
-            throw new InvalidResultException("Se intentó registrar un resultado NO válido");
+        if (!totalSetsValid && !specialCaseOne && !specialCaseTwo) {
+            throw new InvalidResultException("Se intentó registrar un resultado NO válido: " +
+                    "setsWonPlayerOne: " + setsWonPlayerOne + " - setsWonPlayerTwo: " + setsWonPlayerTwo);
         }
     }
 
@@ -78,16 +67,17 @@ public class Result {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Result result)) return false;
-        return Objects.equals(id, result.id) && Objects.equals(setsWonPlayerOne, result.setsWonPlayerOne) && Objects.equals(setsWonPlayerTwo, result.setsWonPlayerTwo);
+        return Objects.equals(setsWonPlayerOne, result.setsWonPlayerOne) &&
+                Objects.equals(setsWonPlayerTwo, result.setsWonPlayerTwo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, setsWonPlayerOne, setsWonPlayerTwo);
+        return Objects.hash(setsWonPlayerOne, setsWonPlayerTwo);
     }
 
     @Override
     public String toString() {
-        return "Result: "+setsWonPlayerOne+" - "+setsWonPlayerTwo;
+        return "Result: " + setsWonPlayerOne + " - " + setsWonPlayerTwo;
     }
 }

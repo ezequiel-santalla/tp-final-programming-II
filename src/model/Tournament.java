@@ -1,33 +1,35 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import enums.ESurface;
 
 import java.time.LocalDate;
 import java.util.*;
 
-public class Tournament implements Comparable<Tournament>{
-    private Integer id;
+public class Tournament implements Comparable<Tournament> {
+    @JsonProperty("idTournament")
+    private Integer idTournament;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("location")
     private String location;
+    @JsonProperty("surface")
     private ESurface surface;
+    @JsonProperty("startingDate")
     private LocalDate startingDate;
+    @JsonProperty("endingDate")
     private LocalDate endingDate;
+    @JsonProperty("players")
     private Set<Player> players;
+    @JsonProperty("rounds")
     private List<Round> rounds;
 
     public Tournament() {
+        this.players = new TreeSet<>();
+        this.rounds = new ArrayList<>();
     }
 
     public Tournament(String name, String location, ESurface surface, LocalDate startingDate, LocalDate endingDate) {
-        this.name = name;
-        this.location = location;
-        this.surface = surface;
-        this.startingDate = startingDate;
-        this.endingDate = endingDate;
-    }
-
-    public Tournament(Integer id, String name, String location, ESurface surface, LocalDate startingDate, LocalDate endingDate) {
-        this.id = id;
         this.name = name;
         this.location = location;
         this.surface = surface;
@@ -37,12 +39,23 @@ public class Tournament implements Comparable<Tournament>{
         this.rounds = new ArrayList<>();
     }
 
-    public Integer getId() {
-        return id;
+    public Tournament(Integer id, String name, String location, ESurface surface, LocalDate startingDate, LocalDate endingDate) {
+        this.idTournament = id;
+        this.name = name;
+        this.location = location;
+        this.surface = surface;
+        this.startingDate = startingDate;
+        this.endingDate = endingDate;
+        this.players = new TreeSet<>();
+        this.rounds = new ArrayList<>();
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Integer getIdTournament() {
+        return idTournament;
+    }
+
+    public void setIdTournament(Integer idTournament) {
+        this.idTournament = idTournament;
     }
 
     public String getName() {
@@ -103,10 +116,10 @@ public class Tournament implements Comparable<Tournament>{
 
     @Override
     public String toString() {
-        return  "------------------------------------\n" +
+        return "------------------------------------\n" +
                 "|        Detalles del Torneo        |\n" +
                 "------------------------------------\n" +
-                "| ID                    : " + id + "\n" +
+                "| ID                    : " + idTournament + "\n" +
                 "| Nombre                : " + name + "\n" +
                 "| Lugar                 : " + location + "\n" +
                 "| Superficie            : " + surface + "\n" +
@@ -119,16 +132,16 @@ public class Tournament implements Comparable<Tournament>{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Tournament that)) return false;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(location, that.location) && surface == that.surface && Objects.equals(startingDate, that.startingDate) && Objects.equals(endingDate, that.endingDate);
+        return Objects.equals(idTournament, that.idTournament) && Objects.equals(name, that.name) && Objects.equals(location, that.location) && surface == that.surface && Objects.equals(startingDate, that.startingDate) && Objects.equals(endingDate, that.endingDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, location, surface, startingDate, endingDate);
+        return Objects.hash(idTournament, name, location, surface, startingDate, endingDate);
     }
 
     @Override
     public int compareTo(Tournament o) {
-        return this.id.compareTo(o.getId());
+        return this.idTournament.compareTo(o.getIdTournament());
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 public class FirstRound extends Round {
 
     public FirstRound() {
+        super();
     }
 
     public FirstRound(Integer givenPoints) {
@@ -17,9 +18,9 @@ public class FirstRound extends Round {
 
     @Override
     public List<Match> generateMatches(List<Player> players) {
+        Integer id = 0;
         for (int i = 0; i < players.size(); i += 2) {
-            Match match = new Match(players.get(i), players.get(i + 1));
-            matches.add(match);
+            matches.add(new Match(++id, players.get(i), players.get(i + 1), null));
         }
         return matches;
     }

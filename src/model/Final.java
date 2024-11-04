@@ -6,6 +6,7 @@ import java.util.List;
 public class Final extends Round {
 
     public Final() {
+        super();
     }
 
     public Final(Integer givenPoints) {

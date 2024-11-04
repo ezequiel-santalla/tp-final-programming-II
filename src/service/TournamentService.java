@@ -1,28 +1,31 @@
 package service;
 
-import enums.ESurface;
-import exceptions.FileProcessingException;
-import exceptions.IncompleteMatchException;
-import exceptions.TournamentNotFoundException;
+import exceptions.*;
 import model.*;
 import repository.TournamentRepositoryImp;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TournamentService {
     private final TournamentRepositoryImp tournamentRepositoryImp;
-    private final MatchService matchService;
+    private final PlayerService playerService;
     private Tournament tournament;
 
-
-    public TournamentService(TournamentRepositoryImp tournamentRepositoryImp, MatchService matchService) {
-        this.matchService = matchService;
+    public TournamentService(PlayerService playerService, TournamentRepositoryImp tournamentRepositoryImp, Tournament tournament) {
+        this.playerService = playerService;
         this.tournamentRepositoryImp = tournamentRepositoryImp;
+        this.tournament = tournament;
+        addTournament(tournament);
     }
 
+    public TournamentService(PlayerService playerService, TournamentRepositoryImp tournamentRepositoryImp, Integer idTournament) throws TournamentNotFoundException {
+        this.playerService = playerService;
+        this.tournamentRepositoryImp = tournamentRepositoryImp;
+        this.tournament = findTournamentById(idTournament);
+    }
 
-    public Integer addTournament(Tournament tournament) throws FileProcessingException{
+    public Integer addTournament(Tournament tournament) throws FileProcessingException {
         return tournamentRepositoryImp.create(tournament);
     }
 
@@ -43,7 +46,7 @@ public class TournamentService {
         tournamentRepositoryImp.delete(id);
     }
 
-    public List<Tournament> getAllTournaments() throws TournamentNotFoundException, FileProcessingException{
+    public List<Tournament> getAllTournaments() throws TournamentNotFoundException, FileProcessingException {
         return tournamentRepositoryImp.getAll();
     }
 
@@ -51,32 +54,42 @@ public class TournamentService {
     public void assignPoints() throws IncompleteMatchException {
         for (Round round : tournament.getRounds()) {
             for (Match match : round.getMatches()) {
-                Player player = matchService.getWinner(match);
-                // se puede simplificar agregando addPoints() en Player
+                Player player = getWinner(match);
                 player.setPoints(player.getPoints() + round.getGivenPoints());
             }
         }
     }
 
-
-    public void registerPlayer(Player player) {
+    public void registerPlayer(Player player) throws TournamentFullException {
         if (tournament.getPlayers().size() < 16) {
             tournament.getPlayers().add(player);
         } else {
-            throw new IllegalStateException("Tournament is full");
+            throw new TournamentFullException("Tournament is full");
         }
     }
 
-    public List<Player> getPlayersStillCompeting() throws IncompleteMatchException{
+    public List<Player> getPlayersStillCompeting() throws IncompleteMatchException {
         Round lastRound = this.tournament.getRounds().getLast();
         List<Player> playersStillCompeting = new ArrayList<>();
-        for (Match match : lastRound.getMatches()) {
-            playersStillCompeting.add(matchService.getWinner(match));
+
+        // Verificar si es la primera ronda
+        if (this.tournament.getRounds().size() == 1) {
+            // Devuelve todos los jugadores en el torneo
+            playersStillCompeting.addAll(this.tournament.getPlayers());
+        } else {
+            // Si no es la primera ronda obtiene los ganadores de la ultima ronda
+            for (Match match : lastRound.getMatches()) {
+                Player winner = getWinner(match);
+                if (winner != null) { // verifica que el ganador no sea null
+                    playersStillCompeting.add(winner);
+                }
+            }
         }
+
         return playersStillCompeting;
     }
 
-    public void generateNextRound() throws IncompleteMatchException{
+    public void generateNextRound() throws IncompleteMatchException {
         switch (tournament.getRounds().size()) {
             case 0:
                 tournament.getRounds().add(new FirstRound());
@@ -95,13 +108,34 @@ public class TournamentService {
         tournament.getRounds().getLast().generateMatches(getPlayersStillCompeting());
     }
 
-    public void generateTournament(String name, String location, ESurface surface, LocalDate startDate, LocalDate endDate) {
-        this.tournament = new Tournament(1, name, location, surface, startDate, endDate);
-        tournamentRepositoryImp.create(tournament);
-    }
-
     public Tournament getTournament() {
         return tournament;
     }
 
+
+    public List<Match> getMatchesByPlayer(Integer idPlayer) throws MatchNotFoundException, FileProcessingException {
+
+        List<Match> playerMatches = new ArrayList<>();
+        for (Round round : this.tournament.getRounds()) {
+            for (Match match : round.getMatches()) {
+                if (match.getPlayerOne().getIdPlayer().equals(idPlayer) ||
+                        match.getPlayerTwo().getIdPlayer().equals(idPlayer)) {
+                    playerMatches.add(match);
+                }
+            }
+        }
+        return playerMatches;
+    }
+
+    public Player getWinner(Match match) throws IncompleteMatchException {
+        if (match.getResult() == null) {
+            throw new IncompleteMatchException("The match has not finished or the result was not loaded.");
+        }
+        if (match.getResult().getSetsWonPlayerOne() == 2) {
+            return match.getPlayerOne();
+        } else if (match.getResult().getSetsWonPlayerTwo() == 2) {
+            return match.getPlayerTwo();
+        }
+        throw new IncompleteMatchException("There is no defined winner.");
+    }
 }

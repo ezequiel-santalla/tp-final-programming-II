@@ -23,14 +23,15 @@ public class TournamentRepositoryImp implements Repository<Tournament, Integer> 
         Integer id = 0;
         try {
             // Gets a list of objects from the JSON file.
+
             tournaments = JSONConverter.fromJsonArrayToList(data, Tournament.class);
             // Sort the list by ID
             Collections.sort(tournaments);
             // Gets the ID of the last one, adds 1 to it, and assigns it to the new element.
             if (!tournaments.isEmpty()) {
-                id = tournaments.getLast().getId();
+                id = tournaments.getLast().getIdTournament();
             }
-            tournament.setId(++id);
+            tournament.setIdTournament(++id);
             tournaments.add(tournament);
             PersistenceFile.writeFile(filePath, JSONConverter.toJson(tournaments));
         } catch (JsonProcessingException e) {
@@ -45,13 +46,13 @@ public class TournamentRepositoryImp implements Repository<Tournament, Integer> 
         try {
             tournaments = JSONConverter.fromJsonArrayToList(data, Tournament.class);
             for (Tournament tournament : tournaments) {
-                if (tournament.getId().equals(id)) {
+                if (tournament.getIdTournament().equals(id)) {
                     return tournament;
                 }
             }
             throw new TournamentNotFoundException("No match was found with the given ID: " + id);
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException(filePath);
+            throw new FileProcessingException(filePath+e.getMessage());
         }
     }
 
@@ -62,14 +63,14 @@ public class TournamentRepositoryImp implements Repository<Tournament, Integer> 
             tournaments = JSONConverter.fromJsonArrayToList(data, Tournament.class);
             boolean tournamentUpdated = false;
             for (int i = 0; i < tournaments.size(); i++) {
-                if (tournaments.get(i).getId().equals(modifiedTournament.getId())) {
+                if (tournaments.get(i).getIdTournament().equals(modifiedTournament.getIdTournament())) {
                     tournaments.set(i, modifiedTournament);
                     tournamentUpdated = true;
                     break;
                 }
             }
             if (!tournamentUpdated) {
-                throw new TournamentNotFoundException("No match was found with the ID: " + modifiedTournament.getId());
+                throw new TournamentNotFoundException("No match was found with the ID: " + modifiedTournament.getIdTournament());
             }
             // Only write if the tournament was updated
             PersistenceFile.writeFile(filePath, JSONConverter.toJson(tournaments));
@@ -85,7 +86,7 @@ public class TournamentRepositoryImp implements Repository<Tournament, Integer> 
             boolean tournamentDeleted = false;
             tournaments = JSONConverter.fromJsonArrayToList(data, Tournament.class);
             for (int i = 0; i < tournaments.size(); i++) {
-                if (tournaments.get(i).getId().equals(id)) {
+                if (tournaments.get(i).getIdTournament().equals(id)) {
                     tournaments.remove(i);
                     tournamentDeleted = true;
                     break;

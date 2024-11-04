@@ -5,7 +5,9 @@ import java.util.List;
 
 public class QuarterFinal extends Round {
 
-    public QuarterFinal() {}
+    public QuarterFinal() {
+        super();
+    }
 
     public QuarterFinal(Integer givenPoints) {
         super(givenPoints);
