@@ -11,6 +11,7 @@ import java.util.TreeSet;
 
 public class PlayerRepositoryImp implements Repository<Player, Integer> {
     private final String filePath;
+    private List<Player> players;
 
     public PlayerRepositoryImp() {
         this.filePath = "data/player.json";
@@ -20,18 +21,18 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
     public Integer create(Player player) {
         String data = PersistenceFile.readFile(filePath);
 
+
         Integer id = 0;
 
         try {
-            TreeSet<Player> players = new TreeSet<>(JSONConverter.fromJsonArrayToList(data, Player.class));
+            TreeSet<Player> playersSet = new TreeSet<>(JSONConverter.fromJsonArrayToList(data, Player.class));
 
-            if (!players.isEmpty()) {
-                id = players.last().getIdPlayer();
+            if (!playersSet.isEmpty()) {
+                id = playersSet.last().getIdPlayer();
             }
-
             player.setIdPlayer(id + 1);
-            players.add(player);
-            PersistenceFile.writeFile(filePath, JSONConverter.toJson(players));
+            playersSet.add(player);
+            PersistenceFile.writeFile(filePath, JSONConverter.toJson(playersSet));
         } catch (JsonProcessingException e) {
             throw new FileProcessingException(filePath);
         }
@@ -41,7 +42,6 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
     @Override
     public Player find(Integer id) throws PlayerNotFoundException, FileProcessingException {
         String data = PersistenceFile.readFile(filePath);
-        List<Player> players;
 
         try {
             players = JSONConverter.fromJsonArrayToList(data, Player.class);
@@ -50,7 +50,7 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
                     return p;
                 }
             }
-            throw new PlayerNotFoundException("No player was found with the ID: " + id);
+            throw new PlayerNotFoundException(id);
         } catch (JsonProcessingException e) {
             throw new FileProcessingException(filePath);
         }
@@ -59,7 +59,6 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
     @Override
     public void update(Player modifiedPlayer) throws PlayerNotFoundException, FileProcessingException {
         String data = PersistenceFile.readFile(filePath);
-        List<Player> players;
 
         try {
             players = JSONConverter.fromJsonArrayToList(data, Player.class);
@@ -73,7 +72,7 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
                 }
             }
             if (!playerUpdated) {
-                throw new PlayerNotFoundException("No player was found with the ID: " + modifiedPlayer.getIdPlayer());
+                throw new PlayerNotFoundException(modifiedPlayer.getIdPlayer());
             }
 
             PersistenceFile.writeFile(filePath, JSONConverter.toJson(players));
@@ -85,7 +84,6 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
     @Override
     public void delete(Integer id) throws PlayerNotFoundException, FileProcessingException {
         String data = PersistenceFile.readFile(filePath);
-        List<Player> players;
 
         try {
             boolean playerDeleted = false;
@@ -99,7 +97,7 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
                 }
             }
             if (!playerDeleted) {
-                throw new PlayerNotFoundException("No player was found with the ID: " + id);
+                throw new PlayerNotFoundException(id);
             }
 
             PersistenceFile.writeFile(filePath, JSONConverter.toJson(players));
@@ -113,7 +111,7 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
         String data = PersistenceFile.readFile(filePath);
 
         try {
-            List<Player> players = JSONConverter.fromJsonArrayToList(data, Player.class);
+            players = JSONConverter.fromJsonArrayToList(data, Player.class);
 
             if (players == null || players.isEmpty()) {
                 throw new PlayerNotFoundException("There are no matches saved in JSON.");

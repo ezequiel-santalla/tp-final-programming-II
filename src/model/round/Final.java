@@ -1,6 +1,8 @@
-package model;
+package model.round;
 
-import java.util.ArrayList;
+import model.Match;
+import model.Player;
+
 import java.util.List;
 
 public class Final extends Round {
@@ -18,13 +20,11 @@ public class Final extends Round {
     }
 
     @Override
-    public List<Match> generateMatches(List<Player> players) {
-        List<Match> matches = new ArrayList<>();
-        if (players.size() == 2) {
-            Match finalMatch = new Match(players.get(0), players.get(1));
-            matches.add(finalMatch);
+    public void generateMatches(List<Player> players) {
+        int id = 14;
+        for (int i = 0; i < players.size(); i += 2) {
+            matches.add(new Match(++id, players.get(i), players.get(i + 1), null));
         }
-        return matches;
     }
 
 }

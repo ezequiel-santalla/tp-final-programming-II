@@ -495,20 +495,9 @@
           }
         ],
         "givenPoints": null
-      },
-      {
-        "type": "quarterFinal",
-        "id": 2,
-        "matches": [],
-        "givenPoints": null
-      },
-      {
-        "type": "semifinal",
-        "id": 3,
-        "matches": [],
-        "givenPoints": null
       }
     ],
     "status": "IN_PROGRESS"
   }
 ]
+

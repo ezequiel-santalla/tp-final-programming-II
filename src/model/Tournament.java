@@ -2,6 +2,8 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import enums.ESurface;
+import enums.ETournamentStatus;
+import model.round.Round;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -23,6 +25,8 @@ public class Tournament implements Comparable<Tournament> {
     private Set<Player> players;
     @JsonProperty("rounds")
     private List<Round> rounds;
+    @JsonProperty("status")
+    private ETournamentStatus status;
 
     public Tournament() {
         this.players = new TreeSet<>();
@@ -37,17 +41,7 @@ public class Tournament implements Comparable<Tournament> {
         this.endingDate = endingDate;
         this.players = new TreeSet<>();
         this.rounds = new ArrayList<>();
-    }
-
-    public Tournament(Integer id, String name, String location, ESurface surface, LocalDate startingDate, LocalDate endingDate) {
-        this.idTournament = id;
-        this.name = name;
-        this.location = location;
-        this.surface = surface;
-        this.startingDate = startingDate;
-        this.endingDate = endingDate;
-        this.players = new TreeSet<>();
-        this.rounds = new ArrayList<>();
+        this.status = ETournamentStatus.NOT_STARTED;
     }
 
     public Integer getIdTournament() {
@@ -114,6 +108,14 @@ public class Tournament implements Comparable<Tournament> {
         this.rounds = rounds;
     }
 
+    public ETournamentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ETournamentStatus status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "------------------------------------\n" +
@@ -144,4 +146,5 @@ public class Tournament implements Comparable<Tournament> {
     public int compareTo(Tournament o) {
         return this.idTournament.compareTo(o.getIdTournament());
     }
+
 }

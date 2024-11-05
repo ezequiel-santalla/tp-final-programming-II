@@ -75,9 +75,15 @@ public class Menu {
                 case 1 -> {
                     Player player = menuHandler.requestPlayerData();
                     if (player != null) {
-                        playerService.addPlayer(player);
-                        System.out.println();
-                        System.out.println("Jugador agregado correctamente.");
+                        try {
+                            if(playerService.getAllPlayers().contains(player)){
+                                System.out.println("\nYa hay un jugador registrado con ese DNI");
+                            }else{
+                                System.out.println("\nJugador agregado correctamente con el ID "+playerService.addPlayer(player));
+                            }
+                        } catch (PlayerNotFoundException e) {
+                            System.out.println("Error en el archivo");
+                        }
                     }
                 }
                 case 2 -> {
@@ -149,7 +155,7 @@ public class Menu {
     private void showPlayersList() {
         try {
             for (Player player : playerService.getAllPlayers()) {
-                System.out.println("ID: " + player.getIdPlayer() + " - " + player.getName() + " " + player.getLastName());
+                System.out.println("\nID: " + player.getIdPlayer() + " - " + player.getName() + " " + player.getLastName());
             }
         } catch (PlayerNotFoundException e) {
             System.out.println("No hay jugadores cargados");

@@ -68,19 +68,6 @@
         "points": 185
       },
       {
-        "idPlayer": 7,
-        "dni": "42087654",
-        "name": "Joaquín",
-        "lastName": "Ruiz",
-        "nationality": "Paraguayo",
-        "dateOfBirth": [
-          1987,
-          5,
-          8
-        ],
-        "points": 205
-      },
-      {
         "idPlayer": 16,
         "dni": "23444565",
         "name": "Fernando",
@@ -92,6 +79,19 @@
           4
         ],
         "points": 225
+      },
+      {
+        "idPlayer": 7,
+        "dni": "42087654",
+        "name": "Joaquín",
+        "lastName": "Ruiz",
+        "nationality": "Paraguayo",
+        "dateOfBirth": [
+          1987,
+          5,
+          8
+        ],
+        "points": 205
       },
       {
         "idPlayer": 1,
@@ -227,11 +227,24 @@
     "rounds": [
       {
         "type": "firstRound",
-        "id": 1,
+        "id": null,
         "matches": [
           {
             "idMatch": 1,
             "playerOne": {
+              "idPlayer": 16,
+              "dni": "23444565",
+              "name": "Fernando",
+              "lastName": "Silva",
+              "nationality": "Paraguayo",
+              "dateOfBirth": [
+                1986,
+                4,
+                4
+              ],
+              "points": 225
+            },
+            "playerTwo": {
               "idPlayer": 2,
               "dni": "38011234",
               "name": "Lucía",
@@ -244,27 +257,27 @@
               ],
               "points": 180
             },
-            "playerTwo": {
-              "idPlayer": 13,
-              "dni": "49054321",
-              "name": "Agustín",
-              "lastName": "Vega",
-              "nationality": "Argentino",
-              "dateOfBirth": [
-                1994,
-                3,
-                23
-              ],
-              "points": 200
-            },
             "result": {
-              "setsWonPlayerOne": 2,
-              "setsWonPlayerTwo": 1
+              "setsWonPlayerOne": 0,
+              "setsWonPlayerTwo": 2
             }
           },
           {
             "idMatch": 2,
             "playerOne": {
+              "idPlayer": 5,
+              "dni": "39045678",
+              "name": "Miguel",
+              "lastName": "López",
+              "nationality": "Chileno",
+              "dateOfBirth": [
+                1993,
+                9,
+                5
+              ],
+              "points": 190
+            },
+            "playerTwo": {
               "idPlayer": 6,
               "dni": "40012345",
               "name": "Sofía",
@@ -276,6 +289,59 @@
                 21
               ],
               "points": 175
+            },
+            "result": {
+              "setsWonPlayerOne": 1,
+              "setsWonPlayerTwo": 2
+            }
+          },
+          {
+            "idMatch": 3,
+            "playerOne": {
+              "idPlayer": 3,
+              "dni": "41023567",
+              "name": "Carlos",
+              "lastName": "Gómez",
+              "nationality": "Uruguayo",
+              "dateOfBirth": [
+                1991,
+                1,
+                10
+              ],
+              "points": 220
+            },
+            "playerTwo": {
+              "idPlayer": 1,
+              "dni": "42044093",
+              "name": "Marcos",
+              "lastName": "Moreno",
+              "nationality": "Argentino",
+              "dateOfBirth": [
+                1990,
+                4,
+                22
+              ],
+              "points": 200
+            },
+            "result": {
+              "setsWonPlayerOne": 2,
+              "setsWonPlayerTwo": 1
+            }
+          },
+          {
+            "idMatch": 4,
+            "playerOne": {
+              "idPlayer": 7,
+              "dni": "42087654",
+              "name": "Joaquín",
+              "lastName": "Ruiz",
+              "nationality": "Paraguayo",
+              "dateOfBirth": [
+                1987,
+                5,
+                8
+              ],
+              "points": 205
             },
             "playerTwo": {
               "idPlayer": 8,
@@ -291,144 +357,12 @@
               "points": 185
             },
             "result": {
-              "setsWonPlayerOne": 1,
-              "setsWonPlayerTwo": 2
-            }
-          },
-          {
-            "idMatch": 3,
-            "playerOne": {
-              "idPlayer": 7,
-              "dni": "42087654",
-              "name": "Joaquín",
-              "lastName": "Ruiz",
-              "nationality": "Paraguayo",
-              "dateOfBirth": [
-                1987,
-                5,
-                8
-              ],
-              "points": 205
-            },
-            "playerTwo": {
-              "idPlayer": 16,
-              "dni": "23444565",
-              "name": "Fernando",
-              "lastName": "Silva",
-              "nationality": "Paraguayo",
-              "dateOfBirth": [
-                1986,
-                4,
-                4
-              ],
-              "points": 225
-            },
-            "result": {
-              "setsWonPlayerOne": 2,
-              "setsWonPlayerTwo": 1
-            }
-          },
-          {
-            "idMatch": 4,
-            "playerOne": {
-              "idPlayer": 1,
-              "dni": "42044093",
-              "name": "Marcos",
-              "lastName": "Moreno",
-              "nationality": "Argentino",
-              "dateOfBirth": [
-                1990,
-                4,
-                22
-              ],
-              "points": 200
-            },
-            "playerTwo": {
-              "idPlayer": 12,
-              "dni": "48012345",
-              "name": "Paula",
-              "lastName": "Álvarez",
-              "nationality": "Argentina",
-              "dateOfBirth": [
-                1997,
-                11,
-                9
-              ],
-              "points": 165
-            },
-            "result": {
-              "setsWonPlayerOne": 1,
-              "setsWonPlayerTwo": 2
-            }
-          },
-          {
-            "idMatch": 5,
-            "playerOne": {
-              "idPlayer": 3,
-              "dni": "41023567",
-              "name": "Carlos",
-              "lastName": "Gómez",
-              "nationality": "Uruguayo",
-              "dateOfBirth": [
-                1991,
-                1,
-                10
-              ],
-              "points": 220
-            },
-            "playerTwo": {
-              "idPlayer": 10,
-              "dni": "47067890",
-              "name": "Carolina",
-              "lastName": "Nuñez",
-              "nationality": "Argentina",
-              "dateOfBirth": [
-                1991,
-                12,
-                30
-              ],
-              "points": 195
-            },
-            "result": {
               "setsWonPlayerOne": 0,
               "setsWonPlayerTwo": 2
             }
           },
           {
-            "idMatch": 6,
-            "playerOne": {
-              "idPlayer": 15,
-              "dni": "51023456",
-              "name": "Francisco",
-              "lastName": "Silva",
-              "nationality": "Paraguayo",
-              "dateOfBirth": [
-                1986,
-                4,
-                4
-              ],
-              "points": 225
-            },
-            "playerTwo": {
-              "idPlayer": 5,
-              "dni": "39045678",
-              "name": "Miguel",
-              "lastName": "López",
-              "nationality": "Chileno",
-              "dateOfBirth": [
-                1993,
-                9,
-                5
-              ],
-              "points": 190
-            },
-            "result": {
-              "setsWonPlayerOne": 2,
-              "setsWonPlayerTwo": 1
-            }
-          },
-          {
-            "idMatch": 7,
+            "idMatch": 5,
             "playerOne": {
               "idPlayer": 11,
               "dni": "44034567",
@@ -461,7 +395,7 @@
             }
           },
           {
-            "idMatch": 8,
+            "idMatch": 6,
             "playerOne": {
               "idPlayer": 9,
               "dni": "46054321",
@@ -476,6 +410,59 @@
               "points": 170
             },
             "playerTwo": {
+              "idPlayer": 10,
+              "dni": "47067890",
+              "name": "Carolina",
+              "lastName": "Nuñez",
+              "nationality": "Argentina",
+              "dateOfBirth": [
+                1991,
+                12,
+                30
+              ],
+              "points": 195
+            },
+            "result": {
+              "setsWonPlayerOne": 2,
+              "setsWonPlayerTwo": 0
+            }
+          },
+          {
+            "idMatch": 7,
+            "playerOne": {
+              "idPlayer": 12,
+              "dni": "48012345",
+              "name": "Paula",
+              "lastName": "Álvarez",
+              "nationality": "Argentina",
+              "dateOfBirth": [
+                1997,
+                11,
+                9
+              ],
+              "points": 165
+            },
+            "playerTwo": {
+              "idPlayer": 13,
+              "dni": "49054321",
+              "name": "Agustín",
+              "lastName": "Vega",
+              "nationality": "Argentino",
+              "dateOfBirth": [
+                1994,
+                3,
+                23
+              ],
+              "points": 200
+            },
+            "result": {
+              "setsWonPlayerOne": 2,
+              "setsWonPlayerTwo": 1
+            }
+          },
+          {
+            "idMatch": 8,
+            "playerOne": {
               "idPlayer": 14,
               "dni": "50067890",
               "name": "Camila",
@@ -488,9 +475,22 @@
               ],
               "points": 190
             },
+            "playerTwo": {
+              "idPlayer": 15,
+              "dni": "51023456",
+              "name": "Francisco",
+              "lastName": "Silva",
+              "nationality": "Paraguayo",
+              "dateOfBirth": [
+                1986,
+                4,
+                4
+              ],
+              "points": 225
+            },
             "result": {
-              "setsWonPlayerOne": 2,
-              "setsWonPlayerTwo": 0
+              "setsWonPlayerOne": 1,
+              "setsWonPlayerTwo": 2
             }
           }
         ],
@@ -498,13 +498,7 @@
       },
       {
         "type": "quarterFinal",
-        "id": 2,
-        "matches": [],
-        "givenPoints": null
-      },
-      {
-        "type": "semifinal",
-        "id": 3,
+        "id": null,
         "matches": [],
         "givenPoints": null
       }
@@ -512,3 +506,4 @@
     "status": "IN_PROGRESS"
   }
 ]
+

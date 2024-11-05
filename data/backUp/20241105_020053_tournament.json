@@ -227,7 +227,7 @@
     "rounds": [
       {
         "type": "firstRound",
-        "id": 1,
+        "id": null,
         "matches": [
           {
             "idMatch": 1,
@@ -258,8 +258,8 @@
               "points": 200
             },
             "result": {
-              "setsWonPlayerOne": 2,
-              "setsWonPlayerTwo": 1
+              "setsWonPlayerOne": 1,
+              "setsWonPlayerTwo": 2
             }
           },
           {
@@ -291,7 +291,7 @@
               "points": 185
             },
             "result": {
-              "setsWonPlayerOne": 1,
+              "setsWonPlayerOne": 0,
               "setsWonPlayerTwo": 2
             }
           },
@@ -325,7 +325,7 @@
             },
             "result": {
               "setsWonPlayerOne": 2,
-              "setsWonPlayerTwo": 1
+              "setsWonPlayerTwo": 0
             }
           },
           {
@@ -357,8 +357,8 @@
               "points": 165
             },
             "result": {
-              "setsWonPlayerOne": 1,
-              "setsWonPlayerTwo": 2
+              "setsWonPlayerOne": 2,
+              "setsWonPlayerTwo": 1
             }
           },
           {
@@ -390,8 +390,8 @@
               "points": 195
             },
             "result": {
-              "setsWonPlayerOne": 0,
-              "setsWonPlayerTwo": 2
+              "setsWonPlayerOne": 2,
+              "setsWonPlayerTwo": 0
             }
           },
           {
@@ -456,8 +456,8 @@
               "points": 210
             },
             "result": {
-              "setsWonPlayerOne": 2,
-              "setsWonPlayerTwo": 1
+              "setsWonPlayerOne": 0,
+              "setsWonPlayerTwo": 2
             }
           },
           {
@@ -489,26 +489,15 @@
               "points": 190
             },
             "result": {
-              "setsWonPlayerOne": 2,
-              "setsWonPlayerTwo": 0
+              "setsWonPlayerOne": 0,
+              "setsWonPlayerTwo": 2
             }
           }
         ],
-        "givenPoints": null
-      },
-      {
-        "type": "quarterFinal",
-        "id": 2,
-        "matches": [],
-        "givenPoints": null
-      },
-      {
-        "type": "semifinal",
-        "id": 3,
-        "matches": [],
         "givenPoints": null
       }
     ],
     "status": "IN_PROGRESS"
   }
 ]
+

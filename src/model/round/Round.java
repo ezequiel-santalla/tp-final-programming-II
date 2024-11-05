@@ -1,8 +1,10 @@
-package model;
+package model.round;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import model.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -86,6 +88,6 @@ import java.util.Objects;
                 "| Puntaje               : " + givenPoints + "\n";
     }
 
-    public abstract List<Match> generateMatches(List<Player> players);
+    public abstract void generateMatches(List<Player> players);
 
 }

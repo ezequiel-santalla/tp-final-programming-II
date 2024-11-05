@@ -1,20 +1,11 @@
 package utilities;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import exceptions.FileProcessingException;
-import model.Match;
-import model.Player;
-import model.Round;
-import model.Tournament;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class JSONConverter {
     private static final ObjectMapper objectMapper = new ObjectMapper();

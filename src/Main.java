@@ -1,19 +1,20 @@
 import enums.ESurface;
-import exceptions.IncompleteMatchException;
-import exceptions.PlayerNotFoundException;
-import exceptions.TournamentFullException;
-import exceptions.TournamentNotFoundException;
+import exceptions.*;
 import model.Match;
 import model.Player;
+import model.Result;
 import model.Tournament;
 import repository.PlayerRepositoryImp;
 import repository.TournamentRepositoryImp;
 import service.TournamentService;
 import service.PlayerService;
+import utilities.Utilities;
 import view.Menu;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,12 +28,11 @@ public class Main {
             tournamentService = new TournamentService(playerService, tournamentRepositoryImp, 1);
         } catch (TournamentNotFoundException e) {
             tournamentService = new TournamentService(playerService, tournamentRepositoryImp, tournament);
-            System.out.println("No se encontro un torneo con ese id"+e.getMessage());
+            System.out.println("No se encontro un torneo con ese id" + e.getMessage());
         }
+
+
         playerService.setTournamentService(tournamentService);
-
-
-        //tournamentService.generateTournament("torneo", "MDP", ESurface.CARPET, LocalDate.of(2024,2,2),LocalDate.of(2024,2,6));
 
 
         Player playerOne = new Player(1, "42044093", "Marcos", "Moreno", "Argentino", LocalDate.of(1990, Month.APRIL, 22), 200);
@@ -52,13 +52,13 @@ public class Main {
         Player playerFifteen = new Player(15, "51023456", "Francisco", "Silva", "Paraguayo", LocalDate.of(1986, Month.APRIL, 4), 225);
         Player playerSixteen = new Player(16, "23444565", "Fernando", "Silva", "Paraguayo", LocalDate.of(1986, Month.APRIL, 4), 225);
 
-        Match match = new Match(playerOne, playerTwo);
+        //Match match = new Match(playerOne, playerTwo);
         //matchService.addMatch(match);
 
         //System.out.println(playerService.showPlayerRankings());
         //System.out.println(playerService.showStatsByPlayer(1));
-
-        /*playerService.addPlayer(playerOne);
+/*
+        playerService.addPlayer(playerOne);
         playerService.addPlayer(playerTwo);
         playerService.addPlayer(playerThree);
         playerService.addPlayer(playerFour);
@@ -87,10 +87,10 @@ public class Main {
         System.out.println(matchService.getWinner(match));
 
          */
-        Menu menu = new Menu(tournamentService, playerService);
+        //Menu menu = new Menu(tournamentService, playerService);
         // menu.runMenu();
 
-
+/*
         try {
             tournamentService.registerPlayer(playerOne);
             tournamentService.registerPlayer(playerTwo);
@@ -110,12 +110,36 @@ public class Main {
             tournamentService.registerPlayer(playerSixteen);
         } catch (TournamentFullException e) {
             //System.out.println("Ya no se pueden registrar mas jugadores");
-        }
+        }*/
+
+        List<Result> randomResults = new ArrayList<>();
         try {
-            tournamentService.generateNextRound();
-        } catch (IncompleteMatchException e) {
-            System.out.println("No hay torneo en curso");
+            randomResults.add(new Result(2, 0));
+            randomResults.add(new Result(2, 1));
+            randomResults.add(new Result(1, 2));
+            randomResults.add(new Result(0, 2));
+        } catch (InvalidResultException e) {
+            System.out.println("Resultado invalido");        }
+/*
+        for (Match match : tournamentService.getTournament().getRounds().getLast().getMatches()) {
+            match.setResult(randomResults.get(Utilities.random(0,randomResults.size())));
         }
+
+*/
+
+
+        try {
+            tournamentService.advanceTournament();
+        } catch (IncompleteMatchException e) {
+            System.out.println("Los partidos no han finalizado");
+        } catch (TournamentFinishedException e) {
+            System.out.println(e.getMessage());
+        } catch (TournamentFullException e) {
+            System.out.println("La cantidad de jugadores esta completa");
+        }
+
+
+
 
         try {
             tournamentService.updateTournament(tournamentService.getTournament());
@@ -123,14 +147,7 @@ public class Main {
             System.out.println("No se pudo actualizar el torneo");
         }
 
-        try {
-            System.out.println(tournamentService.getPlayersStillCompeting());
-        } catch (IncompleteMatchException e) {
-            System.out.println("No hay jugadores inscriptos");
-        }
 
-        //System.out.println(tournamentService.getTournament().getRounds().getFirst().getMatches());
 
-        menu.runMenu();
     }
 }

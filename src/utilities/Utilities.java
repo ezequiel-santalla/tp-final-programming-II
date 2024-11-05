@@ -3,11 +3,12 @@ package utilities;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Random;
 
 public class Utilities {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+    private static final Random random = new Random();
     private Utilities() {
     }
 
@@ -65,5 +66,9 @@ public class Utilities {
         } catch (DateTimeParseException e) {
             return false; // Formato inválido
         }
+    }
+
+    public static Integer random(Integer min, Integer max) {
+        return random.nextInt(max - min) + min; // Genera un número entre 0 (incluido) y 4 (excluido)
     }
 }

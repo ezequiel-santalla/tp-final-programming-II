@@ -50,7 +50,7 @@ public class TournamentRepositoryImp implements Repository<Tournament, Integer> 
                     return tournament;
                 }
             }
-            throw new TournamentNotFoundException("No match was found with the given ID: " + id);
+            throw new TournamentNotFoundException(id);
         } catch (JsonProcessingException e) {
             throw new FileProcessingException(filePath+e.getMessage());
         }
@@ -70,7 +70,7 @@ public class TournamentRepositoryImp implements Repository<Tournament, Integer> 
                 }
             }
             if (!tournamentUpdated) {
-                throw new TournamentNotFoundException("No match was found with the ID: " + modifiedTournament.getIdTournament());
+                throw new TournamentNotFoundException(modifiedTournament.getIdTournament());
             }
             // Only write if the tournament was updated
             PersistenceFile.writeFile(filePath, JSONConverter.toJson(tournaments));
@@ -93,7 +93,7 @@ public class TournamentRepositoryImp implements Repository<Tournament, Integer> 
                 }
             }
             if (!tournamentDeleted) {
-                throw new TournamentNotFoundException("No tournament was found with the given ID: " + id);
+                throw new TournamentNotFoundException(id);
             }
             PersistenceFile.writeFile(filePath, JSONConverter.toJson(tournaments));
         } catch (JsonProcessingException e) {
