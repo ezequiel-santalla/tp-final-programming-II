@@ -9,7 +9,6 @@ import repository.TournamentRepositoryImp;
 import service.TournamentService;
 import service.PlayerService;
 import utilities.Utilities;
-import view.Menu;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -19,20 +18,19 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        PlayerRepositoryImp playerRepositoryImp = new PlayerRepositoryImp();
-        PlayerService playerService = new PlayerService(playerRepositoryImp);
+
         TournamentRepositoryImp tournamentRepositoryImp = new TournamentRepositoryImp();
         Tournament tournament = new Tournament("torneo", "MDP", ESurface.CARPET, LocalDate.of(2024, 2, 2), LocalDate.of(2024, 2, 6));
         TournamentService tournamentService = null;
         try {
-            tournamentService = new TournamentService(playerService, tournamentRepositoryImp, 1);
+            tournamentService = new TournamentService(tournamentRepositoryImp, 1);
         } catch (TournamentNotFoundException e) {
-            tournamentService = new TournamentService(playerService, tournamentRepositoryImp, tournament);
+            tournamentService = new TournamentService(tournamentRepositoryImp, tournament);
             System.out.println("No se encontro un torneo con ese id" + e.getMessage());
         }
+        PlayerRepositoryImp playerRepositoryImp = new PlayerRepositoryImp();
+        PlayerService playerService = new PlayerService(playerRepositoryImp, tournamentService);
 
-
-        playerService.setTournamentService(tournamentService);
 
 
         Player playerOne = new Player(1, "42044093", "Marcos", "Moreno", "Argentino", LocalDate.of(1990, Month.APRIL, 22), 200);
@@ -120,19 +118,37 @@ public class Main {
             randomResults.add(new Result(0, 2));
         } catch (InvalidResultException e) {
             System.out.println("Resultado invalido");        }
-/*
-        for (Match match : tournamentService.getTournament().getRounds().getLast().getMatches()) {
+
+  /*     for (Match match : tournamentService.getTournament().getRounds().getLast().getMatches()) {
             match.setResult(randomResults.get(Utilities.random(0,randomResults.size())));
         }
 
+
 */
+
+
+        try {
+            tournamentService.assignResultToMatch(15,randomResults.get(Utilities.random(0,randomResults.size())));
+        } catch (MatchNotFoundException | IncompleteMatchException | InvalidTournamentStatusException e) {
+            System.out.println(e.getMessage());
+            }
+
+        try {
+            System.out.println("Ganador del torneo: \n"+tournamentService.getTournamentWinner());
+        } catch (IncompleteMatchException e) {
+            System.out.println("Los partidos no han finalizado");
+        } catch (InvalidTournamentStatusException e) {
+            System.out.println("EL torneo no ha finalizado"+e.getMessage());
+        }
+
+
 
 
         try {
             tournamentService.advanceTournament();
         } catch (IncompleteMatchException e) {
             System.out.println("Los partidos no han finalizado");
-        } catch (TournamentFinishedException e) {
+        } catch (InvalidTournamentStatusException e) {
             System.out.println(e.getMessage());
         } catch (TournamentFullException e) {
             System.out.println("La cantidad de jugadores esta completa");
@@ -146,6 +162,8 @@ public class Main {
         } catch (TournamentNotFoundException e) {
             System.out.println("No se pudo actualizar el torneo");
         }
+
+
 
 
 

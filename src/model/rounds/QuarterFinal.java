@@ -1,4 +1,4 @@
-package model.round;
+package model.rounds;
 
 import model.Match;
 import model.Player;

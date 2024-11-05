@@ -10,19 +10,13 @@ import java.util.List;
 
 public class PlayerService {
     private final PlayerRepositoryImp playerRepository;
-    private TournamentService tournamentService;
+    private final TournamentService tournamentService;
 
-    public PlayerService(PlayerRepositoryImp playerRepository) {
+    public PlayerService(PlayerRepositoryImp playerRepository, TournamentService tournamentService) {
         this.playerRepository = playerRepository;
-    }
-
-    public TournamentService getTournamentService() {
-        return tournamentService;
-    }
-
-    public void setTournamentService(TournamentService tournamentService) {
         this.tournamentService = tournamentService;
     }
+
 
     public Integer addPlayer(Player player) {
         return playerRepository.create(player);

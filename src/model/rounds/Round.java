@@ -1,4 +1,4 @@
-package model.round;
+package model.rounds;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;

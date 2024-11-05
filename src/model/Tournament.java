@@ -3,7 +3,7 @@ package model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import enums.ESurface;
 import enums.ETournamentStatus;
-import model.round.Round;
+import model.rounds.Round;
 
 import java.time.LocalDate;
 import java.util.*;
