@@ -55,7 +55,7 @@ public class TournamentService {
 
     private boolean allMatchesCompleted() {
         for (Match match : getCurrentRound().getMatches()) {
-            if (match.getResult() == null || match.getResult().getSetsWonPlayerOne() == 0 && match.getResult().getSetsWonPlayerTwo() == 0) {
+            if (match.getResult() == null || !match.getResult().thereIsAWinner()) {
                 return false; // Algún partido no está completo
             }
         }

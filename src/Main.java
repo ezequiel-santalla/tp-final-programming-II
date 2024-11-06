@@ -1,9 +1,6 @@
 import enums.ESurface;
 import exceptions.*;
-import model.Match;
-import model.Player;
-import model.Result;
-import model.Tournament;
+import model.*;
 import repository.PlayerRepositoryImp;
 import repository.TournamentRepositoryImp;
 import service.TournamentService;
@@ -110,14 +107,31 @@ public class Main {
             //System.out.println("Ya no se pueden registrar mas jugadores");
         }*/
 
-        List<Result> randomResults = new ArrayList<>();
+        List<SetScore> possibleScores = new ArrayList<>();
+        Result result = new Result();
+
         try {
-            randomResults.add(new Result(2, 0));
-            randomResults.add(new Result(2, 1));
-            randomResults.add(new Result(1, 2));
-            randomResults.add(new Result(0, 2));
+            possibleScores.add(new SetScore(6,4));
+            possibleScores.add(new SetScore(6,3));
+            possibleScores.add(new SetScore(6,2));
+            possibleScores.add(new SetScore(6,1));
+            possibleScores.add(new SetScore(6,0));
+            possibleScores.add(new SetScore(7,6));
+            possibleScores.add(new SetScore(7,5));
+            possibleScores.add(new SetScore(4,6));
+            possibleScores.add(new SetScore(3,6));
+            possibleScores.add(new SetScore(2,6));
+            possibleScores.add(new SetScore(1,6));
+            possibleScores.add(new SetScore(0,6));
+            possibleScores.add(new SetScore(5,7));
+            possibleScores.add(new SetScore(6,7));
+
+            while(!result.thereIsAWinner()) {
+                result.addSetScore(possibleScores.get(Utilities.random(0, possibleScores.size())));
+            }
         } catch (InvalidResultException e) {
             System.out.println("Resultado invalido");        }
+
 
   /*     for (Match match : tournamentService.getTournament().getRounds().getLast().getMatches()) {
             match.setResult(randomResults.get(Utilities.random(0,randomResults.size())));
@@ -128,7 +142,7 @@ public class Main {
 
 
         try {
-            tournamentService.assignResultToMatch(15,randomResults.get(Utilities.random(0,randomResults.size())));
+            tournamentService.assignResultToMatch(15, result);
         } catch (MatchNotFoundException | IncompleteMatchException | InvalidTournamentStatusException e) {
             System.out.println(e.getMessage());
             }

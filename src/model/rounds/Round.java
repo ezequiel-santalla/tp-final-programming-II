@@ -17,7 +17,6 @@ import java.util.Objects;
             @JsonSubTypes.Type(value = Final.class, name = "final")
     })
     public abstract class Round {
-        // Propiedades y métodos de la clase Round
 
     @JsonProperty("id")
     private Integer id;
