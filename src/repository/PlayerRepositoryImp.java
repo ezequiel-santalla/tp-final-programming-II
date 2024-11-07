@@ -6,12 +6,14 @@ import exceptions.PlayerNotFoundException;
 import model.Player;
 import utilities.JSONConverter;
 import utilities.PersistenceFile;
-import java.util.List;
-import java.util.TreeSet;
+
+import java.util.*;
 
 public class PlayerRepositoryImp implements Repository<Player, Integer> {
     private final String filePath;
     private List<Player> players;
+    private String data;
+
 
     public PlayerRepositoryImp() {
         this.filePath = "data/player.json";
@@ -21,22 +23,15 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
     public Integer create(Player player) {
         String data = PersistenceFile.readFile(filePath);
 
-
-        Integer id = 0;
-
         try {
-            TreeSet<Player> playersSet = new TreeSet<>(JSONConverter.fromJsonArrayToList(data, Player.class));
-
-            if (!playersSet.isEmpty()) {
-                id = playersSet.last().getIdPlayer();
-            }
-            player.setIdPlayer(id + 1);
+            LinkedHashSet<Player> playersSet = new LinkedHashSet<>(JSONConverter.fromJsonArrayToList(data, Player.class));
+            player.setIdPlayer(generatePlayerID());
             playersSet.add(player);
             PersistenceFile.writeFile(filePath, JSONConverter.toJson(playersSet));
         } catch (JsonProcessingException e) {
             throw new FileProcessingException(filePath);
         }
-        return id;
+        return player.getIdPlayer();
     }
 
     @Override
@@ -120,5 +115,16 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
         } catch (JsonProcessingException e) {
             throw new FileProcessingException(filePath);
         }
+    }
+    public Integer generatePlayerID() throws JsonProcessingException {
+        data = PersistenceFile.readFile(filePath);
+        players = JSONConverter.fromJsonArrayToList(data, Player.class);
+        Integer lastId = 0;
+        for(Player player : players){
+            if(player.getIdPlayer()>lastId){
+                lastId=player.getIdPlayer();
+            }
+        }
+        return ++lastId;
     }
 }

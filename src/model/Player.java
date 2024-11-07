@@ -24,7 +24,7 @@ public class Player implements Comparable<Player> {
     public Player() {
     }
 
-    public Player(String name, String lastName, String dni, String nationality, LocalDate dateOfBirth) {
+    public Player(String dni, String name, String lastName, String nationality, LocalDate dateOfBirth) {
         this.name = name;
         this.lastName = lastName;
         this.dni = dni;
