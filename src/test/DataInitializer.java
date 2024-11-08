@@ -21,10 +21,10 @@ import java.util.List;
 public class DataInitializer {
 
 
-    private List<Player> players = new ArrayList<>();
-    private List<SetScore> possibleScores = new ArrayList<>();
-    public TournamentService tournamentService;
-    public PlayerService playerService;
+    private final List<Player> players = new ArrayList<>();
+    private final List<SetScore> possibleScores = new ArrayList<>();
+    private TournamentService tournamentService;
+    private PlayerService playerService;
 
     public DataInitializer() {
         createPlayers();
@@ -40,16 +40,17 @@ public class DataInitializer {
 
     public Result getRandomResult() {
         Result result = new Result();
-        while (!result.thereIsAWinner()) {
-            try {
+        try {
+            result.addSetScore(possibleScores.get(Utilities.random(0, possibleScores.size())));
+            result.addSetScore(possibleScores.get(Utilities.random(0, possibleScores.size())));
+            if (!result.thereIsAWinner()) {
                 result.addSetScore(possibleScores.get(Utilities.random(0, possibleScores.size())));
-            } catch (InvalidResultException e) {
-                throw new RuntimeException(e);
             }
+        } catch (InvalidResultException e) {
+            System.out.println(e.getMessage());
         }
         return result;
     }
-
 
     private void createPlayers() {
 
@@ -62,17 +63,17 @@ public class DataInitializer {
         players.add(new Player("42087654", "Joaquín", "Ruiz", "Paraguayo", LocalDate.of(1987, Month.MAY, 8)));
         players.add(new Player("43098765", "Matías", "Ríos", "Argentino", LocalDate.of(1994, Month.AUGUST, 13)));
         players.add(new Player("46054321", "Martín", "Sosa", "Uruguayo", LocalDate.of(1996, Month.OCTOBER, 2)));
-        players.add(new Player( "47067890", "Cristian", "Nuñez", "Argentino", LocalDate.of(1991, Month.DECEMBER, 30)));
+        players.add(new Player("47067890", "Cristian", "Nuñez", "Argentino", LocalDate.of(1991, Month.DECEMBER, 30)));
         players.add(new Player("44034567", "Agustín", "Duarte", "Chileno", LocalDate.of(1990, Month.FEBRUARY, 18)));
-        players.add(new Player( "48012345", "Nicolás", "Álvarez", "Argentino", LocalDate.of(1997, Month.NOVEMBER, 9)));
+        players.add(new Player("48012345", "Nicolás", "Álvarez", "Argentino", LocalDate.of(1997, Month.NOVEMBER, 9)));
         players.add(new Player("49054321", "Rodrigo", "Vega", "Argentino", LocalDate.of(1994, Month.MARCH, 23)));
-        players.add(new Player( "50067890", "Hernán", "Castro", "Uruguayo", LocalDate.of(1988, Month.SEPTEMBER, 19)));
+        players.add(new Player("50067890", "Hernán", "Castro", "Uruguayo", LocalDate.of(1988, Month.SEPTEMBER, 19)));
         players.add(new Player("51023456", "Francisco", "Silva", "Paraguayo", LocalDate.of(1986, Month.APRIL, 4)));
         players.add(new Player("52034567", "Diego", "Ortiz", "Chileno", LocalDate.of(1992, Month.MAY, 6)));
-        players.add(new Player( "53045678", "Sebastián", "Morales", "Argentino", LocalDate.of(1993, Month.JULY, 12)));
-        players.add(new Player( "54056789", "Gabriel", "Luna", "Uruguayo", LocalDate.of(1991, Month.JUNE, 15)));
-        players.add(new Player( "55067890", "Andrés", "Herrera", "Paraguayo", LocalDate.of(1994, Month.DECEMBER, 2)));
-        players.add(new Player( "56078901", "Facundo", "Sánchez", "Argentino", LocalDate.of(1995, Month.OCTOBER, 24)));
+        players.add(new Player("53045678", "Sebastián", "Morales", "Argentino", LocalDate.of(1993, Month.JULY, 12)));
+        players.add(new Player("54056789", "Gabriel", "Luna", "Uruguayo", LocalDate.of(1991, Month.JUNE, 15)));
+        players.add(new Player("55067890", "Andrés", "Herrera", "Paraguayo", LocalDate.of(1994, Month.DECEMBER, 2)));
+        players.add(new Player("56078901", "Facundo", "Sánchez", "Argentino", LocalDate.of(1995, Month.OCTOBER, 24)));
 
     }
 
@@ -104,9 +105,9 @@ public class DataInitializer {
         TournamentRepositoryImp tournamentRepositoryImp = new TournamentRepositoryImp();
         Tournament tournament = new Tournament("torneo", "MDP", ESurface.CARPET, LocalDate.of(2024, 2, 2), LocalDate.of(2024, 2, 6));
         try {
-            tournamentService = new TournamentService(tournamentRepositoryImp, 1);
+            setTournamentService(new TournamentService(tournamentRepositoryImp, 1));
         } catch (TournamentNotFoundException e) {
-            tournamentService = new TournamentService(tournamentRepositoryImp, tournament);
+            setTournamentService(new TournamentService(tournamentRepositoryImp, tournament));
             System.out.println("No se encontro un torneo con ese id" + e.getMessage());
         }
 
@@ -114,6 +115,30 @@ public class DataInitializer {
 
     private void createPlayerService() {
         PlayerRepositoryImp playerRepositoryImp = new PlayerRepositoryImp();
-        playerService = new PlayerService(playerRepositoryImp, tournamentService);
+        setPlayerService(new PlayerService(playerRepositoryImp, getTournamentService()));
+    }
+
+    public TournamentService getTournamentService() {
+        return tournamentService;
+    }
+
+    public void setTournamentService(TournamentService tournamentService) {
+        this.tournamentService = tournamentService;
+    }
+
+    public PlayerService getPlayerService() {
+        return playerService;
+    }
+
+    public void setPlayerService(PlayerService playerService) {
+        this.playerService = playerService;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public List<SetScore> getPossibleScores() {
+        return possibleScores;
     }
 }

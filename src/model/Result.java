@@ -1,5 +1,6 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import exceptions.InvalidResultException;
 
@@ -10,7 +11,7 @@ import java.util.List;
 public class Result {
 
     @JsonProperty("setsScore")
-    private final List<SetScore> setsScore;
+    private List<SetScore> setsScore;
 
     public Result() {
         this.setsScore = new ArrayList<>();
@@ -43,7 +44,7 @@ public class Result {
 
         return getSetsWonPlayerOne() == 2 || getSetsWonPlayerTwo() == 2;
     }
-
+    @JsonIgnore
     public Integer getSetsWonPlayerOne() {
 
         Integer setsWonPlayerOne = 0;
@@ -54,18 +55,22 @@ public class Result {
             }
         }
         return setsWonPlayerOne;
-    }
 
+    }
+    @JsonIgnore
     public Integer getSetsWonPlayerTwo() {
 
         Integer setsWonPlayerTwo = 0;
 
         for (SetScore score : setsScore) {
-            if (score.getPlayerOneScore() > score.getPlayerTwoScore()) {
+            if (score.getPlayerTwoScore() > score.getPlayerOneScore()) {
                 setsWonPlayerTwo++;
             }
         }
         return setsWonPlayerTwo;
     }
 
+    public void setSetsScore(List<SetScore> setsScore) {
+        this.setsScore = setsScore;
+    }
 }

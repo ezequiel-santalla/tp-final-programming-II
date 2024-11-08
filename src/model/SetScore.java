@@ -87,7 +87,7 @@ public class SetScore {
     }
 
     private boolean validateParcialScore(Integer score) {
-        return score > 0 && score <= 7;
+        return score >= 0 && score <= 7;
     }
 
 

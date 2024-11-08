@@ -21,7 +21,7 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
 
     @Override
     public Integer create(Player player) {
-        String data = PersistenceFile.readFile(filePath);
+        data = PersistenceFile.readFile(filePath);
 
         try {
             LinkedHashSet<Player> playersSet = new LinkedHashSet<>(JSONConverter.fromJsonArrayToList(data, Player.class));
@@ -36,7 +36,7 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
 
     @Override
     public Player find(Integer id) throws PlayerNotFoundException, FileProcessingException {
-        String data = PersistenceFile.readFile(filePath);
+        data = PersistenceFile.readFile(filePath);
 
         try {
             players = JSONConverter.fromJsonArrayToList(data, Player.class);
@@ -53,7 +53,7 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
 
     @Override
     public void update(Player modifiedPlayer) throws PlayerNotFoundException, FileProcessingException {
-        String data = PersistenceFile.readFile(filePath);
+        data = PersistenceFile.readFile(filePath);
 
         try {
             players = JSONConverter.fromJsonArrayToList(data, Player.class);
@@ -78,7 +78,7 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
 
     @Override
     public void delete(Integer id) throws PlayerNotFoundException, FileProcessingException {
-        String data = PersistenceFile.readFile(filePath);
+        data = PersistenceFile.readFile(filePath);
 
         try {
             boolean playerDeleted = false;
@@ -103,7 +103,7 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
 
     @Override
     public List<Player> getAll() throws PlayerNotFoundException, FileProcessingException {
-        String data = PersistenceFile.readFile(filePath);
+        data = PersistenceFile.readFile(filePath);
 
         try {
             players = JSONConverter.fromJsonArrayToList(data, Player.class);

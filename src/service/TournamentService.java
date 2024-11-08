@@ -45,9 +45,11 @@ public class TournamentService {
         return tournamentRepositoryImp.getAll();
     }
 
-    public void registerPlayer(Player player) throws TournamentFullException {
+    public void registerPlayer(Player player) throws TournamentFullException, DuplicatePlayerException {
         if (tournament.getPlayers().size() < 16) {
-            tournament.getPlayers().add(player);
+            if(!tournament.getPlayers().add(player)){
+                throw new DuplicatePlayerException(player.getDni());
+            }
         } else {
             throw new TournamentFullException("Tournament is full");
         }
@@ -63,7 +65,7 @@ public class TournamentService {
     }
 
 
-    public List<Player> getPlayersStillCompeting() throws IncompleteMatchException {
+    private List<Player> getPlayersStillCompeting() throws IncompleteMatchException {
         List<Player> playersStillCompeting = new ArrayList<>();
 
         // Verificar si es la primera ronda
@@ -160,18 +162,24 @@ public class TournamentService {
         }
         throw new InvalidTournamentStatusException("Tournament has not finished yet.");
     }
-
     public Player getWinner(Match match) throws IncompleteMatchException {
         if (match.getResult() == null) {
             throw new IncompleteMatchException("The match has not finished or the result was not loaded.");
         }
+
+        // Verificar si el jugador uno ha ganado 2 sets
         if (match.getResult().getSetsWonPlayerOne() == 2) {
             return match.getPlayerOne();
-        } else if (match.getResult().getSetsWonPlayerTwo() == 2) {
+        }
+        // Verificar si el jugador dos ha ganado 2 sets
+        else if (match.getResult().getSetsWonPlayerTwo() == 2) {
             return match.getPlayerTwo();
         }
+
+        // Si no hay un ganador definido
         throw new IncompleteMatchException("There is no defined winner.");
     }
+
 
     public void assignResultToMatch(Integer matchId, Result result) throws MatchNotFoundException, IncompleteMatchException, InvalidTournamentStatusException {
         if(tournament.getStatus().equals(ETournamentStatus.FINISHED)){
@@ -206,7 +214,7 @@ public class TournamentService {
         return null; // Si no se encuentra el partido
     }
 
-    private Round getCurrentRound() {
+    public Round getCurrentRound() {
         return tournament.getRounds().getLast(); // Asumiendo que la última ronda es la actual
     }
 
