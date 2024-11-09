@@ -15,8 +15,8 @@ public class QuarterFinal extends Round {
         super(givenPoints);
     }
 
-    public QuarterFinal(Integer id, List<Match> matches, Integer givenPoints) {
-        super(id, matches, givenPoints);
+    public QuarterFinal(List<Match> matches, Integer givenPoints) {
+        super(matches, givenPoints);
     }
 
     @Override

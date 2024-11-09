@@ -15,8 +15,8 @@ public class Semifinal extends Round {
         super(givenPoints);
     }
 
-    public Semifinal(Integer id, List<Match> matches, Integer givenPoints) {
-        super(id, matches, givenPoints);
+    public Semifinal(List<Match> matches, Integer givenPoints) {
+        super(matches, givenPoints);
     }
 
     @Override

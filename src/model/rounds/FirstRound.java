@@ -15,8 +15,8 @@ public class FirstRound extends Round {
         super(givenPoints);
     }
 
-    public FirstRound(Integer id, List<Match> matches, Integer givenPoints) {
-        super(id, matches, givenPoints);
+    public FirstRound(List<Match> matches, Integer givenPoints) {
+        super(matches, givenPoints);
     }
 
     @Override

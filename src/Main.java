@@ -5,13 +5,25 @@ public class Main {
 
         TestTournament testTournament = new TestTournament();
 
+
+            // Get a random player who is not registered for the tournament and try to register him
         //testTournament.registerPlayerInTournament(testTournament.getRandomUnregisteredPlayer());
+
+
+            // Try to register a player who already exists in the tournament
         // testTournament.registerDuplicatedlayer();
-         //testTournament.fillTournamentWithPlayers();
 
 
-        testTournament.nextRound();
-        testTournament.finalizeAllMatchOfCurrentRound();
+           // Assign results to all matches in the current round
+        //testTournament.fillTournamentWithPlayers();
+
+
+            // Try to enerate the next round in the tournament
+        //testTournament.nextRound();
+
+
+
+        //testTournament.finalizeAllMatchOfCurrentRound();
 
     }
 }

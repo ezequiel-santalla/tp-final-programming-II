@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "roundType")
     @JsonSubTypes({
             @JsonSubTypes.Type(value = FirstRound.class, name = "firstRound"),
             @JsonSubTypes.Type(value = QuarterFinal.class, name = "quarterFinal"),
@@ -18,8 +18,6 @@ import java.util.Objects;
     })
     public abstract class Round {
 
-    @JsonProperty("id")
-    private Integer id;
     @JsonProperty("matches")
     protected List<Match> matches;
     @JsonProperty("givenPoints")
@@ -34,18 +32,9 @@ import java.util.Objects;
         matches = new ArrayList<>();
     }
 
-    protected Round(Integer id, List<Match> matches, Integer givenPoints) {
-        this.id = id;
+    protected Round(List<Match> matches, Integer givenPoints) {
         this.matches = matches;
         this.givenPoints = givenPoints;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public List<Match> getMatches() {
@@ -68,12 +57,12 @@ import java.util.Objects;
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Round round)) return false;
-        return Objects.equals(id, round.id) && Objects.equals(matches, round.matches);
+        return Objects.equals(matches, round.matches);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, matches);
+        return Objects.hash(matches);
     }
 
 
@@ -82,7 +71,6 @@ import java.util.Objects;
         return "------------------------------------\n" +
                 "|        Detalles del Torneo        |\n" +
                 "------------------------------------\n" +
-                "| ID                    : " + id + "\n" +
                 "| Partidos              : " + matches + "\n" +
                 "| Puntaje               : " + givenPoints + "\n";
     }

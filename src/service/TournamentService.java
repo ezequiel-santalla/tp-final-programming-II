@@ -84,12 +84,11 @@ public class TournamentService {
     }
 
     private void nextRound() throws IncompleteMatchException, InvalidTournamentStatusException {
-        // Agregar la ronda actual al torneo
         Round nextRound = generateNextRound();
         nextRound.generateMatches(getPlayersStillCompeting());
+        // Add next round to tournament
         tournament.getRounds().add(nextRound);
-        nextRound.setId(tournament.getRounds().size());
-        // Comprobar si esta es la ronda final y actualizar el estado según corresponda
+        // Check if this is the final round and update the status accordingly
         if (nextRound instanceof Final && allMatchesCompleted()) {
             tournament.setStatus(ETournamentStatus.FINISHED);
         }

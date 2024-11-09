@@ -15,8 +15,8 @@ public class Final extends Round {
         super(givenPoints);
     }
 
-    public Final(Integer id, List<Match> matches, Integer givenPoints) {
-        super(id, matches, givenPoints);
+    public Final(List<Match> matches, Integer givenPoints) {
+        super(matches, givenPoints);
     }
 
     @Override

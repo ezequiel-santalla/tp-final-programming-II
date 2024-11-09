@@ -4,6 +4,8 @@ import enums.ETournamentStatus;
 import exceptions.*;
 import model.Match;
 import model.Player;
+import model.Result;
+import model.SetScore;
 import service.TournamentService;
 import utilities.Utilities;
 
@@ -97,11 +99,70 @@ public class TestTournament {
 
     public void finalizeAllMatchOfCurrentRound(){
         for(Match match : tournamentService.getCurrentRound().getMatches()){
-            assignResultToMatch(match.getIdMatch());
+            assignRandomResultToMatch(match.getIdMatch());
         }
     }
 
-    public void assignResultToMatch(Integer idMatch) {
+    public void assignInvalidResultToMatch(Integer idMatch){
+        try {
+            Result result = new Result();
+            try {
+                List<SetScore> setsScore = List.of(
+                        new SetScore(4, 4),
+                        new SetScore(0, -3),
+                        new SetScore(7, 5)
+                );
+            } catch (InvalidResultException e) {
+                System.out.println(e.getMessage());
+            }
+            tournamentService.assignResultToMatch(idMatch, result);
+        } catch (MatchNotFoundException | IncompleteMatchException | InvalidTournamentStatusException e) {
+            System.out.println(e.getMessage());
+        }
+        saveChanges();
+    }
+
+    public void assignUndefinedResultToMatch(Integer idMatch){
+        try {
+            Result result = new Result();
+            try {
+                List<SetScore> setsScore = List.of(
+                        new SetScore(3, 6),
+                        new SetScore(6, 2)
+                );
+            } catch (InvalidResultException e) {
+                System.out.println(e.getMessage());
+            }
+            tournamentService.assignResultToMatch(idMatch, result);
+        } catch (MatchNotFoundException | IncompleteMatchException | InvalidTournamentStatusException e) {
+            System.out.println(e.getMessage());
+        }
+        saveChanges();
+    }
+
+    public void assignTooManyResults (Integer idMatch){
+        try {
+            Result result = new Result();
+            try {
+                List<SetScore> setsScore = List.of(
+                        new SetScore(6, 0),
+                        new SetScore(4, 6),
+                        new SetScore(7, 6),
+                        new SetScore(5, 7)
+                );
+            } catch (InvalidResultException e) {
+                System.out.println(e.getMessage());
+            }
+            tournamentService.assignResultToMatch(idMatch, result);
+        } catch (MatchNotFoundException | IncompleteMatchException | InvalidTournamentStatusException e) {
+            System.out.println(e.getMessage());
+        }
+        saveChanges();
+    }
+
+
+
+    public void assignRandomResultToMatch(Integer idMatch) {
         try {
             tournamentService.assignResultToMatch(idMatch, dataInitializer.getRandomResult());
         } catch (MatchNotFoundException | IncompleteMatchException | InvalidTournamentStatusException e) {
