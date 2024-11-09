@@ -1,8 +1,8 @@
 package exceptions;
 
-public class EntityNotFoundException extends Exception {
+public abstract class EntityNotFoundException extends Exception {
 
-    public EntityNotFoundException(String message) {
+    protected EntityNotFoundException(String message) {
         super(message);
     }
 }

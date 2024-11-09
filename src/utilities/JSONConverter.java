@@ -17,23 +17,7 @@ public class JSONConverter {
         // Static block that configures the objMapper to recognize dates
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        //objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true);
-        //objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
     }
-    /*
-    public static <T> List<T> fromJsonArrayToList(String jsonString, Class<T> tClass) throws JsonProcessingException {
-        List<T> list = new ArrayList<>();
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JavaType type = objectMapper.getTypeFactory().constructCollectionType(List.class, tClass);
-            list = objectMapper.readValue(jsonString, type);
-        } catch (JsonProcessingException e) {
-            // Guarda el contenido no serializable en un archivo de respaldo
-            PersistenceFile.saveUnserializableContent(tClass.getSimpleName(), jsonString);
-        }
-        return list;
-    }
-    */
     public static <T> List<T> fromJsonArrayToList(String jsonString, Class<T> tClass) throws JsonProcessingException {
         try {
             return objectMapper.readValue(jsonString, objectMapper.getTypeFactory().constructCollectionType(List.class, tClass));
@@ -43,26 +27,6 @@ public class JSONConverter {
         }
     }
 
-    /*public static <T> List<T> fromJsonArrayToList(String jsonString, Class<T> tClass) throws JsonProcessingException, IllegalArgumentException {
-        JavaType tournamentListType = objectMapper.getTypeFactory().constructCollectionType(
-                List.class,
-                objectMapper.getTypeFactory().constructParametricType(Tournament.class, Round.class, Match.class, Player.class)
-        );
-
-        List<Map<String, Object>> mapList;
-        List<T> list = new ArrayList<>();
-        try {
-            mapList = objectMapper.readValue(jsonString, List.class);
-            for (Map<String, Object> t : mapList) {
-                list.add(objectMapper.convertValue(t, tClass));
-            }
-        } catch (JsonProcessingException | IllegalArgumentException | FileProcessingException e) {
-            //PersistenceFile.saveUnserializableContent(tClass.getSimpleName(), jsonString);
-            return list;
-        }
-        return list;
-    }
-*/
     public static String toJson(Object object) throws JsonProcessingException {
         return objectMapper.writeValueAsString(object);
     }

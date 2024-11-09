@@ -162,6 +162,7 @@ public class TournamentService {
         }
         throw new InvalidTournamentStatusException("Tournament has not finished yet.");
     }
+
     public Player getWinner(Match match) throws IncompleteMatchException {
         if (match.getResult() == null) {
             throw new IncompleteMatchException("The match has not finished or the result was not loaded.");
