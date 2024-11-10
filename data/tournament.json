@@ -28,7 +28,7 @@
     "lastName" : "Martínez",
     "nationality" : "Argentino",
     "dateOfBirth" : [ 1995, 6, 21 ],
-    "points" : 10
+    "points" : 0
   }, {
     "idPlayer" : 8,
     "dni" : "43098765",
@@ -36,7 +36,7 @@
     "lastName" : "Ríos",
     "nationality" : "Argentino",
     "dateOfBirth" : [ 1994, 8, 13 ],
-    "points" : 10
+    "points" : 0
   }, {
     "idPlayer" : 16,
     "dni" : "52034567",
@@ -52,7 +52,15 @@
     "lastName" : "Ruiz",
     "nationality" : "Paraguayo",
     "dateOfBirth" : [ 1987, 5, 8 ],
-    "points" : 10
+    "points" : 0
+  }, {
+    "idPlayer" : 18,
+    "dni" : "54056789",
+    "name" : "Gabriel",
+    "lastName" : "Luna",
+    "nationality" : "Uruguayo",
+    "dateOfBirth" : [ 1991, 6, 15 ],
+    "points" : 0
   }, {
     "idPlayer" : 1,
     "dni" : "42044093",
@@ -68,7 +76,7 @@
     "lastName" : "Álvarez",
     "nationality" : "Argentino",
     "dateOfBirth" : [ 1997, 11, 9 ],
-    "points" : 10
+    "points" : 0
   }, {
     "idPlayer" : 3,
     "dni" : "41023567",
@@ -78,21 +86,13 @@
     "dateOfBirth" : [ 1991, 1, 10 ],
     "points" : 0
   }, {
-    "idPlayer" : 10,
-    "dni" : "47067890",
-    "name" : "Cristian",
-    "lastName" : "Nuñez",
-    "nationality" : "Argentino",
-    "dateOfBirth" : [ 1991, 12, 30 ],
-    "points" : 0
-  }, {
     "idPlayer" : 15,
     "dni" : "51023456",
     "name" : "Francisco",
     "lastName" : "Silva",
     "nationality" : "Paraguayo",
     "dateOfBirth" : [ 1986, 4, 4 ],
-    "points" : 10
+    "points" : 0
   }, {
     "idPlayer" : 5,
     "dni" : "39045678",
@@ -100,7 +100,7 @@
     "lastName" : "López",
     "nationality" : "Chileno",
     "dateOfBirth" : [ 1993, 9, 5 ],
-    "points" : 10
+    "points" : 0
   }, {
     "idPlayer" : 11,
     "dni" : "44034567",
@@ -124,7 +124,7 @@
     "lastName" : "Sosa",
     "nationality" : "Uruguayo",
     "dateOfBirth" : [ 1996, 10, 2 ],
-    "points" : 10
+    "points" : 0
   }, {
     "idPlayer" : 14,
     "dni" : "50067890",
@@ -132,7 +132,7 @@
     "lastName" : "Castro",
     "nationality" : "Uruguayo",
     "dateOfBirth" : [ 1988, 9, 19 ],
-    "points" : 10
+    "points" : 0
   } ],
   "rounds" : [ {
     "roundType" : "firstRound",
@@ -148,20 +148,23 @@
         "points" : 0
       },
       "playerTwo" : {
-        "idPlayer" : 5,
-        "dni" : "39045678",
-        "name" : "Miguel",
-        "lastName" : "López",
-        "nationality" : "Chileno",
-        "dateOfBirth" : [ 1993, 9, 5 ],
-        "points" : 30
+        "idPlayer" : 13,
+        "dni" : "49054321",
+        "name" : "Rodrigo",
+        "lastName" : "Vega",
+        "nationality" : "Argentino",
+        "dateOfBirth" : [ 1994, 3, 23 ],
+        "points" : 0
       },
       "result" : {
         "setsScore" : [ {
-          "playerOneScore" : 3,
+          "playerOneScore" : 2,
           "playerTwoScore" : 6
         }, {
-          "playerOneScore" : 3,
+          "playerOneScore" : 7,
+          "playerTwoScore" : 5
+        }, {
+          "playerOneScore" : 1,
           "playerTwoScore" : 6
         } ]
       }
@@ -174,7 +177,100 @@
         "lastName" : "Martínez",
         "nationality" : "Argentino",
         "dateOfBirth" : [ 1995, 6, 21 ],
-        "points" : 10
+        "points" : 0
+      },
+      "playerTwo" : {
+        "idPlayer" : 8,
+        "dni" : "43098765",
+        "name" : "Matías",
+        "lastName" : "Ríos",
+        "nationality" : "Argentino",
+        "dateOfBirth" : [ 1994, 8, 13 ],
+        "points" : 0
+      },
+      "result" : {
+        "setsScore" : [ {
+          "playerOneScore" : 6,
+          "playerTwoScore" : 0
+        }, {
+          "playerOneScore" : 5,
+          "playerTwoScore" : 7
+        }, {
+          "playerOneScore" : 6,
+          "playerTwoScore" : 2
+        } ]
+      }
+    }, {
+      "idMatch" : 3,
+      "playerOne" : {
+        "idPlayer" : 16,
+        "dni" : "52034567",
+        "name" : "Diego",
+        "lastName" : "Ortiz",
+        "nationality" : "Chileno",
+        "dateOfBirth" : [ 1992, 5, 6 ],
+        "points" : 0
+      },
+      "playerTwo" : {
+        "idPlayer" : 7,
+        "dni" : "42087654",
+        "name" : "Joaquín",
+        "lastName" : "Ruiz",
+        "nationality" : "Paraguayo",
+        "dateOfBirth" : [ 1987, 5, 8 ],
+        "points" : 0
+      },
+      "result" : {
+        "setsScore" : [ {
+          "playerOneScore" : 0,
+          "playerTwoScore" : 6
+        }, {
+          "playerOneScore" : 6,
+          "playerTwoScore" : 7
+        } ]
+      }
+    }, {
+      "idMatch" : 4,
+      "playerOne" : {
+        "idPlayer" : 18,
+        "dni" : "54056789",
+        "name" : "Gabriel",
+        "lastName" : "Luna",
+        "nationality" : "Uruguayo",
+        "dateOfBirth" : [ 1991, 6, 15 ],
+        "points" : 0
+      },
+      "playerTwo" : {
+        "idPlayer" : 1,
+        "dni" : "42044093",
+        "name" : "Marcos",
+        "lastName" : "Moreno",
+        "nationality" : "Argentino",
+        "dateOfBirth" : [ 1990, 4, 22 ],
+        "points" : 0
+      },
+      "result" : {
+        "setsScore" : [ {
+          "playerOneScore" : 6,
+          "playerTwoScore" : 4
+        }, {
+          "playerOneScore" : 2,
+          "playerTwoScore" : 6
+        }, {
+          "playerOneScore" : 3,
+          "playerTwoScore" : 6
+        } ]
+      }
+    }, {
+      "idMatch" : 5,
+      "playerOne" : {
+        "idPlayer" : 12,
+        "dni" : "48012345",
+        "name" : "Nicolás",
+        "lastName" : "Álvarez",
+        "nationality" : "Argentino",
+        "dateOfBirth" : [ 1997, 11, 9 ],
+        "points" : 0
       },
       "playerTwo" : {
         "idPlayer" : 3,
@@ -187,101 +283,8 @@
       },
       "result" : {
         "setsScore" : [ {
-          "playerOneScore" : 6,
-          "playerTwoScore" : 3
-        }, {
-          "playerOneScore" : 6,
-          "playerTwoScore" : 2
-        } ]
-      }
-    }, {
-      "idMatch" : 3,
-      "playerOne" : {
-        "idPlayer" : 1,
-        "dni" : "42044093",
-        "name" : "Marcos",
-        "lastName" : "Moreno",
-        "nationality" : "Argentino",
-        "dateOfBirth" : [ 1990, 4, 22 ],
-        "points" : 0
-      },
-      "playerTwo" : {
-        "idPlayer" : 7,
-        "dni" : "42087654",
-        "name" : "Joaquín",
-        "lastName" : "Ruiz",
-        "nationality" : "Paraguayo",
-        "dateOfBirth" : [ 1987, 5, 8 ],
-        "points" : 10
-      },
-      "result" : {
-        "setsScore" : [ {
-          "playerOneScore" : 4,
+          "playerOneScore" : 3,
           "playerTwoScore" : 6
-        }, {
-          "playerOneScore" : 6,
-          "playerTwoScore" : 1
-        }, {
-          "playerOneScore" : 2,
-          "playerTwoScore" : 6
-        } ]
-      }
-    }, {
-      "idMatch" : 4,
-      "playerOne" : {
-        "idPlayer" : 8,
-        "dni" : "43098765",
-        "name" : "Matías",
-        "lastName" : "Ríos",
-        "nationality" : "Argentino",
-        "dateOfBirth" : [ 1994, 8, 13 ],
-        "points" : 30
-      },
-      "playerTwo" : {
-        "idPlayer" : 11,
-        "dni" : "44034567",
-        "name" : "Agustín",
-        "lastName" : "Duarte",
-        "nationality" : "Chileno",
-        "dateOfBirth" : [ 1990, 2, 18 ],
-        "points" : 0
-      },
-      "result" : {
-        "setsScore" : [ {
-          "playerOneScore" : 7,
-          "playerTwoScore" : 5
-        }, {
-          "playerOneScore" : 6,
-          "playerTwoScore" : 4
-        } ]
-      }
-    }, {
-      "idMatch" : 5,
-      "playerOne" : {
-        "idPlayer" : 4,
-        "dni" : "45078945",
-        "name" : "Juan",
-        "lastName" : "Pérez",
-        "nationality" : "Argentino",
-        "dateOfBirth" : [ 1989, 7, 28 ],
-        "points" : 0
-      },
-      "playerTwo" : {
-        "idPlayer" : 9,
-        "dni" : "46054321",
-        "name" : "Martín",
-        "lastName" : "Sosa",
-        "nationality" : "Uruguayo",
-        "dateOfBirth" : [ 1996, 10, 2 ],
-        "points" : 10
-      },
-      "result" : {
-        "setsScore" : [ {
-          "playerOneScore" : 4,
-          "playerTwoScore" : 6
-        }, {
-          "playerOneScore" : 7,
-          "playerTwoScore" : 5
         }, {
           "playerOneScore" : 5,
           "playerTwoScore" : 7
@@ -290,41 +293,76 @@
     }, {
       "idMatch" : 6,
       "playerOne" : {
-        "idPlayer" : 10,
-        "dni" : "47067890",
-        "name" : "Cristian",
-        "lastName" : "Nuñez",
-        "nationality" : "Argentino",
-        "dateOfBirth" : [ 1991, 12, 30 ],
+        "idPlayer" : 15,
+        "dni" : "51023456",
+        "name" : "Francisco",
+        "lastName" : "Silva",
+        "nationality" : "Paraguayo",
+        "dateOfBirth" : [ 1986, 4, 4 ],
         "points" : 0
       },
       "playerTwo" : {
-        "idPlayer" : 12,
-        "dni" : "48012345",
-        "name" : "Nicolás",
-        "lastName" : "Álvarez",
-        "nationality" : "Argentino",
-        "dateOfBirth" : [ 1997, 11, 9 ],
-        "points" : 30
+        "idPlayer" : 5,
+        "dni" : "39045678",
+        "name" : "Miguel",
+        "lastName" : "López",
+        "nationality" : "Chileno",
+        "dateOfBirth" : [ 1993, 9, 5 ],
+        "points" : 0
       },
       "result" : {
         "setsScore" : [ {
-          "playerOneScore" : 3,
+          "playerOneScore" : 0,
           "playerTwoScore" : 6
         }, {
-          "playerOneScore" : 0,
+          "playerOneScore" : 6,
+          "playerTwoScore" : 0
+        }, {
+          "playerOneScore" : 7,
           "playerTwoScore" : 6
         } ]
       }
     }, {
       "idMatch" : 7,
       "playerOne" : {
-        "idPlayer" : 13,
-        "dni" : "49054321",
-        "name" : "Rodrigo",
-        "lastName" : "Vega",
+        "idPlayer" : 11,
+        "dni" : "44034567",
+        "name" : "Agustín",
+        "lastName" : "Duarte",
+        "nationality" : "Chileno",
+        "dateOfBirth" : [ 1990, 2, 18 ],
+        "points" : 0
+      },
+      "playerTwo" : {
+        "idPlayer" : 4,
+        "dni" : "45078945",
+        "name" : "Juan",
+        "lastName" : "Pérez",
         "nationality" : "Argentino",
-        "dateOfBirth" : [ 1994, 3, 23 ],
+        "dateOfBirth" : [ 1989, 7, 28 ],
+        "points" : 0
+      },
+      "result" : {
+        "setsScore" : [ {
+          "playerOneScore" : 6,
+          "playerTwoScore" : 4
+        }, {
+          "playerOneScore" : 0,
+          "playerTwoScore" : 6
+        }, {
+          "playerOneScore" : 6,
+          "playerTwoScore" : 1
+        } ]
+      }
+    }, {
+      "idMatch" : 8,
+      "playerOne" : {
+        "idPlayer" : 9,
+        "dni" : "46054321",
+        "name" : "Martín",
+        "lastName" : "Sosa",
+        "nationality" : "Uruguayo",
+        "dateOfBirth" : [ 1996, 10, 2 ],
         "points" : 0
       },
       "playerTwo" : {
@@ -334,38 +372,6 @@
         "lastName" : "Castro",
         "nationality" : "Uruguayo",
         "dateOfBirth" : [ 1988, 9, 19 ],
-        "points" : 30
-      },
-      "result" : {
-        "setsScore" : [ {
-          "playerOneScore" : 4,
-          "playerTwoScore" : 6
-        }, {
-          "playerOneScore" : 6,
-          "playerTwoScore" : 1
-        }, {
-          "playerOneScore" : 3,
-          "playerTwoScore" : 6
-        } ]
-      }
-    }, {
-      "idMatch" : 8,
-      "playerOne" : {
-        "idPlayer" : 15,
-        "dni" : "51023456",
-        "name" : "Francisco",
-        "lastName" : "Silva",
-        "nationality" : "Paraguayo",
-        "dateOfBirth" : [ 1986, 4, 4 ],
-        "points" : 10
-      },
-      "playerTwo" : {
-        "idPlayer" : 16,
-        "dni" : "52034567",
-        "name" : "Diego",
-        "lastName" : "Ortiz",
-        "nationality" : "Chileno",
-        "dateOfBirth" : [ 1992, 5, 6 ],
         "points" : 0
       },
       "result" : {
@@ -384,13 +390,13 @@
     "matches" : [ {
       "idMatch" : 9,
       "playerOne" : {
-        "idPlayer" : 5,
-        "dni" : "39045678",
-        "name" : "Miguel",
-        "lastName" : "López",
-        "nationality" : "Chileno",
-        "dateOfBirth" : [ 1993, 9, 5 ],
-        "points" : 60
+        "idPlayer" : 13,
+        "dni" : "49054321",
+        "name" : "Rodrigo",
+        "lastName" : "Vega",
+        "nationality" : "Argentino",
+        "dateOfBirth" : [ 1994, 3, 23 ],
+        "points" : 0
       },
       "playerTwo" : {
         "idPlayer" : 6,
@@ -399,15 +405,15 @@
         "lastName" : "Martínez",
         "nationality" : "Argentino",
         "dateOfBirth" : [ 1995, 6, 21 ],
-        "points" : 10
+        "points" : 0
       },
       "result" : {
         "setsScore" : [ {
-          "playerOneScore" : 6,
-          "playerTwoScore" : 1
+          "playerOneScore" : 1,
+          "playerTwoScore" : 6
         }, {
-          "playerOneScore" : 7,
-          "playerTwoScore" : 5
+          "playerOneScore" : 0,
+          "playerTwoScore" : 6
         } ]
       }
     }, {
@@ -419,71 +425,36 @@
         "lastName" : "Ruiz",
         "nationality" : "Paraguayo",
         "dateOfBirth" : [ 1987, 5, 8 ],
-        "points" : 10
+        "points" : 0
       },
       "playerTwo" : {
-        "idPlayer" : 8,
-        "dni" : "43098765",
-        "name" : "Matías",
-        "lastName" : "Ríos",
+        "idPlayer" : 1,
+        "dni" : "42044093",
+        "name" : "Marcos",
+        "lastName" : "Moreno",
         "nationality" : "Argentino",
-        "dateOfBirth" : [ 1994, 8, 13 ],
-        "points" : 30
+        "dateOfBirth" : [ 1990, 4, 22 ],
+        "points" : 0
       },
       "result" : {
         "setsScore" : [ {
-          "playerOneScore" : 6,
-          "playerTwoScore" : 3
-        }, {
-          "playerOneScore" : 1,
+          "playerOneScore" : 3,
           "playerTwoScore" : 6
         }, {
-          "playerOneScore" : 5,
-          "playerTwoScore" : 7
+          "playerOneScore" : 4,
+          "playerTwoScore" : 6
         } ]
       }
     }, {
       "idMatch" : 11,
       "playerOne" : {
-        "idPlayer" : 9,
-        "dni" : "46054321",
-        "name" : "Martín",
-        "lastName" : "Sosa",
+        "idPlayer" : 3,
+        "dni" : "41023567",
+        "name" : "Luis",
+        "lastName" : "Gómez",
         "nationality" : "Uruguayo",
-        "dateOfBirth" : [ 1996, 10, 2 ],
-        "points" : 10
-      },
-      "playerTwo" : {
-        "idPlayer" : 12,
-        "dni" : "48012345",
-        "name" : "Nicolás",
-        "lastName" : "Álvarez",
-        "nationality" : "Argentino",
-        "dateOfBirth" : [ 1997, 11, 9 ],
-        "points" : 30
-      },
-      "result" : {
-        "setsScore" : [ {
-          "playerOneScore" : 6,
-          "playerTwoScore" : 4
-        }, {
-          "playerOneScore" : 1,
-          "playerTwoScore" : 6
-        }, {
-          "playerOneScore" : 6,
-          "playerTwoScore" : 7
-        } ]
-      }
-    }, {
-      "idMatch" : 12,
-      "playerOne" : {
-        "idPlayer" : 14,
-        "dni" : "50067890",
-        "name" : "Hernán",
-        "lastName" : "Castro",
-        "nationality" : "Uruguayo",
-        "dateOfBirth" : [ 1988, 9, 19 ],
-        "points" : 60
+        "dateOfBirth" : [ 1991, 1, 10 ],
+        "points" : 0
       },
       "playerTwo" : {
         "idPlayer" : 15,
@@ -492,15 +463,47 @@
         "lastName" : "Silva",
         "nationality" : "Paraguayo",
         "dateOfBirth" : [ 1986, 4, 4 ],
-        "points" : 10
+        "points" : 0
       },
       "result" : {
         "setsScore" : [ {
-          "playerOneScore" : 7,
-          "playerTwoScore" : 5
+          "playerOneScore" : 6,
+          "playerTwoScore" : 7
+        }, {
+          "playerOneScore" : 1,
+          "playerTwoScore" : 6
+        } ]
+      }
+    }, {
+      "idMatch" : 12,
+      "playerOne" : {
+        "idPlayer" : 11,
+        "dni" : "44034567",
+        "name" : "Agustín",
+        "lastName" : "Duarte",
+        "nationality" : "Chileno",
+        "dateOfBirth" : [ 1990, 2, 18 ],
+        "points" : 0
+      },
+      "playerTwo" : {
+        "idPlayer" : 9,
+        "dni" : "46054321",
+        "name" : "Martín",
+        "lastName" : "Sosa",
+        "nationality" : "Uruguayo",
+        "dateOfBirth" : [ 1996, 10, 2 ],
+        "points" : 0
+      },
+      "result" : {
+        "setsScore" : [ {
+          "playerOneScore" : 3,
+          "playerTwoScore" : 6
         }, {
           "playerOneScore" : 6,
           "playerTwoScore" : 3
+        }, {
+          "playerOneScore" : 6,
+          "playerTwoScore" : 1
         } ]
       }
     } ],
@@ -510,62 +513,62 @@
     "matches" : [ {
       "idMatch" : 13,
       "playerOne" : {
-        "idPlayer" : 5,
-        "dni" : "39045678",
-        "name" : "Miguel",
-        "lastName" : "López",
-        "nationality" : "Chileno",
-        "dateOfBirth" : [ 1993, 9, 5 ],
-        "points" : 110
+        "idPlayer" : 6,
+        "dni" : "40012345",
+        "name" : "Tomás",
+        "lastName" : "Martínez",
+        "nationality" : "Argentino",
+        "dateOfBirth" : [ 1995, 6, 21 ],
+        "points" : 0
       },
       "playerTwo" : {
-        "idPlayer" : 8,
-        "dni" : "43098765",
-        "name" : "Matías",
-        "lastName" : "Ríos",
+        "idPlayer" : 1,
+        "dni" : "42044093",
+        "name" : "Marcos",
+        "lastName" : "Moreno",
         "nationality" : "Argentino",
-        "dateOfBirth" : [ 1994, 8, 13 ],
-        "points" : 30
+        "dateOfBirth" : [ 1990, 4, 22 ],
+        "points" : 0
       },
       "result" : {
         "setsScore" : [ {
           "playerOneScore" : 6,
-          "playerTwoScore" : 2
+          "playerTwoScore" : 0
         }, {
           "playerOneScore" : 6,
-          "playerTwoScore" : 1
+          "playerTwoScore" : 2
         } ]
       }
     }, {
       "idMatch" : 14,
       "playerOne" : {
-        "idPlayer" : 12,
-        "dni" : "48012345",
-        "name" : "Nicolás",
-        "lastName" : "Álvarez",
-        "nationality" : "Argentino",
-        "dateOfBirth" : [ 1997, 11, 9 ],
-        "points" : 30
+        "idPlayer" : 15,
+        "dni" : "51023456",
+        "name" : "Francisco",
+        "lastName" : "Silva",
+        "nationality" : "Paraguayo",
+        "dateOfBirth" : [ 1986, 4, 4 ],
+        "points" : 0
       },
       "playerTwo" : {
-        "idPlayer" : 14,
-        "dni" : "50067890",
-        "name" : "Hernán",
-        "lastName" : "Castro",
-        "nationality" : "Uruguayo",
-        "dateOfBirth" : [ 1988, 9, 19 ],
-        "points" : 60
+        "idPlayer" : 11,
+        "dni" : "44034567",
+        "name" : "Agustín",
+        "lastName" : "Duarte",
+        "nationality" : "Chileno",
+        "dateOfBirth" : [ 1990, 2, 18 ],
+        "points" : 0
       },
       "result" : {
         "setsScore" : [ {
-          "playerOneScore" : 1,
+          "playerOneScore" : 2,
           "playerTwoScore" : 6
         }, {
-          "playerOneScore" : 7,
-          "playerTwoScore" : 6
+          "playerOneScore" : 6,
+          "playerTwoScore" : 2
         }, {
-          "playerOneScore" : 4,
-          "playerTwoScore" : 6
+          "playerOneScore" : 5,
+          "playerTwoScore" : 7
         } ]
       }
     } ],
@@ -575,33 +578,30 @@
     "matches" : [ {
       "idMatch" : 15,
       "playerOne" : {
-        "idPlayer" : 5,
-        "dni" : "39045678",
-        "name" : "Miguel",
-        "lastName" : "López",
-        "nationality" : "Chileno",
-        "dateOfBirth" : [ 1993, 9, 5 ],
-        "points" : 110
+        "idPlayer" : 6,
+        "dni" : "40012345",
+        "name" : "Tomás",
+        "lastName" : "Martínez",
+        "nationality" : "Argentino",
+        "dateOfBirth" : [ 1995, 6, 21 ],
+        "points" : 0
       },
       "playerTwo" : {
-        "idPlayer" : 14,
-        "dni" : "50067890",
-        "name" : "Hernán",
-        "lastName" : "Castro",
-        "nationality" : "Uruguayo",
-        "dateOfBirth" : [ 1988, 9, 19 ],
-        "points" : 60
+        "idPlayer" : 11,
+        "dni" : "44034567",
+        "name" : "Agustín",
+        "lastName" : "Duarte",
+        "nationality" : "Chileno",
+        "dateOfBirth" : [ 1990, 2, 18 ],
+        "points" : 0
       },
       "result" : {
         "setsScore" : [ {
           "playerOneScore" : 6,
-          "playerTwoScore" : 2
+          "playerTwoScore" : 1
         }, {
-          "playerOneScore" : 1,
-          "playerTwoScore" : 6
-        }, {
-          "playerOneScore" : 6,
-          "playerTwoScore" : 2
+          "playerOneScore" : 7,
+          "playerTwoScore" : 5
         } ]
       }
     } ],

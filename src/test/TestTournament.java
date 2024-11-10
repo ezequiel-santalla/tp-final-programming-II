@@ -25,25 +25,29 @@ public class TestTournament {
     public void nextRound() {
         try {
             if (!tournamentService.getTournament().getStatus().equals(ETournamentStatus.NOT_STARTED)) {
-                System.out.println("Ronda actual: " + tournamentService.getCurrentRound().getClass().getSimpleName());
+                System.out.println("Ronda actual: " + tournamentService.getTournamentRoundService().getCurrentRound().getClass().getSimpleName());
             } else {
                 System.out.println("El torneo no ha iniciado aun");
             }
             tournamentService.advanceTournament();
-            System.out.println("Siguiente Ronda: " + tournamentService.getCurrentRound().getClass().getSimpleName());
+            System.out.println("Siguiente Ronda: " + tournamentService.getTournamentRoundService().getCurrentRound().getClass().getSimpleName());
         } catch (IncompleteMatchException e) {
             System.out.println(e.getMessage());
         } catch (InvalidTournamentStatusException e) {
             System.out.println(e.getMessage());
         } catch (TournamentFullException e) {
             System.out.println(e.getMessage());
+        } catch (TournamentNotFoundException e) {
+            System.out.println(e.getMessage());
         }
         saveChanges();
     }
 
+
+
     public boolean registerPlayerInTournament(Player player) {
         try {
-            tournamentService.registerPlayer(player);
+            tournamentService.registerPlayerInTournament(player);
             System.out.println("Jugador registrado: " + getPlayerData(player));
             return true;
 
@@ -51,10 +55,24 @@ public class TestTournament {
             System.out.println(e.getMessage());
         } catch (DuplicatePlayerException e) {
             System.out.println(e.getMessage());
+        } catch (TournamentNotFoundException e) {
+            System.out.println(e.getMessage());
         }
         saveChanges();
         return false;
     }
+
+    public void unsubscribePlayerFromTournament(Integer idPlayer){
+        try {
+            tournamentService.unsubscribePlayerFromTournament(idPlayer);
+            System.out.println("Jugador dado de baja. ID: "+idPlayer);
+        } catch (MatchNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (TournamentNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     public String getPlayerData(Player player) {
         return "ID: " + player.getIdPlayer() + " " + player.getName() + " " + player.getLastName();
@@ -71,7 +89,7 @@ public class TestTournament {
     public void fillTournamentWithPlayers() {
         boolean flag = true;
         while (flag) {
-            for (Player players : getUpdatedPlayersList()) {
+            for (Player players : getUnregisteredPlayers()) {
                 flag = registerPlayerInTournament(players);
                 if (!flag) {
                     break;
@@ -79,6 +97,8 @@ public class TestTournament {
             }
         }
     }
+
+
 
     public Player getRandomUnregisteredPlayer() {
         return getUnregisteredPlayers().get(Utilities.random(0, getUnregisteredPlayers().size()));
@@ -98,7 +118,7 @@ public class TestTournament {
     }
 
     public void finalizeAllMatchOfCurrentRound(){
-        for(Match match : tournamentService.getCurrentRound().getMatches()){
+        for(Match match : tournamentService.getTournamentRoundService().getCurrentRound().getMatches()){
             assignRandomResultToMatch(match.getIdMatch());
         }
     }
@@ -116,8 +136,13 @@ public class TestTournament {
                 System.out.println(e.getMessage());
             }
             tournamentService.assignResultToMatch(idMatch, result);
-        } catch (MatchNotFoundException | IncompleteMatchException | InvalidTournamentStatusException e) {
+        } catch (MatchNotFoundException | InvalidTournamentStatusException e) {
             System.out.println(e.getMessage());
+        } catch (TournamentNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (InvalidResultException e) {
+            System.out.println(e.getMessage());
+
         }
         saveChanges();
     }
@@ -134,7 +159,11 @@ public class TestTournament {
                 System.out.println(e.getMessage());
             }
             tournamentService.assignResultToMatch(idMatch, result);
-        } catch (MatchNotFoundException | IncompleteMatchException | InvalidTournamentStatusException e) {
+        } catch (MatchNotFoundException | InvalidTournamentStatusException e) {
+            System.out.println(e.getMessage());
+        } catch (TournamentNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (InvalidResultException e) {
             System.out.println(e.getMessage());
         }
         saveChanges();
@@ -154,7 +183,11 @@ public class TestTournament {
                 System.out.println(e.getMessage());
             }
             tournamentService.assignResultToMatch(idMatch, result);
-        } catch (MatchNotFoundException | IncompleteMatchException | InvalidTournamentStatusException e) {
+        } catch (MatchNotFoundException | InvalidTournamentStatusException e) {
+            System.out.println(e.getMessage());
+        } catch (TournamentNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (InvalidResultException e) {
             System.out.println(e.getMessage());
         }
         saveChanges();
@@ -165,10 +198,28 @@ public class TestTournament {
     public void assignRandomResultToMatch(Integer idMatch) {
         try {
             tournamentService.assignResultToMatch(idMatch, dataInitializer.getRandomResult());
-        } catch (MatchNotFoundException | IncompleteMatchException | InvalidTournamentStatusException e) {
+        } catch (MatchNotFoundException | InvalidTournamentStatusException e) {
+            System.out.println(e.getMessage());
+        } catch (TournamentNotFoundException e) {
+            System.out.println(e.getMessage());
+        }catch (InvalidResultException e) {
             System.out.println(e.getMessage());
         }
         saveChanges();
+    }
+
+    public void modifyResultToMatch(Integer idMatch, Result result){
+        try {
+            tournamentService.modifyResultToMatch(idMatch, result);
+        } catch (InvalidTournamentStatusException e) {
+            System.out.println(e.getMessage());
+        } catch (MatchNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (TournamentNotFoundException e) {
+            System.out.println(e.getMessage());
+        }catch (InvalidResultException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public Player getTournamentWinner() {

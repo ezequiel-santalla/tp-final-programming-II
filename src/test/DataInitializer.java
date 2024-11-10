@@ -43,7 +43,7 @@ public class DataInitializer {
         try {
             result.addSetScore(possibleScores.get(Utilities.random(0, possibleScores.size())));
             result.addSetScore(possibleScores.get(Utilities.random(0, possibleScores.size())));
-            if (!result.thereIsAWinner()) {
+            if (result.thereIsNoWinner()) {
                 result.addSetScore(possibleScores.get(Utilities.random(0, possibleScores.size())));
             }
         } catch (InvalidResultException e) {

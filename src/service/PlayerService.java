@@ -39,11 +39,11 @@ public class PlayerService {
     }
 
     private Integer getMatchesWon(Integer id) throws IncompleteMatchException {
-        List<Match> matchesByPlayer = tournamentService.getMatchesByPlayer(id);
+        List<Match> matchesByPlayer = tournamentService.getTournamentMatchService().getMatchesByPlayer(id);
         Integer matchesWon = 0;
 
         for (Match m : matchesByPlayer) {
-            int idWinner = tournamentService.getWinner(m).getIdPlayer();
+            int idWinner = tournamentService.getTournamentMatchService().getWinner(m).getIdPlayer();
 
             if (idWinner == id) {
                 matchesWon++;
@@ -55,7 +55,7 @@ public class PlayerService {
     public String showStatsByPlayer(Integer id) throws IncompleteMatchException, PlayerNotFoundException {
         Player player = findPlayerById(id);
 
-        int matchesPlayed = tournamentService.getMatchesByPlayer(id).size();
+        int matchesPlayed = tournamentService.getTournamentMatchService().getMatchesByPlayer(id).size();
         int matchesWon = getMatchesWon(id);
         int matchesLost = matchesPlayed - matchesWon;
         int totalPoints = player.getPoints();

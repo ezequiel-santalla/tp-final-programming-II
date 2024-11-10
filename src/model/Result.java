@@ -40,10 +40,11 @@ public class Result {
         return setsScore;
     }
 
-    public boolean thereIsAWinner() {
+    public boolean thereIsNoWinner() {
 
-        return getSetsWonPlayerOne() == 2 || getSetsWonPlayerTwo() == 2;
+        return getSetsWonPlayerOne() != 2 && getSetsWonPlayerTwo() != 2;
     }
+
     @JsonIgnore
     public Integer getSetsWonPlayerOne() {
 
@@ -57,6 +58,7 @@ public class Result {
         return setsWonPlayerOne;
 
     }
+
     @JsonIgnore
     public Integer getSetsWonPlayerTwo() {
 
@@ -70,7 +72,8 @@ public class Result {
         return setsWonPlayerTwo;
     }
 
-    public void setSetsScore(List<SetScore> setsScore) {
+    public void setSetsScore(List<SetScore> setsScore) throws InvalidResultException {
+        validateResult(setsScore);
         this.setsScore = setsScore;
     }
 }
