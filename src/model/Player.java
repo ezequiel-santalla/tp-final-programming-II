@@ -118,7 +118,7 @@ public class Player implements Comparable<Player> {
         |          Detalles del Jugador        |
         ----------------------------------------
         | ID                  : %-14s |
-        | Dni                 : %-14s |
+        | DNI                 : %-14s |
         | Nombre              : %-14s |
         | Apellido            : %-14s |
         | Nacionalidad        : %-14s |
