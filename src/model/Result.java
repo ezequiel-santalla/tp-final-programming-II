@@ -1,83 +1,76 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import exceptions.InvalidResultException;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Result {
-    @JsonProperty("setsWonPlayerOne")
-    private Integer setsWonPlayerOne;
 
-    @JsonProperty("setsWonPlayerTwo")
-    private Integer setsWonPlayerTwo;
+    @JsonProperty("setsScore")
+    private List<SetScore> setsScore;
 
     public Result() {
+        this.setsScore = new ArrayList<>();
     }
 
-    public Result(Integer setsWonPlayerOne, Integer setsWonPlayerTwo) throws InvalidResultException {
-        validateResult(setsWonPlayerOne, setsWonPlayerTwo);
-        this.setsWonPlayerOne = setsWonPlayerOne;
-        this.setsWonPlayerTwo = setsWonPlayerTwo;
+    public Result(List<SetScore> setsScore) throws InvalidResultException {
+        this();
+        validateResult(setsScore);
+        this.setsScore.addAll(setsScore);
     }
 
+    public void addSetScore(SetScore setScore) throws InvalidResultException {
+        if (this.setsScore.size() >= 3) {
+            throw new InvalidResultException("The number of sets cannot exceed 3.");
+        }
+        this.setsScore.add(setScore);
+    }
+
+    private void validateResult(List<SetScore> setsScore) throws InvalidResultException {
+        if (setsScore.size() > 3) {
+            throw new InvalidResultException("The number of sets cannot exceed 3.");
+        }
+    }
+
+    public List<SetScore> getSetsScore() {
+        return setsScore;
+    }
+
+    public boolean thereIsAWinner() {
+
+        return getSetsWonPlayerOne() == 2 || getSetsWonPlayerTwo() == 2;
+    }
+    @JsonIgnore
     public Integer getSetsWonPlayerOne() {
+
+        Integer setsWonPlayerOne = 0;
+
+        for (SetScore score : setsScore) {
+            if (score.getPlayerOneScore() > score.getPlayerTwoScore()) {
+                setsWonPlayerOne++;
+            }
+        }
         return setsWonPlayerOne;
-    }
 
-    public void setSetsWonPlayerOne(Integer setsWonPlayerOne) throws InvalidResultException {
-        validateResult(setsWonPlayerOne, this.setsWonPlayerTwo);
-        this.setsWonPlayerOne = setsWonPlayerOne;
     }
-
+    @JsonIgnore
     public Integer getSetsWonPlayerTwo() {
+
+        Integer setsWonPlayerTwo = 0;
+
+        for (SetScore score : setsScore) {
+            if (score.getPlayerTwoScore() > score.getPlayerOneScore()) {
+                setsWonPlayerTwo++;
+            }
+        }
         return setsWonPlayerTwo;
     }
 
-    public void setSetsWonPlayerTwo(Integer setsWonPlayerTwo) throws InvalidResultException {
-        validateResult(this.setsWonPlayerOne, setsWonPlayerTwo);
-        this.setsWonPlayerTwo = setsWonPlayerTwo;
-    }
-
-    private void validateResult(Integer setsWonPlayerOne, Integer setsWonPlayerTwo) throws InvalidResultException {
-        // Verifica que los valores no sean nulos y reemplaza por cero
-        if (setsWonPlayerOne == null || setsWonPlayerTwo == null) {
-            throw new InvalidResultException("Los valores no pueden ser nulos.");
-        }
-
-        // Verifica que los valores sean no negativos
-        if (setsWonPlayerOne < 0 || setsWonPlayerTwo < 0) {
-            throw new InvalidResultException("Los valores no pueden ser negativos.");
-        }
-
-        // Verifica que el total de sets ganados no supere 3
-        boolean totalSetsValid = (setsWonPlayerOne + setsWonPlayerTwo) == 3;
-
-        // Verifica condiciones específicas para resultados válidos
-        boolean specialCaseOne = (setsWonPlayerOne == 0 && setsWonPlayerTwo == 2);
-        boolean specialCaseTwo = (setsWonPlayerOne == 2 && setsWonPlayerTwo == 0);
-
-        if (!totalSetsValid && !specialCaseOne && !specialCaseTwo) {
-            throw new InvalidResultException("Se intentó registrar un resultado NO válido: " +
-                    "setsWonPlayerOne: " + setsWonPlayerOne + " - setsWonPlayerTwo: " + setsWonPlayerTwo);
-        }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Result result)) return false;
-        return Objects.equals(setsWonPlayerOne, result.setsWonPlayerOne) &&
-                Objects.equals(setsWonPlayerTwo, result.setsWonPlayerTwo);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(setsWonPlayerOne, setsWonPlayerTwo);
-    }
-
-    @Override
-    public String toString() {
-        return "Result: " + setsWonPlayerOne + " - " + setsWonPlayerTwo;
+    public void setSetsScore(List<SetScore> setsScore) {
+        this.setsScore = setsScore;
     }
 }

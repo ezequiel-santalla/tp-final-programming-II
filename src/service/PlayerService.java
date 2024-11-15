@@ -1,7 +1,6 @@
 package service;
 
 import exceptions.IncompleteMatchException;
-import exceptions.MatchNotFoundException;
 import exceptions.PlayerNotFoundException;
 import model.Match;
 import model.Player;
@@ -11,19 +10,13 @@ import java.util.List;
 
 public class PlayerService {
     private final PlayerRepositoryImp playerRepository;
-    private TournamentService tournamentService;
+    private final TournamentService tournamentService;
 
-    public PlayerService(PlayerRepositoryImp playerRepository) {
+    public PlayerService(PlayerRepositoryImp playerRepository, TournamentService tournamentService) {
         this.playerRepository = playerRepository;
-    }
-
-    public TournamentService getTournamentService() {
-        return tournamentService;
-    }
-
-    public void setTournamentService(TournamentService tournamentService) {
         this.tournamentService = tournamentService;
     }
+
 
     public Integer addPlayer(Player player) {
         return playerRepository.create(player);
@@ -45,7 +38,7 @@ public class PlayerService {
         return playerRepository.getAll();
     }
 
-    private Integer getMatchesWon(Integer id) throws IncompleteMatchException, MatchNotFoundException {
+    private Integer getMatchesWon(Integer id) throws IncompleteMatchException {
         List<Match> matchesByPlayer = tournamentService.getMatchesByPlayer(id);
         Integer matchesWon = 0;
 
@@ -59,7 +52,7 @@ public class PlayerService {
         return matchesWon;
     }
 
-    public String showStatsByPlayer(Integer id) throws MatchNotFoundException, IncompleteMatchException, PlayerNotFoundException {
+    public String showStatsByPlayer(Integer id) throws IncompleteMatchException, PlayerNotFoundException {
         Player player = findPlayerById(id);
 
         int matchesPlayed = tournamentService.getMatchesByPlayer(id).size();

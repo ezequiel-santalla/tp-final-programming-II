@@ -1,7 +1,9 @@
 package service;
 
+import enums.ETournamentStatus;
 import exceptions.*;
 import model.*;
+import model.rounds.*;
 import repository.TournamentRepositoryImp;
 
 import java.util.ArrayList;
@@ -9,18 +11,15 @@ import java.util.List;
 
 public class TournamentService {
     private final TournamentRepositoryImp tournamentRepositoryImp;
-    private final PlayerService playerService;
     private Tournament tournament;
 
-    public TournamentService(PlayerService playerService, TournamentRepositoryImp tournamentRepositoryImp, Tournament tournament) {
-        this.playerService = playerService;
+    public TournamentService(TournamentRepositoryImp tournamentRepositoryImp, Tournament tournament) {
         this.tournamentRepositoryImp = tournamentRepositoryImp;
         this.tournament = tournament;
         addTournament(tournament);
     }
 
-    public TournamentService(PlayerService playerService, TournamentRepositoryImp tournamentRepositoryImp, Integer idTournament) throws TournamentNotFoundException {
-        this.playerService = playerService;
+    public TournamentService(TournamentRepositoryImp tournamentRepositoryImp, Integer idTournament) throws TournamentNotFoundException {
         this.tournamentRepositoryImp = tournamentRepositoryImp;
         this.tournament = findTournamentById(idTournament);
     }
@@ -39,10 +38,6 @@ public class TournamentService {
     }
 
     public void deleteTournament(Integer id) throws TournamentNotFoundException, FileProcessingException {
-        Tournament existingTournament = tournamentRepositoryImp.find(id);
-        if (existingTournament == null) {
-            throw new TournamentNotFoundException("Tournament with ID " + id + " not found.");
-        }
         tournamentRepositoryImp.delete(id);
     }
 
@@ -50,62 +45,95 @@ public class TournamentService {
         return tournamentRepositoryImp.getAll();
     }
 
-
-    public void assignPoints() throws IncompleteMatchException {
-        for (Round round : tournament.getRounds()) {
-            for (Match match : round.getMatches()) {
-                Player player = getWinner(match);
-                player.setPoints(player.getPoints() + round.getGivenPoints());
-            }
-        }
-    }
-
-    public void registerPlayer(Player player) throws TournamentFullException {
+    public void registerPlayer(Player player) throws TournamentFullException, DuplicatePlayerException {
         if (tournament.getPlayers().size() < 16) {
-            tournament.getPlayers().add(player);
+            if(!tournament.getPlayers().add(player)){
+                throw new DuplicatePlayerException(player.getDni());
+            }
         } else {
             throw new TournamentFullException("Tournament is full");
         }
     }
 
-    public List<Player> getPlayersStillCompeting() throws IncompleteMatchException {
-        Round lastRound = this.tournament.getRounds().getLast();
+    private boolean allMatchesCompleted() {
+        for (Match match : getCurrentRound().getMatches()) {
+            if (match.getResult() == null || !match.getResult().thereIsAWinner()) {
+                return false; // Algún partido no está completo
+            }
+        }
+        return true; // Todos los partidos están completos
+    }
+
+
+    private List<Player> getPlayersStillCompeting() throws IncompleteMatchException {
         List<Player> playersStillCompeting = new ArrayList<>();
 
         // Verificar si es la primera ronda
-        if (this.tournament.getRounds().size() == 1) {
+        if (this.tournament.getRounds().isEmpty()) {
             // Devuelve todos los jugadores en el torneo
             playersStillCompeting.addAll(this.tournament.getPlayers());
         } else {
-            // Si no es la primera ronda obtiene los ganadores de la ultima ronda
-            for (Match match : lastRound.getMatches()) {
+            // Obtiene los ganadores de la última ronda
+            for (Match match : getCurrentRound().getMatches()) {
                 Player winner = getWinner(match);
-                if (winner != null) { // verifica que el ganador no sea null
-                    playersStillCompeting.add(winner);
-                }
+                playersStillCompeting.add(winner);
             }
         }
 
         return playersStillCompeting;
     }
 
-    public void generateNextRound() throws IncompleteMatchException {
-        switch (tournament.getRounds().size()) {
-            case 0:
-                tournament.getRounds().add(new FirstRound());
-                break;
-            case 1:
-                tournament.getRounds().add(new QuarterFinal());
-                break;
-            case 2:
-                tournament.getRounds().add(new Semifinal());
-                break;
-            default:
-                tournament.getRounds().add(new Final());
-                break;
+    private void nextRound() throws IncompleteMatchException, InvalidTournamentStatusException {
+        Round nextRound = generateNextRound();
+        nextRound.generateMatches(getPlayersStillCompeting());
+        // Add next round to tournament
+        tournament.getRounds().add(nextRound);
+        // Check if this is the final round and update the status accordingly
+        if (nextRound instanceof Final && allMatchesCompleted()) {
+            tournament.setStatus(ETournamentStatus.FINISHED);
         }
-        // Generar los partidos de la nueva ronda y añadirla al torneo
-        tournament.getRounds().getLast().generateMatches(getPlayersStillCompeting());
+    }
+
+
+    private Round generateNextRound() throws InvalidTournamentStatusException {
+
+        int currentRoundIndex = tournament.getRounds().size();
+        // Determine the current round based on the current round index
+        switch (currentRoundIndex) {
+            case 0 -> {
+                return new FirstRound(10);
+            }
+            case 1 -> {
+                return new QuarterFinal(20);
+            }
+            case 2 -> {
+                return new Semifinal(30);
+            }
+            case 3 -> {
+                return new Final(50);
+            }
+            default -> throw new InvalidTournamentStatusException("Can not create more rounds");
+        }
+    }
+
+    public void advanceTournament() throws IncompleteMatchException, InvalidTournamentStatusException, TournamentFullException {
+        switch (tournament.getStatus()) {
+            case NOT_STARTED -> {
+                if (tournament.getPlayers().size() < 16) {
+                    throw new TournamentFullException("Not enough players to start the tournament.");
+                }
+                tournament.setStatus(ETournamentStatus.IN_PROGRESS);
+                nextRound();
+            }
+            case IN_PROGRESS -> {
+                if (!allMatchesCompleted()) {
+                    throw new IncompleteMatchException("Not all matches have been completed.");
+                }
+                nextRound();
+            }
+            case FINISHED -> throw new InvalidTournamentStatusException(tournament.getStatus().getMessage());
+            default -> throw new IllegalStateException("Unexpected tournament status: " + tournament.getStatus());
+        }
     }
 
     public Tournament getTournament() {
@@ -113,7 +141,7 @@ public class TournamentService {
     }
 
 
-    public List<Match> getMatchesByPlayer(Integer idPlayer) throws MatchNotFoundException, FileProcessingException {
+    public List<Match> getMatchesByPlayer(Integer idPlayer) throws FileProcessingException {
 
         List<Match> playerMatches = new ArrayList<>();
         for (Round round : this.tournament.getRounds()) {
@@ -127,15 +155,73 @@ public class TournamentService {
         return playerMatches;
     }
 
+    public Player getTournamentWinner() throws InvalidTournamentStatusException, IncompleteMatchException {
+        if (tournament.getStatus().equals(ETournamentStatus.FINISHED)) {
+            return getWinner(getCurrentRound().getMatches().getLast());
+        }
+        throw new InvalidTournamentStatusException("Tournament has not finished yet.");
+    }
+
     public Player getWinner(Match match) throws IncompleteMatchException {
         if (match.getResult() == null) {
             throw new IncompleteMatchException("The match has not finished or the result was not loaded.");
         }
+
+        // Verificar si el jugador uno ha ganado 2 sets
         if (match.getResult().getSetsWonPlayerOne() == 2) {
             return match.getPlayerOne();
-        } else if (match.getResult().getSetsWonPlayerTwo() == 2) {
+        }
+        // Verificar si el jugador dos ha ganado 2 sets
+        else if (match.getResult().getSetsWonPlayerTwo() == 2) {
             return match.getPlayerTwo();
         }
+
+        // Si no hay un ganador definido
         throw new IncompleteMatchException("There is no defined winner.");
     }
+
+
+    public void assignResultToMatch(Integer matchId, Result result) throws MatchNotFoundException, IncompleteMatchException, InvalidTournamentStatusException {
+        if(tournament.getStatus().equals(ETournamentStatus.FINISHED)){
+            throw new InvalidTournamentStatusException(tournament.getStatus().getMessage());
+        }
+        Match match = findMatchById(matchId);
+        if (match == null) {
+            throw new MatchNotFoundException("Match not found with ID: " + matchId);
+        }
+
+        // Asignar el resultado al partido
+        match.setResult(result);
+
+        updateTournamentStatus();
+        // Asignar puntos al ganador
+        Player winner = getWinner(match);
+        winner.setPoints(winner.getPoints() + getCurrentRound().getGivenPoints());
+
+    }
+
+    private Match findMatchById(Integer matchId) throws InvalidTournamentStatusException {
+        for (Round round : tournament.getRounds()) {
+            for (Match match : round.getMatches()) {
+                if (match.getIdMatch().equals(matchId)) {
+                    if(!round.equals(getCurrentRound())){
+                        throw new InvalidTournamentStatusException("The match belongs to a finished round");
+                    }
+                    return match;
+                }
+            }
+        }
+        return null; // Si no se encuentra el partido
+    }
+
+    public Round getCurrentRound() {
+        return tournament.getRounds().getLast(); // Asumiendo que la última ronda es la actual
+    }
+
+    private void updateTournamentStatus() {
+        if (!tournament.getRounds().isEmpty() && getCurrentRound() instanceof Final && allMatchesCompleted()) {
+            tournament.setStatus(ETournamentStatus.FINISHED);
+        }
+    }
+
 }

@@ -13,55 +13,50 @@ public class TournamentRepositoryImp implements Repository<Tournament, Integer> 
     private final String filePath;
     private List<Tournament> tournaments;
 
+
     public TournamentRepositoryImp() {
         this.filePath = "data/tournament.json";
     }
 
     @Override
     public Integer create(Tournament tournament) {
-        String data = PersistenceFile.readFile(filePath);
-        Integer id = 0;
+
         try {
             // Gets a list of objects from the JSON file.
-
-            tournaments = JSONConverter.fromJsonArrayToList(data, Tournament.class);
+            tournaments = JSONConverter.fromJsonArrayToList(getUpdatedData(), Tournament.class);
             // Sort the list by ID
             Collections.sort(tournaments);
-            // Gets the ID of the last one, adds 1 to it, and assigns it to the new element.
-            if (!tournaments.isEmpty()) {
-                id = tournaments.getLast().getIdTournament();
-            }
-            tournament.setIdTournament(++id);
+            tournament.setIdTournament(generateTournamentID());
             tournaments.add(tournament);
             PersistenceFile.writeFile(filePath, JSONConverter.toJson(tournaments));
         } catch (JsonProcessingException e) {
             throw new FileProcessingException(filePath);
         }
-        return id;
+        return tournament.getIdTournament();
     }
 
     @Override
     public Tournament find(Integer id) throws TournamentNotFoundException {
-        String data = PersistenceFile.readFile(filePath);
+
         try {
-            tournaments = JSONConverter.fromJsonArrayToList(data, Tournament.class);
+            tournaments = JSONConverter.fromJsonArrayToList(getUpdatedData(), Tournament.class);
             for (Tournament tournament : tournaments) {
                 if (tournament.getIdTournament().equals(id)) {
                     return tournament;
                 }
             }
-            throw new TournamentNotFoundException("No match was found with the given ID: " + id);
+            throw new TournamentNotFoundException(id);
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException(filePath+e.getMessage());
+            throw new FileProcessingException(filePath + e.getMessage());
         }
     }
 
     @Override
     public void update(Tournament modifiedTournament) throws TournamentNotFoundException {
-        String data = PersistenceFile.readFile(filePath);
         try {
-            tournaments = JSONConverter.fromJsonArrayToList(data, Tournament.class);
+            tournaments = JSONConverter.fromJsonArrayToList(getUpdatedData(), Tournament.class);
             boolean tournamentUpdated = false;
+
             for (int i = 0; i < tournaments.size(); i++) {
                 if (tournaments.get(i).getIdTournament().equals(modifiedTournament.getIdTournament())) {
                     tournaments.set(i, modifiedTournament);
@@ -70,7 +65,7 @@ public class TournamentRepositoryImp implements Repository<Tournament, Integer> 
                 }
             }
             if (!tournamentUpdated) {
-                throw new TournamentNotFoundException("No match was found with the ID: " + modifiedTournament.getIdTournament());
+                throw new TournamentNotFoundException(modifiedTournament.getIdTournament());
             }
             // Only write if the tournament was updated
             PersistenceFile.writeFile(filePath, JSONConverter.toJson(tournaments));
@@ -81,10 +76,11 @@ public class TournamentRepositoryImp implements Repository<Tournament, Integer> 
 
     @Override
     public void delete(Integer id) throws TournamentNotFoundException {
-        String data = PersistenceFile.readFile(filePath);
+
         try {
             boolean tournamentDeleted = false;
-            tournaments = JSONConverter.fromJsonArrayToList(data, Tournament.class);
+            tournaments = JSONConverter.fromJsonArrayToList(getUpdatedData(), Tournament.class);
+
             for (int i = 0; i < tournaments.size(); i++) {
                 if (tournaments.get(i).getIdTournament().equals(id)) {
                     tournaments.remove(i);
@@ -93,7 +89,7 @@ public class TournamentRepositoryImp implements Repository<Tournament, Integer> 
                 }
             }
             if (!tournamentDeleted) {
-                throw new TournamentNotFoundException("No tournament was found with the given ID: " + id);
+                throw new TournamentNotFoundException(id);
             }
             PersistenceFile.writeFile(filePath, JSONConverter.toJson(tournaments));
         } catch (JsonProcessingException e) {
@@ -103,9 +99,9 @@ public class TournamentRepositoryImp implements Repository<Tournament, Integer> 
 
     @Override
     public List<Tournament> getAll() throws TournamentNotFoundException {
-        String data = PersistenceFile.readFile(filePath);
         try {
-            tournaments = JSONConverter.fromJsonArrayToList(data, Tournament.class);
+            tournaments = JSONConverter.fromJsonArrayToList(getUpdatedData(), Tournament.class);
+
             if (tournaments == null || tournaments.isEmpty()) {
                 throw new TournamentNotFoundException("There are no tournaments saved in JSON");
             }
@@ -115,5 +111,19 @@ public class TournamentRepositoryImp implements Repository<Tournament, Integer> 
             throw new FileProcessingException(filePath);
         }
     }
-}
 
+    public Integer generateTournamentID() throws JsonProcessingException {
+        tournaments = JSONConverter.fromJsonArrayToList(getUpdatedData(), Tournament.class);
+        Integer lastId = 0;
+        for (Tournament tournament : tournaments) {
+            if (tournament.getIdTournament() > lastId) {
+                lastId = tournament.getIdTournament();
+            }
+        }
+        return ++lastId;
+    }
+
+    private String getUpdatedData() {
+        return PersistenceFile.readFile(filePath);
+    }
+}

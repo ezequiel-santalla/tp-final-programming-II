@@ -6,11 +6,13 @@ import exceptions.PlayerNotFoundException;
 import model.Player;
 import utilities.JSONConverter;
 import utilities.PersistenceFile;
-import java.util.List;
-import java.util.TreeSet;
+
+import java.util.*;
 
 public class PlayerRepositoryImp implements Repository<Player, Integer> {
     private final String filePath;
+    private List<Player> players;
+
 
     public PlayerRepositoryImp() {
         this.filePath = "data/player.json";
@@ -18,39 +20,31 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
 
     @Override
     public Integer create(Player player) {
-        String data = PersistenceFile.readFile(filePath);
-
-        Integer id = 0;
 
         try {
-            TreeSet<Player> players = new TreeSet<>(JSONConverter.fromJsonArrayToList(data, Player.class));
-
-            if (!players.isEmpty()) {
-                id = players.last().getIdPlayer();
-            }
-
-            player.setIdPlayer(id + 1);
-            players.add(player);
-            PersistenceFile.writeFile(filePath, JSONConverter.toJson(players));
+            LinkedHashSet<Player> playersSet;
+            // Generates a LinkedHashSet of player from the list obtained from the json file
+            playersSet = new LinkedHashSet<>(JSONConverter.fromJsonArrayToList(getUpdatedData(), Player.class));
+            player.setIdPlayer(generatePlayerID());
+            playersSet.add(player);
+            PersistenceFile.writeFile(filePath, JSONConverter.toJson(playersSet));
         } catch (JsonProcessingException e) {
             throw new FileProcessingException(filePath);
         }
-        return id;
+        return player.getIdPlayer();
     }
 
     @Override
     public Player find(Integer id) throws PlayerNotFoundException, FileProcessingException {
-        String data = PersistenceFile.readFile(filePath);
-        List<Player> players;
 
         try {
-            players = JSONConverter.fromJsonArrayToList(data, Player.class);
-            for (Player p : players) {
-                if (p.getIdPlayer().equals(id)) {
-                    return p;
+            players = JSONConverter.fromJsonArrayToList(getUpdatedData(), Player.class);
+            for (Player player : players) {
+                if (player.getIdPlayer().equals(id)) {
+                    return player;
                 }
             }
-            throw new PlayerNotFoundException("No player was found with the ID: " + id);
+            throw new PlayerNotFoundException(id);
         } catch (JsonProcessingException e) {
             throw new FileProcessingException(filePath);
         }
@@ -58,11 +52,8 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
 
     @Override
     public void update(Player modifiedPlayer) throws PlayerNotFoundException, FileProcessingException {
-        String data = PersistenceFile.readFile(filePath);
-        List<Player> players;
-
         try {
-            players = JSONConverter.fromJsonArrayToList(data, Player.class);
+            players = JSONConverter.fromJsonArrayToList(getUpdatedData(), Player.class);
             boolean playerUpdated = false;
 
             for (int i = 0; i < players.size(); i++) {
@@ -73,9 +64,9 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
                 }
             }
             if (!playerUpdated) {
-                throw new PlayerNotFoundException("No player was found with the ID: " + modifiedPlayer.getIdPlayer());
+                throw new PlayerNotFoundException(modifiedPlayer.getIdPlayer());
             }
-
+            // Only write if the player was updated
             PersistenceFile.writeFile(filePath, JSONConverter.toJson(players));
         } catch (JsonProcessingException e) {
             throw new FileProcessingException(filePath);
@@ -84,12 +75,10 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
 
     @Override
     public void delete(Integer id) throws PlayerNotFoundException, FileProcessingException {
-        String data = PersistenceFile.readFile(filePath);
-        List<Player> players;
 
         try {
             boolean playerDeleted = false;
-            players = JSONConverter.fromJsonArrayToList(data, Player.class);
+            players = JSONConverter.fromJsonArrayToList(getUpdatedData(), Player.class);
 
             for (int i = 0; i < players.size(); i++) {
                 if (players.get(i).getIdPlayer().equals(id)) {
@@ -99,7 +88,7 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
                 }
             }
             if (!playerDeleted) {
-                throw new PlayerNotFoundException("No player was found with the ID: " + id);
+                throw new PlayerNotFoundException(id);
             }
 
             PersistenceFile.writeFile(filePath, JSONConverter.toJson(players));
@@ -110,17 +99,31 @@ public class PlayerRepositoryImp implements Repository<Player, Integer> {
 
     @Override
     public List<Player> getAll() throws PlayerNotFoundException, FileProcessingException {
-        String data = PersistenceFile.readFile(filePath);
-
         try {
-            List<Player> players = JSONConverter.fromJsonArrayToList(data, Player.class);
+            players = JSONConverter.fromJsonArrayToList(getUpdatedData(), Player.class);
 
             if (players == null || players.isEmpty()) {
                 throw new PlayerNotFoundException("There are no matches saved in JSON.");
             }
             return players;
+
         } catch (JsonProcessingException e) {
             throw new FileProcessingException(filePath);
         }
+    }
+
+    public Integer generatePlayerID() throws JsonProcessingException {
+        players = JSONConverter.fromJsonArrayToList(getUpdatedData(), Player.class);
+        Integer lastId = 0;
+        for (Player player : players) {
+            if (player.getIdPlayer() > lastId) {
+                lastId = player.getIdPlayer();
+            }
+        }
+        return ++lastId;
+    }
+
+    private String getUpdatedData() {
+        return PersistenceFile.readFile(filePath);
     }
 }
