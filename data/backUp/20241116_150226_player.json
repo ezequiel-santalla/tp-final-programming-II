@@ -135,7 +135,7 @@
   "dateOfBirth" : [ 1993, 7, 12 ],
   "points" : 0
 }, {
-  "idPlayer" : 18,
+  "idPlay8,
   "dni" : "54056789",
   "name" : "Gabriel",
   "lastName" : "Luna",
@@ -159,3 +159,4 @@
   "dateOfBirth" : [ 1995, 10, 24 ],
   "points" : 0
 } ]
+
