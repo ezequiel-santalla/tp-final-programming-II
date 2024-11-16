@@ -14,16 +14,18 @@ public class Main {
         // testTournament.registerDuplicatedlayer();
 
 
-           // Assign results to all matches in the current round
+            // Register the players needed to complete the tournament
         //testTournament.fillTournamentWithPlayers();
 
+            // Remove a player from tournament by ID
+       // testTournament.unsubscribePlayerFromTournament(10);
 
-            // Try to enerate the next round in the tournament
+            // Try to generate the next round in the tournament
         //testTournament.nextRound();
 
+        testTournament.modifyResultToMatch(15, testTournament.getDataInitializer().getRandomResult());
 
-
+            // Assign results to all matches in the current round
         //testTournament.finalizeAllMatchOfCurrentRound();
-
     }
 }

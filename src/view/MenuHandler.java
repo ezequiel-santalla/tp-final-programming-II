@@ -1,7 +1,7 @@
 package view;
 
 import model.Player;
-import utilities.Utilities;
+import utilities.Utils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -35,7 +35,7 @@ public class MenuHandler {
         do {
             showMenu(menuOptions);
             selectedIndex = scanner.nextLine();
-            if (Utilities.isNumericString(selectedIndex)) {
+            if (Utils.isNumericString(selectedIndex)) {
                 index = Integer.parseInt(selectedIndex);
                 if (index >= 0 && index < menuOptions.size()) {
                     isValid = true;
@@ -59,7 +59,7 @@ public class MenuHandler {
             if (dataInput.equals("0")) {
                 return null; // Cancela la carga
             }
-            if (Utilities.isNumericString(dataInput)) {
+            if (Utils.isNumericString(dataInput)) {
                 flag = true;
             } else {
                 System.out.println("El ID no es válido");
@@ -78,7 +78,7 @@ public class MenuHandler {
             if (dataInput.equals("0")) {
                 return null; // Cancela la carga
             }
-            if (Utilities.isValidateDni(dataInput)) {
+            if (Utils.isValidateDni(dataInput)) {
                 flag = true;
             } else {
                 System.out.println("El dni no es válido");
@@ -96,7 +96,7 @@ public class MenuHandler {
             if (dataInput.equals("0")) {
                 return null; // Cancela la carga
             }
-            if (Utilities.isValidName(dataInput)) {
+            if (Utils.isValidName(dataInput)) {
                 flag = true;
             } else {
                 System.out.println("El dato ingresado no es válido");
@@ -114,14 +114,14 @@ public class MenuHandler {
             if (dataInput.equals("0")) {
                 return null; // Cancela la carga
             }
-            if (Utilities.isValidDateFormat(dataInput)) {
+            if (Utils.isValidDateFormat(dataInput)) {
                 flag = true;
             } else {
                 System.out.println("No es una fecha válida");
                 System.out.println();
             }
         } while (!flag);
-        return Utilities.parseLocalDate(dataInput);
+        return Utils.parseLocalDate(dataInput);
     }
 
     public Player requestPlayerData() {
@@ -139,21 +139,21 @@ public class MenuHandler {
             System.out.println("Carga de datos cancelada.");
             return null;
         }
-        player.setName(Utilities.toFormatName(name));
+        player.setName(Utils.toFormatName(name));
 
         String lastName = requestAlphabeticInput("el apellido");
         if (lastName == null) {
             System.out.println("Carga de datos cancelada.");
             return null;
         }
-        player.setLastName(Utilities.toFormatName(lastName));
+        player.setLastName(Utils.toFormatName(lastName));
 
         String nationality = requestAlphabeticInput("la nacionalidad");
         if (nationality == null) {
             System.out.println("Carga de datos cancelada.");
             return null;
         }
-        player.setNationality(Utilities.toFormatName(nationality));
+        player.setNationality(Utils.toFormatName(nationality));
 
         LocalDate dateOfBirth = requestDate("de nacimiento");
         if (dateOfBirth == null) {
