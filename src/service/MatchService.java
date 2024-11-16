@@ -11,10 +11,10 @@ import model.rounds.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TournamentMatchService {
+public class MatchService {
     private final Tournament tournament;
 
-    public TournamentMatchService(Tournament tournament) {
+    public MatchService(Tournament tournament) {
         this.tournament = tournament;
     }
 

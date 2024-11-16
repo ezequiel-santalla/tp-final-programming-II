@@ -9,13 +9,13 @@ import model.rounds.Final;
 
 public class TournamentStatusService {
     private final Tournament tournament;
-    private TournamentRoundService tournamentRoundService;
-    private TournamentMatchService tournamentMatchService;
+    private RoundService roundService;
+    private MatchService matchService;
 
-    public TournamentStatusService(Tournament tournament, TournamentRoundService tournamentRoundService, TournamentMatchService tournamentMatchService) {
+    public TournamentStatusService(Tournament tournament, RoundService roundService, MatchService matchService) {
         this.tournament = tournament;
-        this.tournamentRoundService = tournamentRoundService;
-        this.tournamentMatchService = tournamentMatchService;
+        this.roundService = roundService;
+        this.matchService = matchService;
     }
 
     public void advanceTournament() throws IncompleteMatchException, InvalidTournamentStatusException, TournamentFullException {
@@ -32,22 +32,22 @@ public class TournamentStatusService {
             throw new TournamentFullException("Not enough players to start the tournament.");
         }
         tournament.setStatus(ETournamentStatus.IN_PROGRESS);
-        tournamentRoundService.nextRound();
+        roundService.nextRound();
     }
 
     private void advanceCurrentRound() throws IncompleteMatchException {
-        if (!tournamentRoundService.isCurrentRoundComplete()) {
+        if (!roundService.isCurrentRoundComplete()) {
             throw new IncompleteMatchException("Not all matches have been completed.");
         }
-        if (!(tournamentRoundService.getCurrentRound() instanceof Final)) {
-            tournamentRoundService.nextRound();
+        if (!(roundService.getCurrentRound() instanceof Final)) {
+            roundService.nextRound();
         }
         updateTournamentStatus();
     }
 
     public Player getTournamentWinner() throws InvalidTournamentStatusException, IncompleteMatchException {
         if (isTournamentFinished()) {
-            return tournamentMatchService.getWinner(tournamentRoundService.getFinalMatch());
+            return matchService.getWinner(roundService.getFinalMatch());
         }
         throw new InvalidTournamentStatusException("Tournament has not finished yet.");
     }
@@ -64,8 +64,8 @@ public class TournamentStatusService {
 
     private boolean isFinalRoundComplete() {
         return !tournament.getRounds().isEmpty() &&
-                tournamentRoundService.getCurrentRound() instanceof Final &&
-                tournamentRoundService.isCurrentRoundComplete();
+                roundService.getCurrentRound() instanceof Final &&
+                roundService.isCurrentRoundComplete();
     }
 
 }

@@ -10,13 +10,13 @@ import model.rounds.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TournamentRoundService {
+public class RoundService {
     private final Tournament tournament;
-    private final TournamentMatchService tournamentMatchService;
+    private final MatchService matchService;
 
-    public TournamentRoundService(Tournament tournament, TournamentMatchService tournamentMatchService) {
+    public RoundService(Tournament tournament, MatchService matchService) {
         this.tournament = tournament;
-        this.tournamentMatchService = tournamentMatchService;
+        this.matchService = matchService;
     }
 
     public boolean isCurrentRoundComplete() {
@@ -39,7 +39,7 @@ public class TournamentRoundService {
         } else {
             // Obtiene los ganadores de la última ronda
             for (Match match : getCurrentRound().getMatches()) {
-                Player winner = tournamentMatchService.getWinner(match);
+                Player winner = matchService.getWinner(match);
                 playersStillCompeting.add(winner);
             }
         }

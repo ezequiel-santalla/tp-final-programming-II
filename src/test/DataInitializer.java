@@ -11,7 +11,7 @@ import repository.PlayerRepositoryImp;
 import repository.TournamentRepositoryImp;
 import service.PlayerService;
 import service.TournamentService;
-import utilities.Utilities;
+import utilities.Utils;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -41,10 +41,10 @@ public class DataInitializer {
     public Result getRandomResult() {
         Result result = new Result();
         try {
-            result.addSetScore(possibleScores.get(Utilities.random(0, possibleScores.size())));
-            result.addSetScore(possibleScores.get(Utilities.random(0, possibleScores.size())));
+            result.addSetScore(possibleScores.get(Utils.random(0, possibleScores.size())));
+            result.addSetScore(possibleScores.get(Utils.random(0, possibleScores.size())));
             if (result.thereIsNoWinner()) {
-                result.addSetScore(possibleScores.get(Utilities.random(0, possibleScores.size())));
+                result.addSetScore(possibleScores.get(Utils.random(0, possibleScores.size())));
             }
         } catch (InvalidResultException e) {
             System.out.println(e.getMessage());

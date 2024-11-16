@@ -7,7 +7,7 @@ import model.Player;
 import model.Result;
 import model.SetScore;
 import service.TournamentService;
-import utilities.Utilities;
+import utilities.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +101,7 @@ public class TestTournament {
 
 
     public Player getRandomUnregisteredPlayer() {
-        return getUnregisteredPlayers().get(Utilities.random(0, getUnregisteredPlayers().size()));
+        return getUnregisteredPlayers().get(Utils.random(0, getUnregisteredPlayers().size()));
     }
 
     public List<Player> getUnregisteredPlayers() {

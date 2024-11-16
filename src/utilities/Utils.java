@@ -5,11 +5,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Random;
 
-public class Utilities {
+public class Utils {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final Random random = new Random();
-    private Utilities() {
+    private Utils() {
     }
 
     public static boolean isNumericString(String input) {

@@ -9,8 +9,8 @@ import java.util.List;
 public class TournamentService {
     private final TournamentRepositoryImp tournamentRepositoryImp;
     private TournamentPlayerService tournamentPlayerService;
-    private TournamentRoundService tournamentRoundService;
-    private TournamentMatchService tournamentMatchService;
+    private RoundService roundService;
+    private MatchService matchService;
     private TournamentStatusService tournamentStatusService;
     private Tournament tournament;
 
@@ -59,12 +59,12 @@ public class TournamentService {
     }
 
     public void assignResultToMatch(Integer matchId, Result result) throws InvalidTournamentStatusException, MatchNotFoundException, TournamentNotFoundException, InvalidResultException {
-        tournamentMatchService.assignResult(matchId, result);
+        matchService.assignResult(matchId, result);
         updateTournament(tournament);
     }
 
     public void modifyResultToMatch(Integer matchId, Result result) throws InvalidTournamentStatusException, MatchNotFoundException, TournamentNotFoundException, InvalidResultException {
-        tournamentMatchService.modifyResult(matchId, result);
+        matchService.modifyResult(matchId, result);
         updateTournament(tournament);
     }
 
@@ -86,18 +86,18 @@ public class TournamentService {
         return tournamentPlayerService;
     }
 
-    public TournamentRoundService getTournamentRoundService() {
-        return tournamentRoundService;
+    public RoundService getTournamentRoundService() {
+        return roundService;
     }
 
-    public TournamentMatchService getTournamentMatchService() {
-        return tournamentMatchService;
+    public MatchService getTournamentMatchService() {
+        return matchService;
     }
 
     private void initServices() {
         tournamentPlayerService = new TournamentPlayerService(tournament);
-        tournamentMatchService = new TournamentMatchService(tournament);
-        tournamentRoundService = new TournamentRoundService(tournament, tournamentMatchService);
-        tournamentStatusService = new TournamentStatusService(tournament, tournamentRoundService, tournamentMatchService);
+        matchService = new MatchService(tournament);
+        roundService = new RoundService(tournament, matchService);
+        tournamentStatusService = new TournamentStatusService(tournament, roundService, matchService);
     }
 }
