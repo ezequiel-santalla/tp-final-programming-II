@@ -58,23 +58,25 @@ public class PlayerService {
         int matchesPlayed = tournamentService.getTournamentMatchService().getMatchesByPlayer(id).size();
         int matchesWon = getMatchesWon(id);
         int matchesLost = matchesPlayed - matchesWon;
+        double percentageWon = (matchesPlayed > 0) ? ((double) matchesWon / matchesPlayed) * 100 : 0;
         int totalPoints = player.getPoints();
 
-        return String.format(
+        return String.format("\n" +
                 """
-                        =================================
+                        ---------------------------------
                                 Player Statistics
-                        =================================
+                        ---------------------------------
                         Name: %s %s
                         
-                        Matches Played: %d
-                        Matches Won:    %d
-                        Matches Lost:   %d
-                        Total Points:   %d
-                        =================================
+                        Matches Played:      %d
+                        Matches Won:         %d
+                        Matches Lost:        %d
+                        Won/Lost Percentage: %.2f%%
+                        Total Points:        %d
+                        ---------------------------------
                         """,
                 player.getName(), player.getLastName(),
-                matchesPlayed, matchesWon, matchesLost, totalPoints
+                matchesPlayed, matchesWon, matchesLost, percentageWon, totalPoints
         );
     }
 
@@ -89,16 +91,16 @@ public class PlayerService {
     public String showPlayerRankings() throws PlayerNotFoundException {
         List<Player> rankedPlayerList = getPlayerRankings();
 
-        final int NAME_COLUMN_WIDTH = 29; // Width for name
-        final int POINTS_COLUMN_WIDTH = 2; // Width for points
+        final int NAME_COLUMN_WIDTH = 29;
+        final int POINTS_COLUMN_WIDTH = 2;
 
         StringBuilder rankingStr = new StringBuilder();
 
-        rankingStr.append(
+        rankingStr.append("\n" +
                 """
-                        ============================================
-                                          Rankings
-                        ============================================
+                        --------------------------------------------
+                                          Ranking
+                        --------------------------------------------
                         Pos | Name                          | Points
                         --------------------------------------------
                         """);
@@ -110,7 +112,7 @@ public class PlayerService {
                     (i + 1), player.getName() + " " + player.getLastName(), player.getPoints()));
         }
 
-        rankingStr.append("============================================\n");
+        rankingStr.append("--------------------------------------------\n");
 
         return rankingStr.toString();
     }

@@ -1,6 +1,7 @@
 package view;
 
 import enums.ESurface;
+import exceptions.IncompleteMatchException;
 import exceptions.PlayerNotFoundException;
 import exceptions.TournamentNotFoundException;
 import model.Player;
@@ -43,8 +44,8 @@ public class Menu {
     private void initMenuOptions() {
         // Menú principal y submenús definidos solo una vez
         principalMenuOptions = Arrays.asList("Administración del Torneo", "Administración de Jugadores", "Administración de Partidos", "Salir");
-        tournamentOptions = Arrays.asList("Cargar datos del torneo", "Ver datos del torneo", "Modificar datos del torneo","Ver lista de torneos","Eliminar torneo", "Volver");
-        playersOptions = Arrays.asList("Agregar jugador", "Modificar jugador", "Ver lista de jugadores", "Ver información de jugador", "Eliminar jugador", "Volver");
+        tournamentOptions = Arrays.asList("Cargar datos del torneo", "Ver datos del torneo", "Modificar datos del torneo", "Ver lista de torneos", "Eliminar torneo", "Volver");
+        playersOptions = Arrays.asList("Agregar jugador", "Modificar jugador", "Ver lista de jugadores", "Ver información de jugador", "Eliminar jugador", "Ver Ranking", "Ver Estadísticas del Jugador", "Volver");
         matchesOptions = Arrays.asList("Ver diagrama de partidos", "Ver resultado de partidos", "Cargar resultado de partido", "Volver");
     }
 
@@ -149,6 +150,8 @@ public class Menu {
                 case 3 -> showPlayersList();
                 case 4 -> showPlayerData(menuHandler.requestID());
                 case 5 -> confirmPlayerDeleted(menuHandler.requestID());
+                case 6 -> showRanking();
+                case 7 -> showPlayerStats();
                 case 0 -> System.out.println("\nVolviendo al menú principal...");
                 default -> System.out.println("\nOpción no válida.");
             }
@@ -182,6 +185,24 @@ public class Menu {
         } catch (PlayerNotFoundException e) {
             System.out.println("No se encontró jugador con ese id");
             return false;
+        }
+    }
+
+    private void showRanking() {
+        try {
+            System.out.println(playerService.showPlayerRankings());
+        } catch (PlayerNotFoundException e) {
+            System.out.println("No hay jugadores en el ranking");
+        }
+    }
+
+    private void showPlayerStats() {
+        try {
+            System.out.println(playerService.showStatsByPlayer(menuHandler.requestID()));
+        } catch (IncompleteMatchException e) {
+            System.out.println("Los partidos del torneo no están terminados");
+        } catch (PlayerNotFoundException e) {
+            System.out.println("No hay jugadores para mostrar sus estadísticas");
         }
     }
 
