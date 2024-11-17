@@ -9,8 +9,8 @@ import model.rounds.Final;
 
 public class TournamentStatusService {
     private final Tournament tournament;
-    private RoundService roundService;
-    private MatchService matchService;
+    private final RoundService roundService;
+    private final MatchService matchService;
 
     public TournamentStatusService(Tournament tournament, RoundService roundService, MatchService matchService) {
         this.tournament = tournament;

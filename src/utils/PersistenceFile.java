@@ -16,14 +16,12 @@ public class PersistenceFile {
         if (!file.exists()) {
             createFile(filePath);
         } else {
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                if (br.readLine() == null) {  // If the file is empty
-                    try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
-                        pw.print("[]");  // Writes the empty array
-                    }
+            if (file.length() == 0) {  // Verifica si el archivo está vacío
+                try (PrintWriter pw = new PrintWriter(new FileWriter(file))) {
+                    pw.print("[]");  // Escribe un arreglo vacío
+                } catch (IOException e) {
+                    throw new FileProcessingException("Error securing the file content: " + filePath);
                 }
-            } catch (IOException e) {
-                throw new FileProcessingException("Error securing the file content: " + filePath);
             }
         }
     }
@@ -49,15 +47,6 @@ public class PersistenceFile {
     }
 
 
-    public static void addDataToFile(String filePath, String data) throws FileProcessingException {
-        ensureFileExists(filePath);
-        try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, true))) {
-            pw.println(data);
-        } catch (IOException e) {
-            throw new FileProcessingException("Error adding data to the file: " + filePath);
-        }
-    }
-
     public static String readFile(String filePath) throws FileProcessingException {
         ensureFileExists(filePath);
         StringBuilder contentFile = new StringBuilder();
@@ -77,10 +66,14 @@ public class PersistenceFile {
         String filePath = "data/backUp/" + timestamp + "_" + fileName.toLowerCase() + ".json";
         File backupDir = new File("data/backUp/");
         if (!backupDir.exists()) {
-            backupDir.mkdirs(); // Creates the directory and any necessary parent directories.
-        } try {
+            boolean dirCreated = backupDir.mkdirs(); // Crea el directorio y cualquier directorio padre necesario.
+            if (!dirCreated) {
+                throw new FileProcessingException("Failed to create backup directory.");
+            }
+        }
+        try {
             writeFile(filePath, invalidJsonString);
-        } catch (FileProcessingException e){
+        } catch (FileProcessingException e) {
             throw new FileProcessingException("Could not save the copy of the invalid file. " + e.getMessage());
         }
     }

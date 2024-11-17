@@ -27,10 +27,6 @@ public class Tournament implements Comparable<Tournament> {
     private List<Round> rounds;
     @JsonProperty("status")
     private ETournamentStatus status;
-
-    public Tournament(String name, String location, ESurface surface, LocalDate startingDate, LocalDate endingDate, Double prizeMoney) {
-        this(null, name, location, surface, startingDate, endingDate, prizeMoney, new HashSet<>(), new ArrayList<>());
-    }
     
     public Tournament() {
         this.players = new TreeSet<>();
@@ -46,9 +42,6 @@ public class Tournament implements Comparable<Tournament> {
         this.players = new TreeSet<>();
         this.rounds = new ArrayList<>();
         this.status = ETournamentStatus.NOT_STARTED;
-    }
-
-    public <E> Tournament(Object o, String name, String location, ESurface surface, LocalDate startingDate, LocalDate endingDate, Double prizeMoney, HashSet<E> es, ArrayList<E> es1) {
     }
 
     public Integer getIdTournament() {

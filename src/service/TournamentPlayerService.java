@@ -10,7 +10,7 @@ import java.util.Iterator;
 
 
 public class TournamentPlayerService {
-    private Tournament tournament;
+    private final Tournament tournament;
 
     public TournamentPlayerService(Tournament tournament) {
         this.tournament = tournament;

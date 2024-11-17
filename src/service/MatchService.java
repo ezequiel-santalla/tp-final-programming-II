@@ -78,7 +78,6 @@ public class MatchService {
 
         // If assigning a result, check if it already has one
         if (isAssigning && match.getResult() != null && !match.getResult().thereIsNoWinner()) {
-            System.out.println(isAssigning);
             throw new InvalidTournamentStatusException("The match already has a result assigned.");
         }
 
