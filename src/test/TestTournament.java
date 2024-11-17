@@ -7,7 +7,7 @@ import model.Player;
 import model.Result;
 import model.SetScore;
 import service.TournamentService;
-import utilities.Utils;
+import utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

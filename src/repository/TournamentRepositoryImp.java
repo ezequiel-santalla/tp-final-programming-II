@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import exceptions.FileProcessingException;
 import exceptions.TournamentNotFoundException;
 import model.Tournament;
-import utilities.JSONConverter;
-import utilities.PersistenceFile;
+import utils.JSONConverter;
+import utils.PersistenceFile;
 
 import java.util.*;
 

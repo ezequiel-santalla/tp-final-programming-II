@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import exceptions.FileProcessingException;
 import exceptions.PlayerNotFoundException;
 import model.Player;
-import utilities.JSONConverter;
-import utilities.PersistenceFile;
+import utils.JSONConverter;
+import utils.PersistenceFile;
 
 import java.util.*;
 

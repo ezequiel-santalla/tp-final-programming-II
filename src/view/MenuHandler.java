@@ -1,11 +1,9 @@
 package view;
 
 import enums.ESurface;
-import exceptions.TournamentNotFoundException;
 import model.Player;
 import model.Tournament;
-import service.TournamentService;
-import utilities.Utils;
+import utils.Utils;
 
 import java.time.LocalDate;
 import java.util.List;

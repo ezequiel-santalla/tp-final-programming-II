@@ -11,7 +11,7 @@ import repository.PlayerRepositoryImp;
 import repository.TournamentRepositoryImp;
 import service.PlayerService;
 import service.TournamentService;
-import utilities.Utils;
+import utils.Utils;
 
 import java.time.LocalDate;
 import java.time.Month;
