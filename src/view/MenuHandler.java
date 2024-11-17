@@ -30,7 +30,6 @@ public class MenuHandler {
         System.out.print("\nSeleccione una opción: ");
     }
 
-
     public Integer requestEntry(List<String> menuOptions) {
         String selectedIndex;
         Integer index = -1;
@@ -59,7 +58,6 @@ public class MenuHandler {
         do {
             System.out.print("Ingrese el ID (o '0' para cancelar): ");
             dataInput = scanner.nextLine();
-            System.out.println();
             if (dataInput.equals("0")) {
                 return null; // Cancela la carga
             }

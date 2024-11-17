@@ -144,26 +144,11 @@ public class Menu {
         do {
             index = menuHandler.requestEntry(playersOptions);
             switch (index) {
-                case 1 -> {
-                    System.out.println();
-                    addPlayer();
-                }
-                case 2 -> {
-                    System.out.println();
-                    modifyPlayer();
-                }
-                case 3 -> {
-                    System.out.println();
-                    showPlayersList();
-                }
-                case 4 -> {
-                    System.out.println();
-                    showPlayerData(menuHandler.requestID());
-                }
-                case 5 -> {
-                    System.out.println();
-                    confirmPlayerDeleted(menuHandler.requestID());
-                }
+                case 1 -> addPlayer();
+                case 2 -> modifyPlayer();
+                case 3 -> showPlayersList();
+                case 4 -> showPlayerData(menuHandler.requestID());
+                case 5 -> confirmPlayerDeleted(menuHandler.requestID());
                 case 0 -> System.out.println("\nVolviendo al menú principal...");
                 default -> System.out.println("\nOpción no válida.");
             }
@@ -201,6 +186,7 @@ public class Menu {
     }
 
     private void addPlayer() {
+        System.out.println();
         Player player = menuHandler.requestPlayerData();
 
         if (player != null) {
@@ -218,6 +204,7 @@ public class Menu {
 
     private void modifyPlayer() {
         try {
+            System.out.println();
             int playerID = menuHandler.requestID();
 
             showPlayerData(playerID);
@@ -234,7 +221,7 @@ public class Menu {
 
     private void confirmPlayerDeleted(Integer playerID) {
         if (showPlayerData(playerID)) {
-            System.out.println("Se eliminará jugador...");
+            System.out.println("\nSe eliminará jugador...");
             if (menuHandler.requestConfirmation()) {
                 try {
                     playerService.deletePlayer(playerID);
@@ -249,7 +236,7 @@ public class Menu {
     private void showPlayersList() {
         try {
             if (!playerService.getAllPlayers().isEmpty()) {
-                System.out.println("Jugadores registrados:\n");
+                System.out.println("\nJugadores registrados:\n");
             }
 
             for (Player player : playerService.getAllPlayers()) {
