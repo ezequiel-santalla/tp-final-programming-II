@@ -1,9 +1,10 @@
 import test.TestTournament;
+import view.Menu;
 
 public class Main {
     public static void main(String[] args) {
 
-        TestTournament testTournament = new TestTournament();
+       // TestTournament testTournament = new TestTournament();
 
 
             // Get a random player who is not registered for the tournament and try to register him
@@ -23,9 +24,11 @@ public class Main {
             // Try to generate the next round in the tournament
         //testTournament.nextRound();
 
-        testTournament.modifyResultToMatch(15, testTournament.getDataInitializer().getRandomResult());
+       // testTournament.modifyResultToMatch(15, testTournament.getDataInitializer().getRandomResult());
 
             // Assign results to all matches in the current round
         //testTournament.finalizeAllMatchOfCurrentRound();
+
+        new Menu().runMenu();
     }
 }

@@ -28,7 +28,7 @@ public class TournamentStatusService {
     }
 
     private void startTournament() throws TournamentFullException, IncompleteMatchException {
-        if (tournament.getPlayers().size() == 16) {
+        if (tournament.getPlayers().size() != 16) {
             throw new TournamentFullException("Not enough players to start the tournament.");
         }
         tournament.setStatus(ETournamentStatus.IN_PROGRESS);

@@ -75,29 +75,15 @@ public class Menu {
                         System.out.println("Error al cargar los datos del torneo: " + e.getMessage());
                     }
                 }
-              /*
+                case 2 -> {
                     System.out.println();
                     try {
                         Tournament tournament = tournamentService.getTournament();
                         System.out.println(tournament.toString());
                     } catch (Exception e) {
                         System.out.println("Error al obtener los datos del torneo: " + e.getMessage());
-                    }*/
-                case 2 -> {
-                    System.out.println();
-                    Integer id = menuHandler.requestID();
-                    try {
-                        Tournament tournament = tournamentService.findTournamentById(id);
-                        if (tournament == null) {
-                            System.out.println("Torneo no encontrado");
-                        } else {
-                            System.out.println(tournament.toString());
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Error al obtener los datos del torneo: " + e.getMessage());
                     }
                 }
-
                 case 3 -> {
                     System.out.println();
                     Integer idModify = menuHandler.requestID();

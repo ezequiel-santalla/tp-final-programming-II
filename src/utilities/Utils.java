@@ -1,5 +1,7 @@
 package utilities;
 
+import enums.ESurface;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -70,5 +72,17 @@ public class Utils {
 
     public static Integer random(Integer min, Integer max) {
         return random.nextInt(max - min) + min; // Genera un número entre 0 (incluido) y 4 (excluido)
+    }
+
+    public static boolean isValidSurface(String surface) {
+        if (surface == null || surface.isEmpty()) {
+            return false;
+        }
+        try {
+            ESurface.valueOf(surface.toUpperCase());
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 }
