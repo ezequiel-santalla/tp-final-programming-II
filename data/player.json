@@ -1,10 +1,10 @@
 [ {
   "idPlayer" : 1,
   "dni" : "42044093",
-  "name" : "Marcos",
-  "lastName" : "Moreno",
-  "nationality" : "Argentino",
-  "dateOfBirth" : [ 1990, 4, 22 ],
+  "name" : "Ezequiel",
+  "lastName" : "Santalla",
+  "nationality" : "Argentina",
+  "dateOfBirth" : [ 1999, 8, 13 ],
   "points" : 0
 }, {
   "idPlayer" : 2,

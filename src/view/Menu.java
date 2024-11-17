@@ -145,21 +145,12 @@ public class Menu {
             index = menuHandler.requestEntry(playersOptions);
             switch (index) {
                 case 1 -> {
-                    Player player = menuHandler.requestPlayerData();
-                    if (player != null) {
-                        try {
-                            if(playerService.getAllPlayers().contains(player)){
-                                System.out.println("\nYa hay un jugador registrado con ese DNI");
-                            }else{
-                                System.out.println("\nJugador agregado correctamente con el ID "+playerService.addPlayer(player));
-                            }
-                        } catch (PlayerNotFoundException e) {
-                            System.out.println("Error en el archivo");
-                        }
-                    }
+                    System.out.println();
+                    addPlayer();
                 }
                 case 2 -> {
-                    System.out.println();//implementar modificar jugador
+                    System.out.println();
+                    modifyPlayer();
                 }
                 case 3 -> {
                     System.out.println();
@@ -209,8 +200,39 @@ public class Menu {
         }
     }
 
-    private void confirmPlayerDeleted(Integer playerID) {
+    private void addPlayer() {
+        Player player = menuHandler.requestPlayerData();
 
+        if (player != null) {
+            try {
+                if(playerService.getAllPlayers().contains(player)){
+                    System.out.println("\nYa hay un jugador registrado con ese DNI");
+                }else{
+                    System.out.println("\nJugador agregado correctamente con el ID "+playerService.addPlayer(player));
+                }
+            } catch (PlayerNotFoundException e) {
+                System.out.println("Error en el archivo");
+            }
+        }
+    }
+
+    private void modifyPlayer() {
+        try {
+            int playerID = menuHandler.requestID();
+
+            showPlayerData(playerID);
+            System.out.println("Ingrese los nuevos datos del jugador con ID: " + playerID + "\n");
+
+            Player updatedPlayer = menuHandler.requestPlayerData();
+            updatedPlayer.setIdPlayer(playerID);
+            playerService.updatePlayer(updatedPlayer);
+            System.out.println("\nJugador actualizado correctamente.");
+        } catch (Exception e) {
+            System.out.println("\nOcurrió un error al modificar el jugador: " + e.getMessage());
+        }
+    }
+
+    private void confirmPlayerDeleted(Integer playerID) {
         if (showPlayerData(playerID)) {
             System.out.println("Se eliminará jugador...");
             if (menuHandler.requestConfirmation()) {
@@ -226,8 +248,12 @@ public class Menu {
 
     private void showPlayersList() {
         try {
+            if (!playerService.getAllPlayers().isEmpty()) {
+                System.out.println("Jugadores registrados:\n");
+            }
+
             for (Player player : playerService.getAllPlayers()) {
-                System.out.println("\nID: " + player.getIdPlayer() + " - " + player.getName() + " " + player.getLastName());
+                System.out.println("ID: " + player.getIdPlayer() + " - " + player.getName() + " " + player.getLastName());
             }
         } catch (PlayerNotFoundException e) {
             System.out.println("No hay jugadores cargados");

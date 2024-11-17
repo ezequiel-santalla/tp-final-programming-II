@@ -18,7 +18,7 @@ public class MenuHandler {
 
     public void showMenu(List<String> menuOptions) {
         System.out.println("\n----------------------------------------");
-        System.out.println("|               Menú                   |");
+        System.out.println("|                 Menú                 |");
         System.out.println("----------------------------------------");
 
         for (int i = 0; i < menuOptions.size() - 1; i++) {
@@ -77,7 +77,7 @@ public class MenuHandler {
         boolean flag = false;
 
         do {
-            System.out.print("\nIngrese el dni (o '0' para cancelar): ");
+            System.out.print("Ingrese el DNI (o '0' para cancelar): ");
             dataInput = scanner.nextLine();
             if (dataInput.equals("0")) {
                 return null; // Cancela la carga
@@ -85,7 +85,7 @@ public class MenuHandler {
             if (Utils.isValidateDni(dataInput)) {
                 flag = true;
             } else {
-                System.out.println("El dni no es válido");
+                System.out.println("El DNI no es válido");
             }
         } while (!flag);
         return dataInput;
