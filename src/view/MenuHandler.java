@@ -178,45 +178,41 @@ public class MenuHandler {
         return flag;
     }
 
-    public Tournament requestTournamentData() {
-        Tournament tournament = new Tournament();
 
-        String name = requestAlphabeticInput("el nombre del torneo");
-        if (name == null) {
+    public Tournament requestTournamentData(Tournament tournament) {
+        if (tournament == null) {
+            tournament = new Tournament(); // Crear un nuevo torneo si es null
+        }
+
+        tournament.setName(requestStringInput("el nombre del torneo"));
+        tournament.setLocation(requestStringInput("la ubicación del torneo"));
+        tournament.setStartingDate(requestDate("la fecha del torneo"));
+        tournament.setEndingDate(requestEndingDate(tournament.getStartingDate()));
+        tournament.setSurface(requestSurface());
+
+        return tournament;
+    }
+
+    private String requestStringInput(String prompt) {
+        String input = requestAlphabeticInput(prompt);
+        if (input == null) {
             System.out.println("Carga de datos cancelada.");
             return null;
         }
-        tournament.setName(Utils.toFormatName(name));
+        return Utils.toFormatName(input);
+    }
 
-        String location = requestAlphabeticInput("la ubicación del torneo");
-        if (location == null) {
-            System.out.println("Carga de datos cancelada.");
-            return null;
-        }
-        tournament.setLocation(Utils.toFormatName(location));
-
-        LocalDate date = requestDate("la fecha del torneo");
-        if (date == null) {
-            System.out.println("Carga de datos cancelada.");
-            return null;
-        }
-        tournament.setStartingDate(date);
-
+    private LocalDate requestEndingDate(LocalDate startingDate) {
         LocalDate endingDate = requestDate("la fecha de finalización del torneo");
         if (endingDate == null) {
             System.out.println("Carga de datos cancelada.");
             return null;
         }
-        tournament.setEndingDate(endingDate);
-
-        ESurface surface = requestSurface();
-        if (surface == null) {
-            System.out.println("Carga de datos cancelada.");
-            return null;
+        if (endingDate.isBefore(startingDate)) {
+            System.out.println("La fecha de finalización debe ser posterior a la fecha de inicio.");
+            return null; // O podrías lanzar una excepción
         }
-        tournament.setSurface(surface);
-
-        return tournament;
+        return endingDate;
     }
 
     private ESurface requestSurface() {

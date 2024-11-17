@@ -71,7 +71,7 @@ public class Menu {
                 case 1 -> {
                     System.out.println();
                     try {
-                        tournamentService.addTournament(menuHandler.requestTournamentData());
+                        tournamentService.addTournament(menuHandler.requestTournamentData(null));
                     } catch (Exception e) {
                         System.out.println("Error al cargar los datos del torneo: " + e.getMessage());
                     }
@@ -107,7 +107,7 @@ public class Menu {
                         if (tournament == null) {
                             System.out.println("Torneo no encontrado");
                         } else {
-                            tournamentService.updateTournament(menuHandler.requestTournamentData());
+                            tournamentService.updateTournament(menuHandler.requestTournamentData(tournament));
                         }
                     } catch (Exception e) {
                         System.out.println("Error al modificar los datos del torneo: " + e.getMessage());
