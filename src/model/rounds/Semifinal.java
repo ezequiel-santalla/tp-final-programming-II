@@ -15,10 +15,6 @@ public class Semifinal extends Round {
         super(givenPoints);
     }
 
-    public Semifinal(List<Match> matches, Integer givenPoints) {
-        super(matches, givenPoints);
-    }
-
     @Override
     public void generateMatches(List<Player> players) {
         int id = 12;

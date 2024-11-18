@@ -32,11 +32,6 @@ import java.util.Objects;
         matches = new ArrayList<>();
     }
 
-    protected Round(List<Match> matches, Integer givenPoints) {
-        this.matches = matches;
-        this.givenPoints = givenPoints;
-    }
-
     public List<Match> getMatches() {
         return matches;
     }

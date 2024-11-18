@@ -112,7 +112,7 @@ public class TournamentRepositoryImp implements Repository<Tournament, Integer> 
         }
     }
 
-    public Integer generateTournamentID() throws JsonProcessingException {
+    private Integer generateTournamentID() throws JsonProcessingException {
         tournaments = JSONConverter.fromJsonArrayToList(getUpdatedData(), Tournament.class);
         Integer lastId = 0;
         for (Tournament tournament : tournaments) {

@@ -15,10 +15,6 @@ public class QuarterFinal extends Round {
         super(givenPoints);
     }
 
-    public QuarterFinal(List<Match> matches, Integer givenPoints) {
-        super(matches, givenPoints);
-    }
-
     @Override
     public void generateMatches(List<Player> players) {
         int id = 8;
