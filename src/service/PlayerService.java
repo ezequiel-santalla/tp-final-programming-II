@@ -61,22 +61,29 @@ public class PlayerService {
         double percentageWon = (matchesPlayed > 0) ? ((double) matchesWon / matchesPlayed) * 100 : 0;
         int totalPoints = player.getPoints();
 
+        int maxNameLength = 24;
+
+        String formattedName = String.format("%s %s", player.getName(), player.getLastName());
+        if (formattedName.length() > maxNameLength) {
+            formattedName = formattedName.substring(0, maxNameLength - 3) + "...";
+        }
+
+        int padding = maxNameLength - formattedName.length();
+
         return String.format("\n" +
-                """
-                        ---------------------------------
-                                Player Statistics
-                        ---------------------------------
-                        Name: %s %s
-                        
-                        Matches Played:      %d
-                        Matches Won:         %d
-                        Matches Lost:        %d
-                        Won/Lost Percentage: %.2f%%
-                        Total Points:        %d
-                        ---------------------------------
-                        """,
-                player.getName(), player.getLastName(),
-                matchesPlayed, matchesWon, matchesLost, percentageWon, totalPoints
+            """
+            ---------------------------------
+            |        Player Statistics      |
+            ---------------------------------
+            | Name: %s%s|
+            |                               |
+            | Matches Played      : %-7d |
+            | Matches Won         : %-7d |
+            | Matches Lost        : %-7d |
+            | Won/Lost Percentage : %.2f%%   |
+            | Total Points        : %-7d |
+            ---------------------------------
+            """, formattedName, " ".repeat(padding), matchesPlayed, matchesWon, matchesLost, percentageWon, totalPoints
         );
     }
 
@@ -91,24 +98,24 @@ public class PlayerService {
     public String showPlayerRankings() throws PlayerNotFoundException {
         List<Player> rankedPlayerList = getPlayerRankings();
 
-        final int NAME_COLUMN_WIDTH = 29;
-        final int POINTS_COLUMN_WIDTH = 2;
+        final int NAME_COLUMN_WIDTH = 25;
+        final int POINTS_COLUMN_WIDTH = 6;
 
         StringBuilder rankingStr = new StringBuilder();
 
         rankingStr.append("\n" +
                 """
                         --------------------------------------------
-                                          Ranking
+                        |                  Ranking                 |
                         --------------------------------------------
-                        Pos | Name                          | Points
+                        | Pos | Name                      | Points |
                         --------------------------------------------
                         """);
 
         for (int i = 0; i < rankedPlayerList.size(); i++) {
             Player player = rankedPlayerList.get(i);
 
-            rankingStr.append(String.format("%-4d| %-" + NAME_COLUMN_WIDTH + "s | %" + POINTS_COLUMN_WIDTH + "d\n",
+            rankingStr.append(String.format("| %-4d| %-" + NAME_COLUMN_WIDTH + "s | %-" + POINTS_COLUMN_WIDTH + "d |\n",
                     (i + 1), player.getName() + " " + player.getLastName(), player.getPoints()));
         }
 
