@@ -116,7 +116,7 @@
     "lastName" : "Pérez",
     "nationality" : "Argentino",
     "dateOfBirth" : [ 1989, 7, 28 ],
-    "points" : 0
+    "points" : 200
   }, {
     "idPlayer" : 9,
     "dni" : "46054321",
@@ -876,7 +876,7 @@
         "lastName" : "Martínez",
         "nationality" : "Argentino",
         "dateOfBirth" : [ 1995, 6, 21 ],
-        "points" : 0
+        "points" : 10
       },
       "playerTwo" : {
         "idPlayer" : 8,
@@ -887,7 +887,15 @@
         "dateOfBirth" : [ 1994, 8, 13 ],
         "points" : 0
       },
-      "result" : null
+      "result" : {
+        "setsScore" : [ {
+          "playerOneScore" : 7,
+          "playerTwoScore" : 5
+        }, {
+          "playerOneScore" : 6,
+          "playerTwoScore" : 4
+        } ]
+      }
     }, {
       "idMatch" : 3,
       "playerOne" : {
@@ -929,7 +937,7 @@
         "lastName" : "Santalla",
         "nationality" : "Argentina",
         "dateOfBirth" : [ 1999, 8, 13 ],
-        "points" : 0
+        "points" : 10
       },
       "playerTwo" : {
         "idPlayer" : 12,
@@ -940,7 +948,18 @@
         "dateOfBirth" : [ 1997, 11, 9 ],
         "points" : 0
       },
-      "result" : null
+      "result" : {
+        "setsScore" : [ {
+          "playerOneScore" : 0,
+          "playerTwoScore" : 6
+        }, {
+          "playerOneScore" : 6,
+          "playerTwoScore" : 4
+        }, {
+          "playerOneScore" : 7,
+          "playerTwoScore" : 6
+        } ]
+      }
     }, {
       "idMatch" : 5,
       "playerOne" : {
@@ -979,7 +998,7 @@
         "lastName" : "Silva",
         "nationality" : "Paraguayo",
         "dateOfBirth" : [ 1986, 4, 4 ],
-        "points" : 0
+        "points" : 10
       },
       "playerTwo" : {
         "idPlayer" : 5,
@@ -990,7 +1009,15 @@
         "dateOfBirth" : [ 1993, 9, 5 ],
         "points" : 0
       },
-      "result" : null
+      "result" : {
+        "setsScore" : [ {
+          "playerOneScore" : 6,
+          "playerTwoScore" : 4
+        }, {
+          "playerOneScore" : 6,
+          "playerTwoScore" : 4
+        } ]
+      }
     }, {
       "idMatch" : 7,
       "playerOne" : {
@@ -1011,7 +1038,18 @@
         "dateOfBirth" : [ 1989, 7, 28 ],
         "points" : 0
       },
-      "result" : null
+      "result" : {
+        "setsScore" : [ {
+          "playerOneScore" : 6,
+          "playerTwoScore" : 4
+        }, {
+          "playerOneScore" : 4,
+          "playerTwoScore" : 6
+        }, {
+          "playerOneScore" : 7,
+          "playerTwoScore" : 5
+        } ]
+      }
     }, {
       "idMatch" : 8,
       "playerOne" : {
@@ -1032,7 +1070,15 @@
         "dateOfBirth" : [ 1988, 9, 19 ],
         "points" : 0
       },
-      "result" : null
+      "result" : {
+        "setsScore" : [ {
+          "playerOneScore" : 4,
+          "playerTwoScore" : 6
+        }, {
+          "playerOneScore" : 2,
+          "playerTwoScore" : 6
+        } ]
+      }
     } ],
     "givenPoints" : 10
   } ],
@@ -1054,6 +1100,26 @@
   "surface" : "CARPET",
   "startingDate" : [ 2024, 11, 16 ],
   "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 16,
+  "name" : "Torneo diecisiete",
+  "location" : "Tandil",
+  "surface" : "GRASS",
+  "startingDate" : [ 2025, 2, 2 ],
+  "endingDate" : null,
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 17,
+  "name" : "Toneo ak",
+  "location" : "Mardel",
+  "surface" : "CLAY",
+  "startingDate" : [ 2025, 2, 22 ],
+  "endingDate" : [ 2025, 2, 22 ],
   "players" : [ ],
   "rounds" : [ ],
   "status" : "NOT_STARTED"

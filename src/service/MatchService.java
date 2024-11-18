@@ -19,20 +19,6 @@ public class MatchService {
     }
 
 
-    public List<Match> getMatchesByPlayer(Integer idPlayer) throws FileProcessingException {
-
-        List<Match> playerMatches = new ArrayList<>();
-        for (Round round : this.tournament.getRounds()) {
-            for (Match match : round.getMatches()) {
-                if (match.getPlayerOne().getIdPlayer().equals(idPlayer) || match.getPlayerTwo().getIdPlayer().equals(idPlayer)) {
-                    playerMatches.add(match);
-                }
-            }
-        }
-        return playerMatches;
-    }
-
-
     public Player getWinner(Match match) throws IncompleteMatchException {
         if (match.getResult() == null) {
             throw new IncompleteMatchException("The match has not finished or the result was not loaded.");
@@ -52,16 +38,27 @@ public class MatchService {
     }
 
 
-    public void assignResult(Integer matchId, Result result) throws MatchNotFoundException, InvalidTournamentStatusException, InvalidResultException {
+    public void assignResult(Integer matchId, Result result) throws MatchNotFoundException, InvalidTournamentStatusException, InvalidResultException, IncompleteMatchException {
         validateResult(matchId, result, true);
         Match match = findMatchById(matchId);
         match.setResult(result);
+        assignPoints(match);
     }
 
-    public void modifyResult(Integer matchId, Result result) throws MatchNotFoundException, InvalidTournamentStatusException, InvalidResultException {
+    public void modifyResult(Integer matchId, Result result) throws MatchNotFoundException, InvalidTournamentStatusException, InvalidResultException, IncompleteMatchException {
         validateResult(matchId, result, false);
         Match match = findMatchById(matchId);
+        resetPoints(match);
         match.setResult(result);
+        assignPoints(match);
+    }
+
+    public void resetPoints(Match match) throws IncompleteMatchException {
+        getWinner(match).setPoints(getWinner(match).getPoints() - tournament.getRounds().getLast().getGivenPoints());
+    }
+
+    public void assignPoints(Match match) throws IncompleteMatchException {
+        getWinner(match).setPoints(getWinner(match).getPoints() + tournament.getRounds().getLast().getGivenPoints());
     }
 
     private void validateResult(Integer matchId, Result result, boolean isAssigning) throws MatchNotFoundException, InvalidTournamentStatusException, InvalidResultException {

@@ -25,12 +25,12 @@ public class TestTournament {
     public void nextRound() {
         try {
             if (!tournamentService.getTournament().getStatus().equals(ETournamentStatus.NOT_STARTED)) {
-                System.out.println("Ronda actual: " + tournamentService.getTournamentRoundService().getCurrentRound().getClass().getSimpleName());
+                System.out.println("Ronda actual: " + tournamentService.getRoundService().getCurrentRound().getClass().getSimpleName());
             } else {
                 System.out.println("El torneo no ha iniciado aun");
             }
             tournamentService.advanceTournament();
-            System.out.println("Siguiente Ronda: " + tournamentService.getTournamentRoundService().getCurrentRound().getClass().getSimpleName());
+            System.out.println("Siguiente Ronda: " + tournamentService.getRoundService().getCurrentRound().getClass().getSimpleName());
         } catch (IncompleteMatchException e) {
             System.out.println(e.getMessage());
         } catch (InvalidTournamentStatusException e) {
@@ -118,7 +118,7 @@ public class TestTournament {
     }
 
     public void finalizeAllMatchOfCurrentRound(){
-        for(Match match : tournamentService.getTournamentRoundService().getCurrentRound().getMatches()){
+        for(Match match : tournamentService.getRoundService().getCurrentRound().getMatches()){
             assignRandomResultToMatch(match.getIdMatch());
         }
     }
@@ -143,6 +143,8 @@ public class TestTournament {
         } catch (InvalidResultException e) {
             System.out.println(e.getMessage());
 
+        } catch (IncompleteMatchException e) {
+            throw new RuntimeException(e);
         }
         saveChanges();
     }
@@ -165,6 +167,8 @@ public class TestTournament {
             System.out.println(e.getMessage());
         } catch (InvalidResultException e) {
             System.out.println(e.getMessage());
+        } catch (IncompleteMatchException e) {
+            throw new RuntimeException(e);
         }
         saveChanges();
     }
@@ -189,6 +193,8 @@ public class TestTournament {
             System.out.println(e.getMessage());
         } catch (InvalidResultException e) {
             System.out.println(e.getMessage());
+        } catch (IncompleteMatchException e) {
+            throw new RuntimeException(e);
         }
         saveChanges();
     }
@@ -204,6 +210,8 @@ public class TestTournament {
             System.out.println(e.getMessage());
         }catch (InvalidResultException e) {
             System.out.println(e.getMessage());
+        } catch (IncompleteMatchException e) {
+            throw new RuntimeException(e);
         }
         saveChanges();
     }
@@ -219,6 +227,8 @@ public class TestTournament {
             System.out.println(e.getMessage());
         }catch (InvalidResultException e) {
             System.out.println(e.getMessage());
+        } catch (IncompleteMatchException e) {
+            throw new RuntimeException(e);
         }
     }
 
