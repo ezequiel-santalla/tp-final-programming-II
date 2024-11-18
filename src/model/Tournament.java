@@ -31,17 +31,16 @@ public class Tournament implements Comparable<Tournament> {
     public Tournament() {
         this.players = new TreeSet<>();
         this.rounds = new ArrayList<>();
+        this.status = ETournamentStatus.NOT_STARTED;
     }
     
     public Tournament(String name, String location, ESurface surface, LocalDate startingDate, LocalDate endingDate) {
+        this();
         this.name = name;
         this.location = location;
         this.surface = surface;
         this.startingDate = startingDate;
         this.endingDate = endingDate;
-        this.players = new TreeSet<>();
-        this.rounds = new ArrayList<>();
-        this.status = ETournamentStatus.NOT_STARTED;
     }
 
     public Integer getIdTournament() {

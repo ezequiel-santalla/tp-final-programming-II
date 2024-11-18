@@ -76,12 +76,13 @@ public class TournamentService {
         updateTournament(tournament);
     }
 
-    public void assignResultToMatch(Integer matchId, Result result) throws InvalidTournamentStatusException, MatchNotFoundException, TournamentNotFoundException, InvalidResultException {
+    public void assignResultToMatch(Integer matchId, Result result) throws InvalidTournamentStatusException, MatchNotFoundException, TournamentNotFoundException, InvalidResultException, IncompleteMatchException {
         matchService.assignResult(matchId, result);
+
         updateTournament(tournament);
     }
 
-    public void modifyResultToMatch(Integer matchId, Result result) throws InvalidTournamentStatusException, MatchNotFoundException, TournamentNotFoundException, InvalidResultException {
+    public void modifyResultToMatch(Integer matchId, Result result) throws InvalidTournamentStatusException, MatchNotFoundException, TournamentNotFoundException, InvalidResultException, IncompleteMatchException {
         matchService.modifyResult(matchId, result);
         updateTournament(tournament);
     }
@@ -113,11 +114,11 @@ public class TournamentService {
         return tournamentPlayerService;
     }
 
-    public RoundService getTournamentRoundService() {
+    public RoundService getRoundService() {
         return roundService;
     }
 
-    public MatchService getTournamentMatchService() {
+    public MatchService getMatchService() {
         return matchService;
     }
 

@@ -1,6 +1,7 @@
 package view;
 
 import enums.ESurface;
+import exceptions.DataEntryCancelledException;
 import model.Player;
 import model.Tournament;
 import utils.Utils;
@@ -49,15 +50,15 @@ public class MenuHandler {
         return index;
     }
 
-    public Integer requestID(String dataMessage) {
+    public Integer requestID(String dataMessage) throws DataEntryCancelledException {
         String dataInput;
         boolean flag = false;
 
         do {
-            System.out.print("Ingrese el ID "+dataMessage+"(o '0' para cancelar): ");
+            System.out.print("Ingrese el ID " + dataMessage + "(o '0' para cancelar): ");
             dataInput = scanner.nextLine();
             if (dataInput.equals("0")) {
-                return null; // Cancela la carga
+                throw new DataEntryCancelledException();
             }
             if (Utils.isNumericString(dataInput)) {
                 flag = true;
@@ -68,7 +69,7 @@ public class MenuHandler {
         return Integer.parseInt(dataInput);
     }
 
-    public String requestDni() {
+    public String requestDni() throws DataEntryCancelledException {
         String dataInput;
         boolean flag = false;
 
@@ -76,7 +77,7 @@ public class MenuHandler {
             System.out.print("Ingrese el DNI (o '0' para cancelar): ");
             dataInput = scanner.nextLine();
             if (dataInput.equals("0")) {
-                return null; // Cancela la carga
+                throw new DataEntryCancelledException();
             }
             if (Utils.isValidateDni(dataInput)) {
                 flag = true;
@@ -87,14 +88,14 @@ public class MenuHandler {
         return dataInput;
     }
 
-    public String requestAlphabeticInput(String dataMessage) {
+    public String requestAlphabeticInput(String dataMessage) throws DataEntryCancelledException {
         String dataInput;
         boolean flag = false;
         do {
             System.out.print("Ingrese " + dataMessage + " (o '0' para cancelar): ");
             dataInput = scanner.nextLine();
             if (dataInput.equals("0")) {
-                return null; // Cancela la carga
+                throw new DataEntryCancelledException();
             }
             if (Utils.isValidName(dataInput)) {
                 flag = true;
@@ -105,14 +106,14 @@ public class MenuHandler {
         return dataInput;
     }
 
-    public LocalDate requestDate(String dataMessage) {
+    public LocalDate requestDate(String dataMessage) throws DataEntryCancelledException {
         String dataInput;
         boolean flag = false;
         do {
             System.out.print("Ingrese la fecha " + dataMessage + " <dd/MM/aaaa> (o '0' para cancelar): ");
             dataInput = scanner.nextLine();
             if (dataInput.equals("0")) {
-                return null; // Cancela la carga
+                throw new DataEntryCancelledException();
             }
             if (Utils.isValidDateFormat(dataInput)) {
                 flag = true;
@@ -124,41 +125,54 @@ public class MenuHandler {
         return Utils.parseLocalDate(dataInput);
     }
 
-    public Player requestPlayerData() {
+    private LocalDate requestEndingDate(LocalDate startingDate) throws DataEntryCancelledException {
+        LocalDate endingDate = null;
+        boolean flag = false;
+        while (!flag) {
+            endingDate = requestDate("la fecha de finalización del torneo");
+            if (endingDate == null) {
+                flag = true;
+                System.out.println("Carga de datos cancelada.");
+            }
+            if (startingDate.isAfter(endingDate)) {
+                System.out.println("La fecha de finalización debe ser posterior a la fecha de inicio.");
+            } else {
+                flag = true;
+            }
+        }
+        return endingDate;
+    }
+
+    public Player requestPlayerData() throws DataEntryCancelledException {
         Player player = new Player();
 
         String dni = requestDni();
         if (dni == null) {
-            System.out.println("Carga de datos cancelada.");
-            return null; // Cancela la carga y retorna null
+            throw new DataEntryCancelledException();
         }
         player.setDni(dni);
 
         String name = requestAlphabeticInput("el nombre");
         if (name == null) {
-            System.out.println("Carga de datos cancelada.");
-            return null;
+            throw new DataEntryCancelledException();
         }
         player.setName(Utils.toFormatName(name));
 
         String lastName = requestAlphabeticInput("el apellido");
         if (lastName == null) {
-            System.out.println("Carga de datos cancelada.");
-            return null;
+            throw new DataEntryCancelledException();
         }
         player.setLastName(Utils.toFormatName(lastName));
 
         String nationality = requestAlphabeticInput("la nacionalidad");
         if (nationality == null) {
-            System.out.println("Carga de datos cancelada.");
-            return null;
+            throw new DataEntryCancelledException();
         }
         player.setNationality(Utils.toFormatName(nationality));
 
         LocalDate dateOfBirth = requestDate("de nacimiento");
         if (dateOfBirth == null) {
-            System.out.println("Carga de datos cancelada.");
-            return null;
+            throw new DataEntryCancelledException();
         }
         player.setDateOfBirth(dateOfBirth);
         player.setPoints(0);
@@ -179,7 +193,7 @@ public class MenuHandler {
     }
 
 
-    public Tournament requestTournamentData(Tournament tournament) {
+    public Tournament requestTournamentData(Tournament tournament) throws DataEntryCancelledException {
         if (tournament == null) {
             tournament = new Tournament(); // Crear un nuevo torneo si es null
         }
@@ -193,37 +207,23 @@ public class MenuHandler {
         return tournament;
     }
 
-    private String requestStringInput(String prompt) {
+    private String requestStringInput(String prompt) throws DataEntryCancelledException {
         String input = requestAlphabeticInput(prompt);
         if (input == null) {
-            System.out.println("Carga de datos cancelada.");
-            return null;
+            throw new DataEntryCancelledException();
         }
         return Utils.toFormatName(input);
     }
 
-    private LocalDate requestEndingDate(LocalDate startingDate) {
-        LocalDate endingDate = requestDate("la fecha de finalización del torneo");
-        if (endingDate == null) {
-            System.out.println("Carga de datos cancelada.");
-            return null;
-        }
-        if (endingDate.isBefore(startingDate)) {
-            System.out.println("La fecha de finalización debe ser posterior a la fecha de inicio.");
-            return null; // O podrías lanzar una excepción
-        }
-        return endingDate;
-    }
 
-    private ESurface requestSurface() {
+    private ESurface requestSurface() throws DataEntryCancelledException {
         String dataInput;
         while (true) {
             System.out.print("Ingrese la superficie del torneo (CARPET, CLAY, GRASS, HARD) o '0' para cancelar: ");
             dataInput = scanner.nextLine().trim();
 
             if (dataInput.equals("0")) {
-                System.out.println("Carga de superficie cancelada.");
-                return null; // Cancela la carga
+                throw new DataEntryCancelledException();
             }
 
             if (Utils.isValidSurface(dataInput)) {
@@ -251,6 +251,16 @@ public class MenuHandler {
             }
         }
         return score;
+    }
+
+    public void requestPressEnter() {
+        System.out.print("Presione <<Enter>> para continuar...");
+        scanner.nextLine();
+        cleanScreen();
+    }
+
+    public void cleanScreen() {
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
 
 }

@@ -5,7 +5,7 @@
   "lastName" : "Santalla",
   "nationality" : "Argentina",
   "dateOfBirth" : [ 1999, 8, 13 ],
-  "points" : 0
+  "points" : 200
 }, {
   "idPlayer" : 2,
   "dni" : "38011234",
@@ -21,7 +21,7 @@
   "lastName" : "Gómez",
   "nationality" : "Uruguayo",
   "dateOfBirth" : [ 1991, 1, 10 ],
-  "points" : 0
+  "points" : 20
 }, {
   "idPlayer" : 4,
   "dni" : "45078945",
@@ -45,7 +45,7 @@
   "lastName" : "Martínez",
   "nationality" : "Argentino",
   "dateOfBirth" : [ 1995, 6, 21 ],
-  "points" : 0
+  "points" : 10
 }, {
   "idPlayer" : 7,
   "dni" : "42087654",
