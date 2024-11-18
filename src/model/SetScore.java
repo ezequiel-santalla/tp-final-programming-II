@@ -2,6 +2,7 @@ package model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import exceptions.InvalidResultException;
+import utils.Utils;
 
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ public class SetScore {
     }
 
     public SetScore(Integer playerOneScore, Integer playerTwoScore) throws InvalidResultException {
-        if (validateFullScore(playerOneScore, playerTwoScore)) {
+        if (Utils.validateFullScore(playerOneScore, playerTwoScore)) {
             this.playerOneScore = playerOneScore;
             this.playerTwoScore = playerTwoScore;
         }
@@ -31,14 +32,14 @@ public class SetScore {
 
         // If the other player's score is available, evaluate the full score
         if (this.playerTwoScore != null) {
-            if (validateFullScore(playerOneScore, this.playerTwoScore)) {
+            if (Utils.validateFullScore(playerOneScore, this.playerTwoScore)) {
                 this.playerOneScore = playerOneScore;
             } else {
                 throw new InvalidResultException("Scores do not represent a valid result.");
             }
 
             // If the other player's score is not available, evaluate the parcial score
-        } else if (validateParcialScore(playerOneScore)) {
+        } else if (Utils.validatePartialScore(playerOneScore)) {
             this.playerOneScore = playerOneScore;
         } else {
             throw new InvalidResultException("Invalid score for player one.");
@@ -54,41 +55,21 @@ public class SetScore {
 
         // If the other player's score is available, evaluate the full score
         if (this.playerOneScore != null) {
-            if (validateFullScore(this.playerOneScore, playerTwoScore)) {
+            if (Utils.validateFullScore(this.playerOneScore, playerTwoScore)) {
                 this.playerTwoScore = playerTwoScore;
             } else {
                 throw new InvalidResultException("Scores do not represent a valid result.");
             }
 
             // If the other player's score is not available, evaluate the parcial score
-        } else if (validateParcialScore(playerTwoScore)) {
+        } else if (Utils.validatePartialScore(playerTwoScore)) {
             this.playerTwoScore = playerTwoScore;
         } else {
             throw new InvalidResultException("Invalid score for player one.");
         }
     }
 
-    private boolean validateFullScore(Integer playerOneScore, Integer playerTwoScore) throws InvalidResultException {
 
-        // Validate than scores are not negative
-        if (playerOneScore < 0 || playerTwoScore < 0) {
-            throw new InvalidResultException("Score cannot be negative");
-        }
-
-        // Conditions to validate score
-        boolean playerOneWinsWithSix = playerOneScore == 6 && playerTwoScore <= 4;
-        boolean playerTwoWinsWithSix = playerTwoScore == 6 && playerOneScore <= 4;
-
-        boolean playerOneWinsWithSeven = playerOneScore == 7 && (playerTwoScore == 5 || playerTwoScore == 6);
-        boolean playerTwoWinsWithSeven = playerTwoScore == 7 && (playerOneScore == 5 || playerOneScore == 6);
-
-        // Returns true if any of the win conditions are valid
-        return playerOneWinsWithSix || playerTwoWinsWithSix || playerOneWinsWithSeven || playerTwoWinsWithSeven;
-    }
-
-    private boolean validateParcialScore(Integer score) {
-        return score >= 0 && score <= 7;
-    }
 
 
     @Override

@@ -105,7 +105,7 @@ public class DataInitializer {
         TournamentRepositoryImp tournamentRepositoryImp = new TournamentRepositoryImp();
         Tournament tournament = new Tournament("torneo", "MDP", ESurface.CARPET, LocalDate.of(2024, 2, 2), LocalDate.of(2024, 2, 6));
         try {
-            tournamentService = new TournamentService(tournamentRepositoryImp, 1);
+            tournamentService = new TournamentService(tournamentRepositoryImp, 13);
         } catch (TournamentNotFoundException e) {
             System.out.println("No se encontro un torneo con ese id" + e.getMessage());
             tournamentService = new TournamentService(tournamentRepositoryImp, tournament);

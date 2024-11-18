@@ -49,12 +49,12 @@ public class MenuHandler {
         return index;
     }
 
-    public Integer requestID() {
+    public Integer requestID(String dataMessage) {
         String dataInput;
         boolean flag = false;
 
         do {
-            System.out.print("Ingrese el ID (o '0' para cancelar): ");
+            System.out.print("Ingrese el ID "+dataMessage+"(o '0' para cancelar): ");
             dataInput = scanner.nextLine();
             if (dataInput.equals("0")) {
                 return null; // Cancela la carga
@@ -241,10 +241,10 @@ public class MenuHandler {
             try {
                 System.out.print("Ingrese el puntaje del Jugador " + playerNumber + ": ");
                 score = Integer.parseInt(scanner.nextLine());
-                if (score < 0) {
-                    System.out.println("El puntaje no puede ser negativo. Intenta nuevamente.");
-                } else {
+                if (Utils.validatePartialScore(score)) {
                     validInput = true;
+                } else {
+                    System.out.println("El puntaje no es valido. Intenta nuevamente.");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Por favor, ingresa un numero válido para el puntaje.");

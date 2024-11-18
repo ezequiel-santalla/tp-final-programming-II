@@ -1,7 +1,7 @@
 package service;
 
 import exceptions.DuplicatePlayerException;
-import exceptions.MatchNotFoundException;
+import exceptions.PlayerNotFoundException;
 import exceptions.TournamentFullException;
 import model.Player;
 import model.Tournament;
@@ -27,7 +27,7 @@ public class TournamentPlayerService {
         }
     }
 
-    public void unsubscribePlayer(Integer idPlayer) throws MatchNotFoundException {
+    public void unsubscribePlayer(Integer idPlayer) throws PlayerNotFoundException {
 
         Iterator<Player> iterator = tournament.getPlayers().iterator();
         boolean playerFound = false;
@@ -41,7 +41,7 @@ public class TournamentPlayerService {
             }
         }
         if (!playerFound) {
-            throw new MatchNotFoundException(idPlayer);
+            throw new PlayerNotFoundException(idPlayer);
         }
     }
 }

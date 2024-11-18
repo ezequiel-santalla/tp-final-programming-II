@@ -14,6 +14,10 @@ public class TournamentService {
     private TournamentStatusService tournamentStatusService;
     private Tournament tournament;
 
+    public TournamentService(TournamentRepositoryImp tournamentRepositoryImp) {
+        this.tournamentRepositoryImp = tournamentRepositoryImp;
+    }
+
     public TournamentService(TournamentRepositoryImp tournamentRepositoryImp, Tournament tournament) {
         this.tournamentRepositoryImp = tournamentRepositoryImp;
         this.tournament = tournament;
@@ -28,15 +32,26 @@ public class TournamentService {
     }
 
     public Integer addTournament(Tournament tournament) throws FileProcessingException {
+        this.tournament = tournament;
+        initServices();
         return tournamentRepositoryImp.create(tournament);
     }
 
     public Tournament findTournamentById(Integer id) throws TournamentNotFoundException, FileProcessingException {
         tournament = tournamentRepositoryImp.find(id);
+        initServices();
         return tournament;
     }
 
     public void updateTournament(Tournament tournament) throws TournamentNotFoundException, FileProcessingException {
+
+        if (this.tournament == null) {
+            throw new TournamentNotFoundException("No tournament selected for update.");
+        }
+        if (tournament == null) {
+            throw new IllegalArgumentException("Tournament cannot be null.");
+        }
+        this.setTournament(tournament);
         tournamentRepositoryImp.update(tournament);
     }
 
@@ -49,11 +64,14 @@ public class TournamentService {
     }
 
     public void registerPlayerInTournament(Player player) throws TournamentFullException, DuplicatePlayerException, TournamentNotFoundException {
+        if (player == null) {
+            throw new IllegalArgumentException("Player cannot be null.");
+        }
         tournamentPlayerService.registerPlayer(player);
         updateTournament(tournament);
     }
 
-    public void unsubscribePlayerFromTournament(Integer idPlayer) throws MatchNotFoundException, TournamentNotFoundException {
+    public void unsubscribePlayerFromTournament(Integer idPlayer) throws TournamentNotFoundException, PlayerNotFoundException {
         tournamentPlayerService.unsubscribePlayer(idPlayer);
         updateTournament(tournament);
     }
@@ -78,7 +96,16 @@ public class TournamentService {
         return tournamentStatusService.getTournamentWinner();
     }
 
-   public Tournament getTournament() {
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
+        initServices();
+    }
+
+    public void setTournamentById(Integer idTournament) throws TournamentNotFoundException {
+        setTournament(findTournamentById(idTournament));
+    }
+
+    public Tournament getTournament() {
         return tournament;
     }
 

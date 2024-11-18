@@ -866,7 +866,18 @@
         "dateOfBirth" : [ 1994, 3, 23 ],
         "points" : 0
       },
-      "result" : null
+      "result" : {
+        "setsScore" : [ {
+          "playerOneScore" : null,
+          "playerTwoScore" : null
+        }, {
+          "playerOneScore" : null,
+          "playerTwoScore" : null
+        }, {
+          "playerOneScore" : null,
+          "playerTwoScore" : null
+        } ]
+      }
     }, {
       "idMatch" : 2,
       "playerOne" : {
@@ -961,15 +972,7 @@
         "dateOfBirth" : [ 1991, 12, 30 ],
         "points" : 0
       },
-      "result" : {
-        "setsScore" : [ {
-          "playerOneScore" : 0,
-          "playerTwoScore" : 6
-        }, {
-          "playerOneScore" : 0,
-          "playerTwoScore" : 6
-        } ]
-      }
+      "result" : null
     }, {
       "idMatch" : 6,
       "playerOne" : {
@@ -1058,3 +1061,4 @@
   "rounds" : [ ],
   "status" : "NOT_STARTED"
 } ]
+

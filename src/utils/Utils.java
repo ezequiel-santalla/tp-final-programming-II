@@ -1,6 +1,7 @@
 package utils;
 
 import enums.ESurface;
+import exceptions.InvalidResultException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -84,5 +85,26 @@ public class Utils {
         } catch (IllegalArgumentException e) {
             return false;
         }
+    }
+    public static boolean validateFullScore(Integer playerOneScore, Integer playerTwoScore) throws InvalidResultException {
+
+        // Validate than scores are not negative
+        if (playerOneScore < 0 || playerTwoScore < 0) {
+            throw new InvalidResultException("Score cannot be negative");
+        }
+
+        // Conditions to validate score
+        boolean playerOneWinsWithSix = playerOneScore == 6 && playerTwoScore <= 4;
+        boolean playerTwoWinsWithSix = playerTwoScore == 6 && playerOneScore <= 4;
+
+        boolean playerOneWinsWithSeven = playerOneScore == 7 && (playerTwoScore == 5 || playerTwoScore == 6);
+        boolean playerTwoWinsWithSeven = playerTwoScore == 7 && (playerOneScore == 5 || playerOneScore == 6);
+
+        // Returns true if any of the win conditions are valid
+        return playerOneWinsWithSix || playerTwoWinsWithSix || playerOneWinsWithSeven || playerTwoWinsWithSeven;
+    }
+
+    public static boolean validatePartialScore(Integer score) {
+        return score >= 0 && score <= 7;
     }
 }

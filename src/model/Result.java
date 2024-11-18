@@ -41,7 +41,7 @@ public class Result {
     }
 
     public boolean thereIsNoWinner() {
-
+        System.out.println("set P1:"+getSetsWonPlayerOne()+" set P2:"+getSetsWonPlayerTwo());
         return getSetsWonPlayerOne() != 2 && getSetsWonPlayerTwo() != 2;
     }
 
