@@ -118,10 +118,8 @@ public class Tournament implements Comparable<Tournament> {
 
     @Override
     public String toString() {
-        return String.format(
-                "| %-5d | %-20s | %-15s | %-12s | %-12s | %-12s | %-12s |",
-                idTournament, name, location, surface, startingDate, endingDate, status.getDisplayName()
-        );
+        return String.format("%-5d | %-20s | %-15s | %-12s | %-12s | %-12s",
+                idTournament, name, location, surface, startingDate, endingDate);
     }
 
     @Override

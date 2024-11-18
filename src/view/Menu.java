@@ -45,7 +45,7 @@ public class Menu {
         principalMenuOptions = Arrays.asList("Administración del Torneo", "Administración de Jugadores", "Administración de Partidos", "Salir");
         tournamentOptions = Arrays.asList("Cargar datos del torneo", "Ver datos del torneo", "Modificar datos del torneo", "Ver lista de torneos", "Eliminar torneo", "Volver");
         playersOptions = Arrays.asList("Agregar jugador", "Modificar jugador", "Ver lista de jugadores", "Ver información de jugador", "Eliminar jugador", "Ver Ranking", "Ver Estadísticas del Jugador", "Volver");
-        matchesOptions = Arrays.asList("Ver diagrama de partidos", "Ver resultado de partidos", "Cargar resultado de partido", "Volver");
+        matchesOptions = Arrays.asList("Ver diagrama de partidos", "Ver resultado de partidos", "Cargar resultado de partido", "Generar siguiente ronda","Volver");
     }
 
     public void runMenu() {
@@ -104,6 +104,7 @@ public class Menu {
                 case 1 -> showTournamentMatches();
                 case 2 -> showMatchResult();
                 case 3 -> assignMatchResult();
+                case 4 -> advanceToNextRound();
                 case 0 -> System.out.println("Volviendo al menú principal...");
                 default -> System.out.println("Opción no válida.");
             }
@@ -245,14 +246,17 @@ public class Menu {
             if (allTournaments.isEmpty()) {
                 System.out.println("No se encontraron torneos cargados");
             } else {
-                allTournaments.forEach(t -> System.out.println(t));
+                System.out.println("--------------------------------------------------------------------------------------------------------------");
+                System.out.println("| ID    | Nombre               | Lugar           | Superficie   | Inicio       | Finalizacion | Estado       |");
+                System.out.println("--------------------------------------------------------------------------------------------------------------");
+                allTournaments.forEach(System.out::println);
+                System.out.println("--------------------------------------------------------------------------------------------------------------");
             }
         } catch (Exception e) {
             System.out.println("Error al obtener la lista de torneos: " + e.getMessage());
         }
-
-
     }
+
 
     private void deleteTournament() {
         System.out.println();
@@ -364,5 +368,23 @@ public class Menu {
             System.out.println("No se encontró torneo con ese ID");
         }
     }
+
+    private void advanceToNextRound() {
+        try {
+            Integer tournamentId = menuHandler.requestID("del torneo");
+            tournamentService.setTournamentById(tournamentId);
+
+            // Intentar avanzar a la siguiente ronda
+            tournamentService.getTournamentRoundService().nextRound();
+            System.out.println("Se avanzó correctamente a la siguiente ronda del torneo con ID " + tournamentId);
+        } catch (TournamentNotFoundException e) {
+            System.out.println("No se encontró un torneo con ese ID: " + e.getMessage());
+        } catch (IncompleteMatchException e) {
+            System.out.println("No se puede avanzar a la siguiente ronda: la ronda actual no está completa.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("No se puede avanzar más: ya se han completado todas las rondas.");
+        }
+    }
+
 
 }
