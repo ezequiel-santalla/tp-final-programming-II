@@ -234,4 +234,23 @@ public class MenuHandler {
         }
     }
 
+    public Integer requestPlayerScore(int playerNumber) {
+        Integer score = null;
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                System.out.print("Ingrese el puntaje del Jugador " + playerNumber + ": ");
+                score = Integer.parseInt(scanner.nextLine());
+                if (score < 0) {
+                    System.out.println("El puntaje no puede ser negativo. Intenta nuevamente.");
+                } else {
+                    validInput = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Por favor, ingresa un numero válido para el puntaje.");
+            }
+        }
+        return score;
+    }
+
 }

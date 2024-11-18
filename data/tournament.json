@@ -690,21 +690,11 @@
   "status" : "NOT_STARTED"
 }, {
   "idTournament" : 10,
-  "name" : "Torneo",
-  "location" : "MdP",
-  "surface" : "CARPET",
-  "startingDate" : [ 2024, 11, 16 ],
-  "endingDate" : [ 2024, 12, 16 ],
-  "players" : [ ],
-  "rounds" : [ ],
-  "status" : "NOT_STARTED"
-}, {
-  "idTournament" : 11,
-  "name" : "Torneo",
-  "location" : "MdP",
-  "surface" : "CARPET",
-  "startingDate" : [ 2024, 11, 16 ],
-  "endingDate" : [ 2024, 12, 16 ],
+  "name" : "Paris tour",
+  "location" : "Paris",
+  "surface" : "CLAY",
+  "startingDate" : [ 2024, 12, 12 ],
+  "endingDate" : [ 2024, 12, 24 ],
   "players" : [ ],
   "rounds" : [ ],
   "status" : "NOT_STARTED"
@@ -940,6 +930,656 @@
   "status" : "NOT_STARTED"
 }, {
   "idTournament" : 35,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 36,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 37,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 38,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 39,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 40,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 41,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 42,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 43,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 44,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 45,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 46,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 47,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 48,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 49,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 50,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 51,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 52,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 53,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 54,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 55,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 56,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 57,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 58,
+  "name" : "Alemania tour",
+  "location" : "Alemania",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 12, 12 ],
+  "endingDate" : [ 2024, 12, 24 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : null
+}, {
+  "idTournament" : 59,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 60,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 61,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 62,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 63,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 64,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 65,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 66,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 67,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 68,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 69,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 70,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 71,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 72,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 73,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 74,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 75,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 76,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 77,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 78,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 79,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 80,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 81,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 82,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 83,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 84,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 85,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 86,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 87,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 88,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 89,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 90,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 91,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 92,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 93,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 94,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 95,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 96,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 97,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 98,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 99,
+  "name" : "Torneo",
+  "location" : "MdP",
+  "surface" : "CARPET",
+  "startingDate" : [ 2024, 11, 16 ],
+  "endingDate" : [ 2024, 12, 16 ],
+  "players" : [ ],
+  "rounds" : [ ],
+  "status" : "NOT_STARTED"
+}, {
+  "idTournament" : 100,
   "name" : "Torneo",
   "location" : "MdP",
   "surface" : "CARPET",
