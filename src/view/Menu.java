@@ -186,7 +186,7 @@ public class Menu {
         } catch (PlayerNotFoundException e) {
             System.out.println("No hay jugador con ese ID");
         } catch (TournamentFullException e) {
-            System.out.println("No hay suficientes jugadores para iniciar");
+            System.out.println("El torneo está completo");
         } catch (DuplicatePlayerException e) {
             System.out.println("El jugador ya se encuentra registrado");
         } catch (TournamentNotFoundException e) {
@@ -205,9 +205,19 @@ public class Menu {
         } catch (IncompleteMatchException e) {
             System.out.println("No se puede avanzar a la siguiente ronda: la ronda actual no está completa.");
         } catch (InvalidTournamentStatusException e) {
-            System.out.println("No se puede avanzar más: ya se han completado todas las rondas.");
+            showTournamentWinner();
         } catch (TournamentFullException e) {
-            System.out.println("El torneo está completo.");
+            System.out.println("No hay suficientes jugadores para iniciar");
+        }
+        menuHandler.requestPressEnter();
+    }
+
+    public void showTournamentWinner(){
+        try {
+            menuHandler.cleanScreen();
+            System.out.println("Ganador del torneo: " + tournamentService.getTournamentWinner());
+        } catch (InvalidTournamentStatusException | IncompleteMatchException ex) {
+            System.out.println("El torneo no ha finalizado");
         }
     }
 
