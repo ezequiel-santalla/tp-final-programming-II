@@ -7,14 +7,6 @@
   "dateOfBirth" : [ 1999, 8, 13 ],
   "points" : 200
 }, {
-  "idPlayer" : 2,
-  "dni" : "38011234",
-  "name" : "Carlos",
-  "lastName" : "Fernández",
-  "nationality" : "Argentino",
-  "dateOfBirth" : [ 1992, 3, 15 ],
-  "points" : 0
-}, {
   "idPlayer" : 3,
   "dni" : "41023567",
   "name" : "Luis",
@@ -22,14 +14,6 @@
   "nationality" : "Uruguayo",
   "dateOfBirth" : [ 1991, 1, 10 ],
   "points" : 20
-}, {
-  "idPlayer" : 4,
-  "dni" : "45078945",
-  "name" : "Juan",
-  "lastName" : "Pérez",
-  "nationality" : "Argentino",
-  "dateOfBirth" : [ 1989, 7, 28 ],
-  "points" : 0
 }, {
   "idPlayer" : 5,
   "dni" : "39045678",
@@ -157,5 +141,13 @@
   "lastName" : "Sánchez",
   "nationality" : "Argentino",
   "dateOfBirth" : [ 1995, 10, 24 ],
+  "points" : 0
+}, {
+  "idPlayer" : 21,
+  "dni" : "42044173",
+  "name" : "Jesus",
+  "lastName" : "Dios",
+  "nationality" : "Argentino",
+  "dateOfBirth" : [ 1900, 1, 1 ],
   "points" : 0
 } ]

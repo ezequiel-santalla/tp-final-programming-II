@@ -132,7 +132,6 @@ public class PlayerService {
         );
     }
 
-
     private List<Player> getPlayerRankings() throws PlayerNotFoundException {
         List<Player> players = getAllPlayers();
 
