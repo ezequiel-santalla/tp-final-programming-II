@@ -8,9 +8,6 @@ import model.Result;
 import model.Tournament;
 import model.rounds.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MatchService {
     private final Tournament tournament;
 

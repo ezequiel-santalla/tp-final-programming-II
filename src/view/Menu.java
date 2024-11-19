@@ -3,7 +3,6 @@ package view;
 import enums.ETournamentStatus;
 import exceptions.*;
 import model.*;
-import model.rounds.Final;
 import model.rounds.Round;
 import repository.PlayerRepositoryImp;
 import repository.TournamentRepositoryImp;

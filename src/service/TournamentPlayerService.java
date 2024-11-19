@@ -7,7 +7,6 @@ import model.Player;
 import model.Tournament;
 
 import java.util.Iterator;
-import java.util.List;
 
 
 public class TournamentPlayerService {
