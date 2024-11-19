@@ -180,17 +180,17 @@ public class Menu {
         try {
             idPlayer = menuHandler.requestID("del jugador que desea registrar");
             tournamentService.registerPlayerInTournament(playerService.findPlayerById(idPlayer));
-            System.out.println("\nJugador registrado con éxito");
+            System.out.println("Jugador registrado con éxito");
         } catch (DataEntryCancelledException e) {
-            System.out.println("\nEntrada cancelada");
+            System.out.println("Entrada cancelada");
         } catch (PlayerNotFoundException e) {
-            System.out.println("\nNo hay jugador con ese ID");
+            System.out.println("No hay jugador con ese ID");
         } catch (TournamentFullException e) {
-            System.out.println("\n Se alcanzó la cantidad máxima de jugadores disponibles para el torneo");
+            System.out.println("El torneo está completo");
         } catch (DuplicatePlayerException e) {
-            System.out.println("\nEl jugador ya se encuentra registrado");
+            System.out.println("El jugador ya se encuentra registrado");
         } catch (TournamentNotFoundException e) {
-            System.out.println("\nNo se encontró torneo con ese ID");
+            System.out.println("No se encontró torneo con ese ID");
         }
         menuHandler.requestPressEnter();
     }
@@ -205,9 +205,19 @@ public class Menu {
         } catch (IncompleteMatchException e) {
             System.out.println("No se puede avanzar a la siguiente ronda: la ronda actual no está completa.");
         } catch (InvalidTournamentStatusException e) {
-            System.out.println("No se puede avanzar más: ya se han completado todas las rondas.");
+            showTournamentWinner();
         } catch (TournamentFullException e) {
-            System.out.println("El torneo está completo.");
+            System.out.println("No hay suficientes jugadores para iniciar");
+        }
+        menuHandler.requestPressEnter();
+    }
+
+    public void showTournamentWinner(){
+        try {
+            menuHandler.cleanScreen();
+            System.out.println("Ganador del torneo: " + tournamentService.getTournamentWinner());
+        } catch (InvalidTournamentStatusException | IncompleteMatchException ex) {
+            System.out.println("El torneo no ha finalizado");
         }
     }
 
@@ -450,7 +460,7 @@ public class Menu {
                 for (Round round : tournament.getRounds()) {
                     System.out.println("\nRonda: " + round.getClass().getSimpleName() + "\n");
                     for (Match match : round.getMatches()) {
-                        System.out.println("Partido ID: " + match.getIdMatch() + " - " + match.getPlayerOne().getName() + " " + match.getPlayerOne().getLastName() + " vs. " + match.getPlayerTwo().getName() + " " + match.getPlayerTwo().getLastName());
+                        System.out.println("Partido ID: " + match.getIdMatch() + " - " + match.getPlayerOne().getName() + " " + match.getPlayerOne().getLastName() + " vs. " + match.getPlayerOne().getName() + " " + match.getPlayerOne().getLastName());
                     }
                 }
             } else {
