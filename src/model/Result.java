@@ -76,4 +76,9 @@ public class Result {
         validateResult(setsScore);
         this.setsScore = setsScore;
     }
+
+    @Override
+    public String toString() {
+        return setsScore.toString();
+    }
 }

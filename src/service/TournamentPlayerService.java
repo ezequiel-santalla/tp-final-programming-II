@@ -7,6 +7,7 @@ import model.Player;
 import model.Tournament;
 
 import java.util.Iterator;
+import java.util.List;
 
 
 public class TournamentPlayerService {
@@ -15,7 +16,6 @@ public class TournamentPlayerService {
     public TournamentPlayerService(Tournament tournament) {
         this.tournament = tournament;
     }
-
 
     public void registerPlayer(Player player) throws TournamentFullException, DuplicatePlayerException {
         if (tournament.getPlayers().size() < 16) {
@@ -44,4 +44,6 @@ public class TournamentPlayerService {
             throw new PlayerNotFoundException(idPlayer);
         }
     }
+
+
 }
