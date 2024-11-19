@@ -75,12 +75,13 @@ public class Utils {
             return false;
         }
         try {
-            ESurface.valueOf(surface);
+            ESurface.valueOf(surface.toUpperCase());
             return true;
         } catch (IllegalArgumentException e) {
             return false;
         }
     }
+
     public static boolean validateFullScore(Integer playerOneScore, Integer playerTwoScore) throws InvalidResultException {
         if (playerOneScore < 0 || playerTwoScore < 0) {
             throw new InvalidResultException("Score cannot be negative");
