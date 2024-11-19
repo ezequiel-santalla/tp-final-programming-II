@@ -6,14 +6,6 @@
   "startingDate" : [ 2024, 11, 19 ],
   "endingDate" : [ 2024, 11, 26 ],
   "players" : [ {
-    "idPlayer" : 13,
-    "dni" : "49054321",
-    "name" : "Rodrigo",
-    "lastName" : "Vega",
-    "nationality" : "Argentino",
-    "dateOfBirth" : [ 1994, 3, 23 ],
-    "points" : 0
-  }, {
     "idPlayer" : 6,
     "dni" : "40012345",
     "name" : "Tomás",
@@ -22,20 +14,20 @@
     "dateOfBirth" : [ 1995, 6, 21 ],
     "points" : 10
   }, {
-    "idPlayer" : 16,
-    "dni" : "52034567",
-    "name" : "Diego",
-    "lastName" : "Ortiz",
-    "nationality" : "Chileno",
-    "dateOfBirth" : [ 1992, 5, 6 ],
-    "points" : 0
-  }, {
     "idPlayer" : 8,
     "dni" : "43098765",
     "name" : "Matías",
     "lastName" : "Ríos",
     "nationality" : "Argentino",
     "dateOfBirth" : [ 1994, 8, 13 ],
+    "points" : 0
+  }, {
+    "idPlayer" : 16,
+    "dni" : "52034567",
+    "name" : "Diego",
+    "lastName" : "Ortiz",
+    "nationality" : "Chileno",
+    "dateOfBirth" : [ 1992, 5, 6 ],
     "points" : 0
   }, {
     "idPlayer" : 7,
@@ -100,6 +92,14 @@
     "lastName" : "López",
     "nationality" : "Chileno",
     "dateOfBirth" : [ 1993, 9, 5 ],
+    "points" : 0
+  }, {
+    "idPlayer" : 20,
+    "dni" : "56078901",
+    "name" : "Facundo",
+    "lastName" : "Sánchez",
+    "nationality" : "Argentino",
+    "dateOfBirth" : [ 1995, 10, 24 ],
     "points" : 0
   }, {
     "idPlayer" : 11,

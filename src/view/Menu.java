@@ -174,26 +174,32 @@ public class Menu {
     }
 
     public void registerPlayer() {
-        menuHandler.cleanScreen();
-        printPlayersList(getUnregisteredPlayers(), "Jugadores disponibles para registrar");
-        Integer idPlayer;
-        try {
-            while (true) {
+        boolean flag = false;
+
+        while (!flag) {
+            menuHandler.cleanScreen();
+            printPlayersList(getUnregisteredPlayers(), "Jugadores disponibles para registrar");
+            Integer idPlayer;
+
+            try {
                 idPlayer = menuHandler.requestID("del jugador que desea registrar");
 
                 tournamentService.registerPlayerInTournament(playerService.findPlayerById(idPlayer));
                 System.out.println("Jugador registrado con éxito");
+            } catch (DataEntryCancelledException e) {
+                flag = true;
+                System.out.println("Entrada cancelada");
+            } catch (PlayerNotFoundException e) {
+                System.out.println("No hay jugador con ese ID");
+            } catch (TournamentFullException e) {
+                flag = true;
+                System.out.println("El torneo está completo");
+            } catch (DuplicatePlayerException e) {
+                System.out.println("El jugador ya se encuentra registrado");
+            } catch (TournamentNotFoundException e) {
+                flag = true;
+                System.out.println("No se encontró torneo con ese ID");
             }
-        } catch (DataEntryCancelledException e) {
-            System.out.println("Entrada cancelada");
-        } catch (PlayerNotFoundException e) {
-            System.out.println("No hay jugador con ese ID");
-        } catch (TournamentFullException e) {
-            System.out.println("El torneo está completo");
-        } catch (DuplicatePlayerException e) {
-            System.out.println("El jugador ya se encuentra registrado");
-        } catch (TournamentNotFoundException e) {
-            System.out.println("No se encontró torneo con ese ID");
         }
         menuHandler.requestPressEnter();
     }
@@ -436,15 +442,24 @@ public class Menu {
 
     private void deleteTournament() {
         menuHandler.cleanScreen();
-        System.out.println();
+
         try {
-            Integer idDelete = menuHandler.requestID("del torneo ");
-            tournamentService.deleteTournament(idDelete);
-            System.out.println("Torneo eliminado correctamente con el ID " + idDelete);
+            List<Tournament> allTournaments = tournamentService.getAllTournaments();
+            if (allTournaments.isEmpty()) {
+                System.out.println("No se encontraron torneos cargados.");
+            } else {
+                printHeaderTournament();
+                allTournaments.forEach(System.out::println);
+                System.out.println("--------------------------------------------------------------------------------------------------------------");
+
+                Integer idDelete = menuHandler.requestID("del torneo a eliminar");
+                tournamentService.deleteTournament(idDelete);
+                System.out.println("Torneo eliminado correctamente con el ID " + idDelete);
+            }
         } catch (TournamentNotFoundException e) {
             System.out.println("Torneo no encontrado con ese ID.");
         } catch (DataEntryCancelledException e) {
-            System.out.println("Error al obtener la lista de torneos.");
+            System.out.println("Operación cancelada por el usuario.");
         }
         menuHandler.requestPressEnter();
     }
