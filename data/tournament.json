@@ -615,7 +615,39 @@
   "surface" : "CARPET",
   "startingDate" : [ 2024, 11, 16 ],
   "endingDate" : [ 2024, 12, 16 ],
-  "players" : [ ],
+  "players" : [ {
+    "idPlayer" : 2,
+    "dni" : "38011234",
+    "name" : "Carlos",
+    "lastName" : "Fernández",
+    "nationality" : "Argentino",
+    "dateOfBirth" : [ 1992, 3, 15 ],
+    "points" : 0
+  }, {
+    "idPlayer" : 1,
+    "dni" : "42044093",
+    "name" : "Ezequiel",
+    "lastName" : "Santalla",
+    "nationality" : "Argentina",
+    "dateOfBirth" : [ 1999, 8, 13 ],
+    "points" : 200
+  }, {
+    "idPlayer" : 4,
+    "dni" : "45078945",
+    "name" : "Juan",
+    "lastName" : "Pérez",
+    "nationality" : "Argentino",
+    "dateOfBirth" : [ 1989, 7, 28 ],
+    "points" : 0
+  }, {
+    "idPlayer" : 3,
+    "dni" : "41023567",
+    "name" : "Luis",
+    "lastName" : "Gómez",
+    "nationality" : "Uruguayo",
+    "dateOfBirth" : [ 1991, 1, 10 ],
+    "points" : 20
+  } ],
   "rounds" : [ ],
   "status" : "NOT_STARTED"
 }, {
@@ -1083,44 +1115,4 @@
     "givenPoints" : 10
   } ],
   "status" : "IN_PROGRESS"
-}, {
-  "idTournament" : 14,
-  "name" : "Torneo",
-  "location" : "MdP",
-  "surface" : "CARPET",
-  "startingDate" : [ 2024, 11, 16 ],
-  "endingDate" : [ 2024, 12, 16 ],
-  "players" : [ ],
-  "rounds" : [ ],
-  "status" : "NOT_STARTED"
-}, {
-  "idTournament" : 15,
-  "name" : "Torneo",
-  "location" : "MdP",
-  "surface" : "CARPET",
-  "startingDate" : [ 2024, 11, 16 ],
-  "endingDate" : [ 2024, 12, 16 ],
-  "players" : [ ],
-  "rounds" : [ ],
-  "status" : "NOT_STARTED"
-}, {
-  "idTournament" : 16,
-  "name" : "Torneo diecisiete",
-  "location" : "Tandil",
-  "surface" : "GRASS",
-  "startingDate" : [ 2025, 2, 2 ],
-  "endingDate" : null,
-  "players" : [ ],
-  "rounds" : [ ],
-  "status" : "NOT_STARTED"
-}, {
-  "idTournament" : 17,
-  "name" : "Toneo ak",
-  "location" : "Mardel",
-  "surface" : "CLAY",
-  "startingDate" : [ 2025, 2, 22 ],
-  "endingDate" : [ 2025, 2, 22 ],
-  "players" : [ ],
-  "rounds" : [ ],
-  "status" : "NOT_STARTED"
 } ]
