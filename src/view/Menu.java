@@ -290,7 +290,7 @@ public class Menu {
         } catch (IncompleteMatchException e) {
             System.out.println("Los partidos del torneo no están terminados");
         } catch (PlayerNotFoundException e) {
-            System.out.println("No hay jugadores para mostrar sus estadísticas");
+            System.out.println("No existe un jugador con el ID: " + playerID + " en la lista de jugadores");
         } catch (TournamentNotFoundException e) {
             System.out.println("No se encontró torneo con ese ID");
         }
@@ -424,16 +424,16 @@ public class Menu {
 
     public void showTournamentDetails(Tournament tournament) {
         System.out.println("\n" + """
-    ----------------------------------------
-    |            Detalles del Torneo       |
-    ----------------------------------------
-    | ID                  : %-14s |
-    | Nombre              : %-14s |
-    | Ubicación           : %-14s |
-    | Superficie          : %-14s |
-    | Fecha de Inicio     : %-14s |
-    | Fecha de Finalización: %-14s|
-    ----------------------------------------
+    -----------------------------------------
+    |          Detalles del Torneo          |
+    -----------------------------------------
+    | ID                    : %-13s |
+    | Nombre                : %-13s |
+    | Ubicación             : %-13s |
+    | Superficie            : %-13s |
+    | Fecha de Inicio       : %-13s |
+    | Fecha de Finalización : %-13s |
+    -----------------------------------------
     """.formatted(
                 tournament.getIdTournament(),
                 tournament.getName(),
@@ -643,5 +643,4 @@ public class Menu {
         unregisteredPlayers.removeAll(tournamentService.getTournament().getPlayers());
         return unregisteredPlayers;
     }
-
 }

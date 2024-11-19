@@ -7,14 +7,6 @@
   "dateOfBirth" : [ 1999, 8, 13 ],
   "points" : 400
 }, {
-  "idPlayer" : 3,
-  "dni" : "41023567",
-  "name" : "Luis",
-  "lastName" : "Gómez",
-  "nationality" : "Uruguayo",
-  "dateOfBirth" : [ 1991, 1, 10 ],
-  "points" : 170
-}, {
   "idPlayer" : 5,
   "dni" : "39045678",
   "name" : "Miguel",
@@ -150,4 +142,12 @@
   "nationality" : "Argentino",
   "dateOfBirth" : [ 1900, 1, 1 ],
   "points" : 10
+}, {
+  "idPlayer" : 22,
+  "dni" : "38123584",
+  "name" : "Rodrigo",
+  "lastName" : "Lang",
+  "nationality" : "Argentino",
+  "dateOfBirth" : [ 1990, 10, 10 ],
+  "points" : 0
 } ]
