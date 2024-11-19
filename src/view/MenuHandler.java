@@ -266,7 +266,7 @@ public class MenuHandler {
     }
 
     public void requestPressEnter() {
-        System.out.print("Presione <<Enter>> para continuar...");
+        System.out.print("\nPresione <<Enter>> para continuar...");
         scanner.nextLine();
         cleanScreen();
     }

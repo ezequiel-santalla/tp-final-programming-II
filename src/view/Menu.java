@@ -469,35 +469,45 @@ public class Menu {
             Match match = tournamentService.getMatchService().findMatchById(matchId);
 
             if (match != null) {
-                Result result = match.getResult(); // Obtengo el resultado del partido
+                Result result = match.getResult();
                 if (result != null) {
                     Player playerOne = match.getPlayerOne();
                     Player playerTwo = match.getPlayerTwo();
 
                     System.out.println("\nResultado del partido:\n");
 
+                    // Determinar el ancho dinámico del nombre
+                    int maxNameLength = Math.max(
+                            playerOne.getName().length() + playerOne.getLastName().length() + 1,
+                            playerTwo.getName().length() + playerTwo.getLastName().length() + 1
+                    );
+                    int nameColumnWidth = Math.max(maxNameLength, 30); // Mínimo ancho: 30
+
+                    // Determinar el ancho dinámico para los sets
+                    int setsCount = result.getSetsScore().size();
+                    int setColumnWidth = 8; // Espacio estándar para los sets
+
                     // Encabezado de los sets
-                    System.out.printf("%-15s", "Jugador");
-                    for (int i = 1; i <= result.getSetsScore().size(); i++) {
+                    System.out.printf("%-" + nameColumnWidth + "s", "Jugador");
+                    for (int i = 1; i <= setsCount; i++) {
                         System.out.printf("| Set %d ", i);
                     }
                     System.out.println();
-                    System.out.println("-".repeat(15 + result.getSetsScore().size() * 8));
+                    System.out.println("-".repeat(nameColumnWidth + setsCount * setColumnWidth));
 
                     // Resultados del primer jugador
-                    System.out.printf("%-15s", playerOne.getName() + " " + playerOne.getLastName());
+                    System.out.printf("%-" + nameColumnWidth + "s", playerOne.getName() + " " + playerOne.getLastName());
                     for (SetScore setScore : result.getSetsScore()) {
-                        System.out.printf("| %-5d", setScore.getPlayerOneScore());
+                        System.out.printf("| %-6d", setScore.getPlayerOneScore());
                     }
                     System.out.println();
 
                     // Resultados del segundo jugador
-                    System.out.printf("%-15s", playerTwo.getName() + " " + playerTwo.getLastName());
+                    System.out.printf("%-" + nameColumnWidth + "s", playerTwo.getName() + " " + playerTwo.getLastName());
                     for (SetScore setScore : result.getSetsScore()) {
-                        System.out.printf("| %-5d", setScore.getPlayerTwoScore());
+                        System.out.printf("| %-6d", setScore.getPlayerTwoScore());
                     }
                     System.out.println();
-
 
                     // Mostrar ganador
                     Player winner = tournamentService.getMatchService().getWinner(match);
@@ -515,6 +525,7 @@ public class Menu {
         }
         menuHandler.requestPressEnter();
     }
+
 
     private void assignMatchResult() {
         menuHandler.cleanScreen();

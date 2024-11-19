@@ -110,6 +110,14 @@
     "dateOfBirth" : [ 1990, 2, 18 ],
     "points" : 0
   }, {
+    "idPlayer" : 4,
+    "dni" : "45078945",
+    "name" : "Juan",
+    "lastName" : "Pérez",
+    "nationality" : "Argentino",
+    "dateOfBirth" : [ 1989, 7, 28 ],
+    "points" : 0
+  }, {
     "idPlayer" : 9,
     "dni" : "46054321",
     "name" : "Martín",
