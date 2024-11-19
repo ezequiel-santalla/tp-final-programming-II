@@ -10,6 +10,7 @@ import service.PlayerService;
 import service.TournamentService;
 import utils.Utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -121,7 +122,7 @@ public class Menu {
         try {
             id = menuHandler.requestID("del torneo que desea usar ");
             tournamentService.setTournamentById(id);
-            tournamentAdminOptions = Arrays.asList("Registro de jugadores", "Administrar partidos", evaluateStatus(), "Volver");
+            tournamentAdminOptions = Arrays.asList("Registrar jugador", "Dar de baja jugador", "Ver jugadores del torneo", "Administrar partidos", evaluateStatus(), "Volver");
         } catch (TournamentNotFoundException e) {
             System.out.println("No se encontró torneo con ese ID");
             setActiveTournament();
@@ -138,8 +139,10 @@ public class Menu {
                 index = menuHandler.requestEntry(tournamentAdminOptions, "Menú del torneo ID: " + tournamentID);
                 switch (index) {
                     case 1 -> registerPlayer();
-                    case 2 -> matchesMenu();
-                    case 3 -> advanceToNextRound();
+                    case 2 -> unregisterPlayer();
+                    case 3 -> showPlayersListInTournament();
+                    case 4 -> matchesMenu();
+                    case 5 -> advanceToNextRound();
                     case 0 -> System.out.println("Volviendo al menú principal...");
                     default -> System.out.println("Opción no válida.");
                 }
@@ -148,6 +151,26 @@ public class Menu {
             System.out.println("Entrada cancelada");
         }
         menuHandler.cleanScreen();
+    }
+
+    public void unregisterPlayer() {
+        menuHandler.cleanScreen();
+        printPlayersList(new ArrayList<>(tournamentService.getTournament().getPlayers()), "Jugadores registrados para dar de baja");
+        Integer idPlayer;
+        try {
+            idPlayer = menuHandler.requestID("del jugador que desea dar de baja");
+            tournamentService.unsubscribePlayerFromTournament(idPlayer);
+            System.out.println("Jugador dado de baja con éxito");
+        } catch (DataEntryCancelledException e) {
+            System.out.println("Entrada cancelada");
+        } catch (PlayerNotFoundException e) {
+            System.out.println("No hay jugador con ese ID");
+        } catch (TournamentNotFoundException e) {
+            System.out.println("No se encontró torneo con ese ID");
+        } catch (InvalidTournamentStatusException e) {
+            System.out.println("El torneo ya comenzó");
+        }
+        menuHandler.requestPressEnter();
     }
 
     public void registerPlayer() {
@@ -171,7 +194,6 @@ public class Menu {
         }
         menuHandler.requestPressEnter();
     }
-
 
     private void advanceToNextRound() {
         try {
@@ -324,6 +346,11 @@ public class Menu {
         menuHandler.requestPressEnter();
     }
 
+    private void showPlayersListInTournament() {
+        menuHandler.cleanScreen();
+        printPlayersList(new ArrayList<>(tournamentService.getTournament().getPlayers()), "Jugadores registrados en el torneo");
+        menuHandler.requestPressEnter();
+    }
 
     private void showPlayersList() {
         menuHandler.cleanScreen();
@@ -335,7 +362,6 @@ public class Menu {
         menuHandler.requestPressEnter();
     }
 
-
     private void printPlayersList(List<Player> players, String title) {
         if (!players.isEmpty()) {
             System.out.println("\n"+title+":\n");
@@ -346,7 +372,6 @@ public class Menu {
         }
     }
 
-
     private void createTournament() {
         System.out.println();
 
@@ -355,22 +380,6 @@ public class Menu {
             System.out.println("Torneo creado con el ID: " + tournamentID);
         } catch (DataEntryCancelledException e) {
             System.out.println("Carga cancelada");
-        }
-        menuHandler.requestPressEnter();
-    }
-
-    private void showTournamentByID() {
-        menuHandler.cleanScreen();
-        Integer id = null;
-        try {
-            id = menuHandler.requestID("del torneo ");
-
-            System.out.println(tournamentService.findTournamentById(id));
-
-        } catch (DataEntryCancelledException e) {
-            System.out.println("Entrada cancelada.");
-        } catch (TournamentNotFoundException e) {
-            System.out.println("Torneo no encontrado");
         }
         menuHandler.requestPressEnter();
     }
@@ -412,7 +421,7 @@ public class Menu {
 
     private void printHeaderTournament() {
         System.out.println("--------------------------------------------------------------------------------------------------------------");
-        System.out.println("| ID    | Nombre               | Lugar           | Superficie   | Inicio       | Finalizacion | Estado       |");
+        System.out.println("| ID    | Nombre               | Lugar           | Superficie   | Inicio       | Finalización | Estado       |");
         System.out.println("--------------------------------------------------------------------------------------------------------------");
     }
 
@@ -439,11 +448,9 @@ public class Menu {
             if (tournament != null && !tournament.getRounds().isEmpty()) {
                 System.out.println("Diagrama de partidos para el torneo: " + tournament.getName());
                 for (Round round : tournament.getRounds()) {
-                    System.out.println("\nRonda: " + round.getClass().getSimpleName());
+                    System.out.println("\nRonda: " + round.getClass().getSimpleName() + "\n");
                     for (Match match : round.getMatches()) {
-                        System.out.println("Partido ID: " + match.getIdMatch() + " - Jugador 1: "
-                                + match.getPlayerOne().getName() + " vs Jugador 2: "
-                                + match.getPlayerTwo().getName());
+                        System.out.println("Partido ID: " + match.getIdMatch() + " - " + match.getPlayerOne().getName() + " " + match.getPlayerOne().getLastName() + " vs. " + match.getPlayerOne().getName() + " " + match.getPlayerOne().getLastName());
                     }
                 }
             } else {
@@ -461,35 +468,46 @@ public class Menu {
             Integer matchId = menuHandler.requestID("del partido ");
             Match match = tournamentService.getMatchService().findMatchById(matchId);
 
-            Player playerOne = tournamentService.getMatchService().findMatchById(matchId).getPlayerOne();
-            Player playerTwo = tournamentService.getMatchService().findMatchById(matchId).getPlayerTwo();
             if (match != null) {
-                Result result = match.getResult(); // obtengo el resultado del partido
+                Result result = match.getResult(); // Obtengo el resultado del partido
                 if (result != null) {
-                    System.out.println("Resultado del partido: ");
+                    Player playerOne = match.getPlayerOne();
+                    Player playerTwo = match.getPlayerTwo();
 
-                 /*   System.out.print(playerOne.getName()+" "+playerOne.getLastName()+" ");
-                    for(SetScore setScore : match.getResult().getSetsScore()){
-                        System.out.print(setScore.getPlayerOneScore()+" ");
-                    }*/
-                    System.out.print(playerTwo.getName() + " " + playerTwo.getLastName());
-                    for (int i = 0; i < result.getSetsScore().size(); i++) {
-                        SetScore setScore = result.getSetsScore().get(i);
-                        System.out.println("Set " + (i + 1) + " " + playerOne.getName() + " " + playerOne.getLastName() + " (" + setScore.getPlayerOneScore()
-                                + " - " + setScore.getPlayerTwoScore() + ") " + playerTwo.getName() + " " + playerTwo.getLastName());
+                    System.out.println("\nResultado del partido:\n");
+
+                    // Encabezado de los sets
+                    System.out.printf("%-15s", "Jugador");
+                    for (int i = 1; i <= result.getSetsScore().size(); i++) {
+                        System.out.printf("| Set %d ", i);
                     }
+                    System.out.println();
+                    System.out.println("-".repeat(15 + result.getSetsScore().size() * 8));
 
-                    // determinar y mostrar el ganador
+                    // Resultados del primer jugador
+                    System.out.printf("%-15s", playerOne.getName() + " " + playerOne.getLastName());
+                    for (SetScore setScore : result.getSetsScore()) {
+                        System.out.printf("| %-5d", setScore.getPlayerOneScore());
+                    }
+                    System.out.println();
+
+                    // Resultados del segundo jugador
+                    System.out.printf("%-15s", playerTwo.getName() + " " + playerTwo.getLastName());
+                    for (SetScore setScore : result.getSetsScore()) {
+                        System.out.printf("| %-5d", setScore.getPlayerTwoScore());
+                    }
+                    System.out.println();
+
+
+                    // Mostrar ganador
                     Player winner = tournamentService.getMatchService().getWinner(match);
-                    System.out.println("Ganador del partido: " + winner.getName() + " " + winner.getLastName());
+                    System.out.println("\nGanador del partido: " + winner.getName() + " " + winner.getLastName());
                 } else {
-                    System.out.println("Este partido aún no tiene un resultado.");
+                    System.out.println("\nEste partido aún no tiene un resultado.");
                 }
-            } else {
-                System.out.println("No se encontro un partido con ese ID.");
             }
         } catch (MatchNotFoundException e) {
-            System.out.println("No se encontro un partido con ese ID.");
+            System.out.println("No se encontró un partido con ese ID.");
         } catch (IncompleteMatchException e) {
             System.out.println("El resultado del partido no está definido.");
         } catch (DataEntryCancelledException e) {
@@ -497,7 +515,6 @@ public class Menu {
         }
         menuHandler.requestPressEnter();
     }
-
 
     private void assignMatchResult() {
         menuHandler.cleanScreen();
@@ -546,7 +563,6 @@ public class Menu {
         menuHandler.requestPressEnter();
     }
 
-
     public List<Player> getUnregisteredPlayers() {
         List<Player> unregisteredPlayers = null;
 
@@ -555,6 +571,7 @@ public class Menu {
         } catch (PlayerNotFoundException e) {
             System.out.println("Jugador no encontrado");
         }
+        assert unregisteredPlayers != null;
         unregisteredPlayers.removeAll(tournamentService.getTournament().getPlayers());
         return unregisteredPlayers;
     }

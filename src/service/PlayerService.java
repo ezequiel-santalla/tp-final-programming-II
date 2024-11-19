@@ -52,7 +52,7 @@ public class PlayerService {
             try {
                 idWinner = getWinner(m).getIdPlayer();
             } catch (IncompleteMatchException e) {
-
+                System.out.println("The match has not finished or the result was not loaded.");
             }
 
             if (idWinner == id) {
@@ -95,7 +95,6 @@ public class PlayerService {
         return playerMatches;
     }
 
-
     public String showStatsByPlayer(Integer id) throws IncompleteMatchException, PlayerNotFoundException, TournamentNotFoundException {
         Player player = findPlayerById(id);
 
@@ -114,22 +113,25 @@ public class PlayerService {
 
         int padding = maxNameLength - formattedName.length();
 
+        String formattedPercentage = String.format("%.2f%%", percentageWon);
+
         return String.format("\n" +
                 """
-                        ---------------------------------
-                        |        Player Statistics      |
-                        ---------------------------------
-                        | Name: %s%s|
-                        |                               |
-                        | Matches Played      : %-7d |
-                        | Matches Won         : %-7d |
-                        | Matches Lost        : %-7d |
-                        | Won/Lost Percentage : %-7.2f%% |
-                        | Total Points        : %-7d |
-                        ---------------------------------
-                        """, formattedName, " ".repeat(padding), matchesPlayed, matchesWon, matchesLost, percentageWon, totalPoints
+                        -------------------------------------
+                        |          Player Statistics        |
+                        -------------------------------------
+                        | Name: %s%s    |
+                        |                                   |
+                        | Matches Played      : %-11d |
+                        | Matches Won         : %-11d |
+                        | Matches Lost        : %-11d |
+                        | Won/Lost Percentage : %-11s |
+                        | Total Points        : %-11d |
+                        -------------------------------------
+                        """, formattedName, " ".repeat(padding), matchesPlayed, matchesWon, matchesLost, formattedPercentage, totalPoints
         );
     }
+
 
     private List<Player> getPlayerRankings() throws PlayerNotFoundException {
         List<Player> players = getAllPlayers();

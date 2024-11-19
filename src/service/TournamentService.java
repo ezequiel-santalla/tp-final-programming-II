@@ -1,5 +1,6 @@
 package service;
 
+import enums.ETournamentStatus;
 import exceptions.*;
 import model.*;
 import repository.TournamentRepositoryImp;
@@ -71,7 +72,10 @@ public class TournamentService {
         updateTournament(tournament);
     }
 
-    public void unsubscribePlayerFromTournament(Integer idPlayer) throws TournamentNotFoundException, PlayerNotFoundException {
+    public void unsubscribePlayerFromTournament(Integer idPlayer) throws TournamentNotFoundException, PlayerNotFoundException, InvalidTournamentStatusException {
+        if (!tournament.getStatus().equals(ETournamentStatus.NOT_STARTED)) {
+            throw new InvalidTournamentStatusException("The tournament is already started");
+        }
         tournamentPlayerService.unsubscribePlayer(idPlayer);
         updateTournament(tournament);
     }
