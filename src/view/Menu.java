@@ -424,16 +424,16 @@ public class Menu {
 
     public void showTournamentDetails(Tournament tournament) {
         System.out.println("\n" + """
-    -----------------------------------------
-    |          Detalles del Torneo          |
-    -----------------------------------------
-    | ID                    : %-13s |
-    | Nombre                : %-13s |
-    | Ubicación             : %-13s |
-    | Superficie            : %-13s |
-    | Fecha de Inicio       : %-13s |
-    | Fecha de Finalización : %-13s |
-    -----------------------------------------
+    ---------------------------------------------
+    |            Detalles del Torneo            |
+    ---------------------------------------------
+    | ID                    : %-17s |
+    | Nombre                : %-17s |
+    | Ubicación             : %-17s |
+    | Superficie            : %-17s |
+    | Fecha de Inicio       : %-17s |
+    | Fecha de Finalización : %-17s |
+    ---------------------------------------------
     """.formatted(
                 tournament.getIdTournament(),
                 tournament.getName(),
