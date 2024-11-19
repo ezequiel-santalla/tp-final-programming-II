@@ -52,7 +52,7 @@ public class PlayerService {
             try {
                 idWinner = getWinner(m).getIdPlayer();
             } catch (IncompleteMatchException e) {
-
+                System.out.println("The match has not finished or the result was not loaded.");
             }
 
             if (idWinner == id) {
