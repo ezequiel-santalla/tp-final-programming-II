@@ -67,7 +67,7 @@ public class MenuHandler {
         boolean flag = false;
 
         do {
-            System.out.print("Ingrese el ID " + dataMessage + "(o '0' para cancelar): ");
+            System.out.print("\nIngrese el ID " + dataMessage + " (o '0' para cancelar): ");
             dataInput = scanner.nextLine();
             if (dataInput.equals("0")) {
                 throw new DataEntryCancelledException();
