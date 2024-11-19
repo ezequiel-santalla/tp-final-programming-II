@@ -150,4 +150,20 @@
   "nationality" : "Argentino",
   "dateOfBirth" : [ 1990, 10, 10 ],
   "points" : 0
+}, {
+  "idPlayer" : 23,
+  "dni" : "43851650",
+  "name" : "Jeremias",
+  "lastName" : "Torres",
+  "nationality" : "Argentino",
+  "dateOfBirth" : [ 2001, 12, 27 ],
+  "points" : 0
+}, {
+  "idPlayer" : 24,
+  "dni" : "38549124",
+  "name" : "Facundo",
+  "lastName" : "Aguilera",
+  "nationality" : "Argentino",
+  "dateOfBirth" : [ 1992, 9, 8 ],
+  "points" : 0
 } ]
