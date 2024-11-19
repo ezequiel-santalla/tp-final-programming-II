@@ -1,6 +1,7 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import utils.Utils;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -125,7 +126,7 @@ public class Player implements Comparable<Player> {
         | Fecha de Nacimiento : %-14s |
         | Puntos              : %-14d |
         ----------------------------------------
-        """.formatted(idPlayer, dni, name, lastName, nationality, dateOfBirth, points);
+        """.formatted(idPlayer, dni, name, lastName, nationality, Utils.formatLocalDate(dateOfBirth), points);
     }
 
     @Override

@@ -66,10 +66,10 @@ public class TestTournament {
         try {
             tournamentService.unsubscribePlayerFromTournament(idPlayer);
             System.out.println("Jugador dado de baja. ID: "+idPlayer);
-        } catch (PlayerNotFoundException e) {
+        } catch (PlayerNotFoundException | TournamentNotFoundException e) {
             System.out.println(e.getMessage());
-        } catch (TournamentNotFoundException e) {
-            System.out.println(e.getMessage());
+        } catch (InvalidTournamentStatusException e) {
+            System.out.println();
         }
     }
 

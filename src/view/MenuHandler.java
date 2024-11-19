@@ -15,11 +15,9 @@ public class MenuHandler {
     private final StringBuilder textToPrint = new StringBuilder();
     private final Scanner scanner = new Scanner(System.in);
 
-    public void showMenu(List<String> menuOptions) {
-        System.out.println("\n----------------------------------------");
-        System.out.println("|                 Menú                 |");
-        System.out.println("----------------------------------------");
+    public void showMenu(List<String> menuOptions, String headerName) {
 
+        printMenuHeader(headerName);
         for (int i = 0; i < menuOptions.size() - 1; i++) {
             System.out.printf("| %2d - %-31s |\n", i + 1, menuOptions.get(i));
         }
@@ -29,13 +27,27 @@ public class MenuHandler {
         System.out.print("\nSeleccione una opción: ");
     }
 
-    public Integer requestEntry(List<String> menuOptions) {
+    public void printMenuHeader(String header) {
+        int totalWidth = 40; // Ancho total incluyendo los bordes
+        int contentWidth = totalWidth - 2; // Espacio entre los bordes
+        int padding = (contentWidth - header.length()) / 2; // Espacios a la izquierda y derecha
+        String spacesLeft = " ".repeat(Math.max(0, padding)); // Espacios a la izquierda
+        String spacesRight = " ".repeat(Math.max(0, contentWidth - header.length() - padding)); // Ajuste a la derecha
+
+        System.out.println("\n" + "-".repeat(totalWidth)); // Línea superior
+        System.out.println("|" + spacesLeft + header + spacesRight + "|"); // Línea con texto centrado
+        System.out.println("-".repeat(totalWidth)); // Línea inferior
+    }
+
+
+
+    public Integer requestEntry(List<String> menuOptions, String headerTittle) {
         String selectedIndex;
         Integer index = -1;
         boolean isValid = false;
 
         do {
-            showMenu(menuOptions);
+            showMenu(menuOptions, headerTittle);
             selectedIndex = scanner.nextLine();
             if (Utils.isNumericString(selectedIndex)) {
                 index = Integer.parseInt(selectedIndex);
@@ -55,7 +67,7 @@ public class MenuHandler {
         boolean flag = false;
 
         do {
-            System.out.print("Ingrese el ID " + dataMessage + "(o '0' para cancelar): ");
+            System.out.print("\nIngrese el ID " + dataMessage + " (o '0' para cancelar): ");
             dataInput = scanner.nextLine();
             if (dataInput.equals("0")) {
                 throw new DataEntryCancelledException();
@@ -234,12 +246,12 @@ public class MenuHandler {
         }
     }
 
-    public Integer requestPlayerScore(int playerNumber) {
+    public Integer requestPlayerScore(String playerName) {
         Integer score = null;
         boolean validInput = false;
         while (!validInput) {
             try {
-                System.out.print("Ingrese el puntaje del Jugador " + playerNumber + ": ");
+                System.out.print("Ingrese el puntaje del Jugador " + playerName + ": ");
                 score = Integer.parseInt(scanner.nextLine());
                 if (Utils.validatePartialScore(score)) {
                     validInput = true;
@@ -254,7 +266,7 @@ public class MenuHandler {
     }
 
     public void requestPressEnter() {
-        System.out.print("Presione <<Enter>> para continuar...");
+        System.out.print("\nPresione <<Enter>> para continuar...");
         scanner.nextLine();
         cleanScreen();
     }

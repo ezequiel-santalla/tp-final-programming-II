@@ -52,7 +52,7 @@ public class PlayerService {
             try {
                 idWinner = getWinner(m).getIdPlayer();
             } catch (IncompleteMatchException e) {
-
+                System.out.println("The match has not finished or the result was not loaded.");
             }
 
             if (idWinner == id) {
@@ -113,7 +113,6 @@ public class PlayerService {
 
         int padding = maxNameLength - formattedName.length();
 
-        // Formato para garantizar alineación y dos decimales
         String formattedPercentage = String.format("%.2f%%", percentageWon);
 
         return String.format("\n" +
@@ -132,7 +131,6 @@ public class PlayerService {
                         """, formattedName, " ".repeat(padding), matchesPlayed, matchesWon, matchesLost, formattedPercentage, totalPoints
         );
     }
-
 
     private List<Player> getPlayerRankings() throws PlayerNotFoundException {
         List<Player> players = getAllPlayers();

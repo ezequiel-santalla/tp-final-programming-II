@@ -41,7 +41,6 @@ public class Result {
     }
 
     public boolean thereIsNoWinner() {
-        System.out.println("set P1:"+getSetsWonPlayerOne()+" set P2:"+getSetsWonPlayerTwo());
         return getSetsWonPlayerOne() != 2 && getSetsWonPlayerTwo() != 2;
     }
 
@@ -75,5 +74,10 @@ public class Result {
     public void setSetsScore(List<SetScore> setsScore) throws InvalidResultException {
         validateResult(setsScore);
         this.setsScore = setsScore;
+    }
+
+    @Override
+    public String toString() {
+        return setsScore.toString();
     }
 }

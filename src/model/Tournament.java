@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import enums.ESurface;
 import enums.ETournamentStatus;
 import model.rounds.Round;
+import utils.Utils;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -119,7 +120,7 @@ public class Tournament implements Comparable<Tournament> {
     public String toString() {
         return String.format(
                 "| %-5d | %-20s | %-15s | %-12s | %-12s | %-12s | %-12s |",
-                idTournament, name, location, surface, startingDate, endingDate, status.getDisplayName()
+                idTournament, name, location, surface.getDisplayName(), Utils.formatLocalDate(startingDate), Utils.formatLocalDate(endingDate), status.getDisplayName()
         );
     }
 
