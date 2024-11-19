@@ -372,7 +372,7 @@ public class Menu {
         menuHandler.cleanScreen();
         try {
             printPlayersList(playerService.getAllPlayers(), "Jugadores registrados");
-        } catch (PlayerNotFoundException e) {
+        } catch (PlayerNotFoundException | FileProcessingException e) {
             System.out.println("No hay jugadores registrados");
         }
         menuHandler.requestPressEnter();
