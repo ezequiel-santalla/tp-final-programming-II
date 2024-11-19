@@ -110,14 +110,6 @@
     "dateOfBirth" : [ 1990, 2, 18 ],
     "points" : 0
   }, {
-    "idPlayer" : 4,
-    "dni" : "45078945",
-    "name" : "Juan",
-    "lastName" : "Pérez",
-    "nationality" : "Argentino",
-    "dateOfBirth" : [ 1989, 7, 28 ],
-    "points" : 200
-  }, {
     "idPlayer" : 9,
     "dni" : "46054321",
     "name" : "Martín",
@@ -639,14 +631,6 @@
     "nationality" : "Argentino",
     "dateOfBirth" : [ 1989, 7, 28 ],
     "points" : 0
-  }, {
-    "idPlayer" : 3,
-    "dni" : "41023567",
-    "name" : "Luis",
-    "lastName" : "Gómez",
-    "nationality" : "Uruguayo",
-    "dateOfBirth" : [ 1991, 1, 10 ],
-    "points" : 20
   } ],
   "rounds" : [ ],
   "status" : "NOT_STARTED"

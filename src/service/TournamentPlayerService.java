@@ -44,6 +44,4 @@ public class TournamentPlayerService {
             throw new PlayerNotFoundException(idPlayer);
         }
     }
-
-
 }
